@@ -51,7 +51,7 @@ For more information on all the things you can do with Feathers visit [docs.feat
 __0.1.0__
 
 - Initial release:
-  - Have a backend authentication with a `auth0Id` as parameter. 
+  - Have a backend authentication with a `auth0Id` as parameter, most likely used to be a telegram authorization 
   - `GET`, `POST` messages to `/users`
   - `GET`, `PATCH`, `DELETE` messages to `/users/:id`
   
