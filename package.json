@@ -1,0 +1,47 @@
+{
+  "name": "assistente",
+  "description": "assistente-backend",
+  "version": "0.0.0",
+  "homepage": "",
+  "main": "src",
+  "keywords": [
+    "feathers"
+  ],
+  "author": {
+    "name": "Guilherme Lunhani",
+    "email": "lunhanig@gmail.com"
+  },
+  "contributors": [],
+  "bugs": {},
+  "directories": {
+    "lib": "src",
+    "test": "test/"
+  },
+  "engines": {
+    "node": "^8.0.0",
+    "yarn": ">= 0.18.0"
+  },
+  "scripts": {
+    "test": "yarn run eslint && yarn run mocha",
+    "eslint": "eslint src/. test/. --config .eslintrc.json",
+    "start": "node src/",
+    "mocha": "mocha test/ --recursive --exit"
+  },
+  "dependencies": {
+    "@feathersjs/authentication": "^2.1.7",
+    "@feathersjs/authentication-jwt": "^2.0.1",
+    "@feathersjs/authentication-oauth2": "^1.1.0",
+    "@feathersjs/configuration": "^1.0.2",
+    "@feathersjs/errors": "^3.3.0",
+    "@feathersjs/express": "^1.2.3",
+    "@feathersjs/feathers": "^3.1.7",
+    "compression": "^1.7.2",
+    "cors": "^2.8.4",
+    "feathers-mongoose": "^6.1.2",
+    "helmet": "^3.12.1",
+    "mongoose": "^5.2.1",
+    "passport-auth0": "^1.0.0",
+    "serve-favicon": "^2.5.0",
+    "winston": "^3.0.0"
+  }
+}
