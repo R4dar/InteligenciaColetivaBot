@@ -24,7 +24,7 @@
   "scripts": {
     "test": "yarn run eslint && yarn run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
-    "start": "TELEGRAM_USERNAME='R4DARDEV_bot' TELEGRAM_TOKEN=<your_token> node src/",
+    "start": "node src/",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {

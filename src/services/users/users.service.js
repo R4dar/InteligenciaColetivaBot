@@ -12,19 +12,13 @@ module.exports = function (app) {
 	Model,
 	paginate
     };
+    let docs =  app.get('swagger/users')
+    docs.definitions.users = m2s(Model)
 
-    let usersEvents = createService(options)
-    usersEvents.docs =  {
-        description: "User service", 
-	definitions: {
-	    users: m2s(Model),
-            'users list': {
-		$ref: '#/definitions/users'
-	    }
-	}
-    }
     // Initialize our service with any options it requires
-    app.use('/users', usersEvents);
+    app.use('/users', Object.assign(createService(options), {
+	docs: docs
+    }));
     
     // Get our initialized service so that we can register hooks
     const service = app.service('users');

@@ -29,37 +29,33 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 
+
+// Configure Swagger Api
+let _swagger_ = app.get('swagger')
+_swagger_["uiIndex"] = path.join(__dirname, '..', _swagger_["uiIndex"])
+app.configure(swagger(_swagger_))
+
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(mongoose);
 
-app.configure(swagger({
-    docsPath: '/swagger',
-    uiIndex: path.join(__dirname, '..', 'public', 'swagger.html'),
-    info: {
-	title: 'Swagger API',
-	description: 'A swagger api for control assistente telegram bot'
-    }
-}))
-
-
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 app.configure(authentication);
+
 // Set up our services (see `services/index.js`)
 app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
 
+
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
-
 app.hooks(appHooks);
 
 // Configure Telegram bot
-app.use(telegramBot({
-    username: process.env.TELEGRAM_USERNAME, 
-    token: process.env.TELEGRAM_TOKEN
-}));
+app.use(telegramBot(app.get('telegram')))
+
+// Go
 module.exports = app;

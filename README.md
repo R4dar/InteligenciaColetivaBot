@@ -42,6 +42,46 @@ $ feathers generate model                 # Generate a new Model
 $ feathers help                           # Show all commands
 ```
 
+## Running
+
+In your package.json to set if you run in development, test, production or deploy mode:
+
+```
+{
+  ...
+  "scripts": {
+    "start": "NODE_ENV='<environment mode>' node src/"
+  } 
+  ...
+}
+```
+
+Where, `<environment mode>` can be any json file found in `config/` folder. These files are a set of configurations for database, express, passport, telegram, cookies, jwt and swagger. The `default.json` file is relative to `development` mode:
+
+- `development` mode: edit your `config/default.json`
+- `production` mode: edit your `config/production.json`
+- `custom` mode: edit your `config/<custom mode>.json`
+
+
+Among serveral configurations made by default, you will need to setup two credentials, your Telegram username and your telegram token:
+
+```
+{
+  ...
+  "telegram": {
+    "username": "R4DARDEV_bot",
+	"token": "<your api token>"
+  },
+  ...
+}
+```
+
+Now run server:
+
+```
+$ npm run start
+```
+
 ## Help
 
 For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).

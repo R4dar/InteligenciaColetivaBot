@@ -8,7 +8,9 @@ module.exports = function (app) {
     const config = app.get('authentication');
 
     // Set up authentication with the secret
-    app.configure(authentication(config));
+    app.configure(Object.assign(authentication(config), {
+	docs: app.get('swagger/authentication')
+    }));
     app.configure(jwt());
     app.configure(oauth2(Object.assign({
 	name: 'auth0',
