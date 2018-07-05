@@ -13,6 +13,7 @@ const appHooks = require('./app.hooks');
 const channels = require('./channels');
 const mongoose = require('./mongoose');
 const authentication = require('./authentication');
+const telegramBot = require('feathers-telegram-bot');
 const swagger = require('feathers-swagger')
 const app = express(feathers());
 
@@ -56,4 +57,9 @@ app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);
 
+// Configure Telegram bot
+app.use(telegramBot({
+    username: process.env.TELEGRAM_USERNAME, 
+    token: process.env.TELEGRAM_TOKEN
+}));
 module.exports = app;
