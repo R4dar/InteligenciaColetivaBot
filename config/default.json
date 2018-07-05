@@ -13,6 +13,13 @@
 	"info": {
 	    "title": "R4dar Assistente Swagger API",
 	    "description": "A swagger api para controle do assistente do R4dar"
+	},
+	"securityDefinitions": {
+	    "auth0": {
+		"type": "apiKey",
+		"name": "authorization",
+		"in": "header"
+	    }
 	}
     },
     "swagger/authentication": {
@@ -33,22 +40,14 @@
 	    }
 	},
 	"create": {
-	    "security": {
-		"auth0": {
-		    "type": "apiKey",
-		    "name": "authorization",
-		    "in": "header"
-		}
-	    }
+	    "security": [{
+		"auth0": []
+	    }]
 	},
 	"remove": {
-	    "security": {
-		"auth0": {
-		    "type": "apiKey",
-		    "name": "authorization",
-		    "in": "header"
-		}
-	    }
+	    "security": [{
+		"auth0": []
+	    }]
 	}
     },
     "swagger/users": {
@@ -59,49 +58,29 @@
 	    }
 	},
 	"find": {
-	    "security": {
-		"auth0": {
-		    "type": "apiKey",
-		    "name": "authorization",
-		    "in": "header"
-		}
-	    }
+	    "security": [{
+		"auth0": []
+	    }]
 	},
 	"get": {
-	    "security": {
-		"auth0": {
-		    "type": "apiKey",
-		    "name": "authorization",
-		    "in": "header"
-		}
-	    }
+	    "security": [{
+		"auth0": []
+	    }]
 	},
 	"put": {
-	    "security": {
-		"auth0": {
-		    "type": "apiKey",
-		    "name": "authorization",
-		    "in": "header"
-		}
-	    }
+	    "security": [{
+		"auth0": []
+	    }]
 	},
 	"patch": {
-	    "security": {
-		"auth0": {
-		    "type": "apiKey",
-		    "name": "authorization",
-		    "in": "header"
-		}
-	    }
+	    "security": [{
+		"auth0": []
+	    }]
 	},
 	"remove": {
-	    "security": {
-		"auth0": {
-		    "type": "apiKey",
-		    "name": "authorization",
-		    "in": "header"
-		}
-	    }
+	    "security": [{
+		"auth0": []
+	    }]
 	}
     },
     "authentication": {
