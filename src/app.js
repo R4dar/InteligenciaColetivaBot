@@ -4,22 +4,16 @@ const compress = require('compression');
 const cors = require('cors');
 const helmet = require('helmet');
 const logger = require('winston');
-
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
-
-
-
 const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
-
 const mongoose = require('./mongoose');
-
 const authentication = require('./authentication');
-
+const swagger = require('feathers-swagger')
 const app = express(feathers());
 
 // Load app configuration
@@ -36,9 +30,16 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-
-
 app.configure(mongoose);
+
+app.configure(swagger({
+    docsPath: '/swagger',
+    uiIndex: path.join(__dirname, '..', 'public', 'swagger.html'),
+    info: {
+	title: 'Swagger API',
+	description: 'A swagger api for control assistente telegram bot'
+    }
+}))
 
 
 // Configure other middleware (see `middleware/index.js`)
