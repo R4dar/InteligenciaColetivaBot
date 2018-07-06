@@ -14,7 +14,6 @@ module.exports = function (app) {
     };
     let docs =  app.get('swagger/users')
     docs.definitions.users = m2s(Model)
-
     // Initialize our service with any options it requires
     app.use('/users', Object.assign(createService(options), {
 	docs: docs

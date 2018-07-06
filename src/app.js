@@ -13,7 +13,6 @@ const appHooks = require('./app.hooks');
 const channels = require('./channels');
 const mongoose = require('./mongoose');
 const authentication = require('./authentication');
-const telegramBot = require('feathers-telegram-bot');
 const swagger = require('feathers-swagger')
 const app = express(feathers());
 
@@ -31,7 +30,7 @@ app.use('/', express.static(app.get('public')));
 
 
 // Configure Swagger Api
-let _swagger_ = app.get('swagger')
+const _swagger_ = app.get('swagger')
 _swagger_["uiIndex"] = path.join(__dirname, '..', _swagger_["uiIndex"])
 app.configure(swagger(_swagger_))
 
@@ -54,8 +53,8 @@ app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
 app.hooks(appHooks);
 
-// Configure Telegram bot
-app.use(telegramBot(app.get('telegram')))
+// Use telegram (see config/<config>.json)
+// app.use(telegramBot())
 
 // Go
 module.exports = app;

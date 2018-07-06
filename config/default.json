@@ -111,7 +111,7 @@
 	},
 	"telegram": {
 	    "username": "R4DARDEV_bot",
-	    "token": "<your api token>"
+	    "token": "<your token>"
 	},
 	"cookie": {
 	    "enabled": true,

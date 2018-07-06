@@ -6,8 +6,7 @@
 module.exports = function (app) {
     const mongooseClient = app.get('mongooseClient');
     let table = {
-	telefone: { type: String, required: true },  
-	auth0Id:  { type: String, required: true }
+	telegramId: { type: String, required: true }
     }
     let users = new mongooseClient.Schema(table, {
 	timestamps: true
