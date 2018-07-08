@@ -6,7 +6,22 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
-## Running
+## Building
+
+### Node Package manager
+
+```
+npm install
+```
+
+### Yarn (recomended)
+
+```
+yarn install
+```
+
+### Setup
+
 
 In your package.json, set the running mode, i.e, development, test, production or custom mode:
 
@@ -40,6 +55,8 @@ Among serveral configurations made by default, you will need to setup two creden
 }
 ```
 
+## Running
+
 Now run server:
 
 ```
@@ -71,6 +88,6 @@ __0.1.0__
   
 ## License
 
-Copyright (c) 2016
+CC-BY-SA 4.0
 
-Licensed under the [MIT license](LICENSE).
+Licensed under the [CC-BY-SA license](LICENSE).
