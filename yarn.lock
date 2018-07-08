@@ -351,6 +351,12 @@ bonjour@^3.5.0:
     multicast-dns "^6.0.1"
     multicast-dns-service-types "^1.1.0"
 
+botanio-node@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/botanio-node/-/botanio-node-1.0.2.tgz#c2c0b8b900023147d0a0ef58e6ca95571789520f"
+  dependencies:
+    request "^2.65.0"
+
 bowser@^1.7.3:
   version "1.9.4"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-1.9.4.tgz#890c58a2813a9d3243704334fa81b96a5c150c9a"
@@ -1140,7 +1146,7 @@ fbjs@^0.8.4, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-feathers-errors@^2.5.0:
+feathers-errors@^2.5.0, feathers-errors@^2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/feathers-errors/-/feathers-errors-2.9.2.tgz#96ca0e5fe50cc56f0eccc90ce3fa5e1f8840828d"
   dependencies:
@@ -1164,6 +1170,24 @@ feathers-swagger@^0.7.1:
     serve-static "^1.12.4"
     swagger-ui "^3.2.0"
     swagger-ui-dist "^3.2.0"
+
+"feathers-telegram-bot@file:../feathers-telegram-bot":
+  version "0.0.1-6"
+  dependencies:
+    feathers-errors "^2.9.2"
+    lodash.omit "^4.5.0"
+    lodash.union "^4.6.0"
+    node-telegram-bot "^0.1.9"
+    node-telegram-bot-api "^0.30.0"
+
+"feathers-telegram-bot@file:/home/guilherme/Github/feathers-telegram-bot/":
+  version "0.0.1-6"
+  dependencies:
+    feathers-errors "^2.9.2"
+    lodash.omit "^4.5.0"
+    lodash.union "^4.6.0"
+    node-telegram-bot "^0.1.9"
+    node-telegram-bot-api "^0.30.0"
 
 fecha@^2.3.3:
   version "2.3.3"
@@ -2081,6 +2105,10 @@ lodash.reduce@4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.reduce/-/lodash.reduce-4.6.0.tgz#f1ab6b839299ad48f784abbf476596f03b914d3b"
 
+lodash.union@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.union/-/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
+
 lodash@^4.13.1, lodash@^4.16.2, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
@@ -2245,7 +2273,7 @@ mime@1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
-mime@^1.5.0, mime@^1.6.0:
+mime@^1.3.4, mime@^1.5.0, mime@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
 
@@ -2446,6 +2474,16 @@ node-telegram-bot-api@^0.30.0:
     pump "^2.0.0"
     request "^2.83.0"
     request-promise "^4.2.2"
+
+node-telegram-bot@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/node-telegram-bot/-/node-telegram-bot-0.1.9.tgz#66fd08bcbf2805be21a9f9dfaff14221029fb4a1"
+  dependencies:
+    botanio-node "^1.0.2"
+    debug "^2.2.0"
+    mime "^1.3.4"
+    q "^1.4.1"
+    request "^2.58.0"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -2823,6 +2861,10 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
+q@^1.4.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+
 qs@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
@@ -3102,7 +3144,7 @@ request-promise@^4.2.2:
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
 
-request@^2.61.0, request@^2.83.0:
+request@^2.58.0, request@^2.61.0, request@^2.65.0, request@^2.83.0:
   version "2.87.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
   dependencies:

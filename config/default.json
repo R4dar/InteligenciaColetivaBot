@@ -83,6 +83,43 @@
 	    }]
 	}
     },
+    "swagger/bot": {
+	"description": "Bot service",
+	"definitions": {
+	    "bot list": {
+		"$ref": "#/definitions/bot"
+	    },
+	    "bot": {
+		"type": "object",
+		"required": ["id", "message"],
+		"properties": {
+		    "id": {
+			"type": "string",
+			"description": "telegram user id to where the message will be sent"
+		    },
+		    "message": {
+			"type": "object",
+			"required": ["type", "value"],
+			"properties": {
+			    "type": {
+				"type": "string",
+				"description": "the type of the message"
+			    },
+			    "value": {
+				"type": "string",
+				"description": "the string of a message"
+			    }
+			}
+		    }
+		}
+	    }
+	},
+	"create": {
+	    "security": [{
+		"auth0": []
+	    }]
+	}
+    },
     "authentication": {
 	"secret": "e0b879a5fbeeab0a3f07d329b4863232c4ab1433222e79c90f1612376819044c6c4b846ec9567250389bbba32040a3816b8d68b2b105c7c86ab6e73130b381a90a2608d6b0ae5cad89fe5356153adf2e5089bd547007766e66235464310e5094fe029a00b79b59b436a1e48f9dd40ea2690ebc9bf73e2e986b15dd6e5e1b38aa448d6334d2d2d1911b863f7af07b56c1c30622ca395d59680dd2ceaed32218e314b06766f98bd5cef1801c68576c5d478184740de429d9638e2eefc66b70d53e2eb557a78ddf765648383b0e48375bf86279a88286dfe487dd1659878a53ec45304e66a33bfa5c1ac7b291b8c7b0f7a1699bfbb3f082a843bcaf6722abd222ec",
 	"strategies": [
@@ -110,8 +147,8 @@
 	    ]
 	},
 	"telegram": {
-	    "username": "R4DARDEV_bot",
-	    "token": "<your token>"
+	    "username": "<your bot username>",
+	    "token": "<your bot token>"
 	},
 	"cookie": {
 	    "enabled": true,

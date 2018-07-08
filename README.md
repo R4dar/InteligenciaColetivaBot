@@ -6,45 +6,9 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
-## Getting Started
-
-Getting up and running is as easy as 1, 2, 3.
-
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
-
-    ```
-    cd path/to/assistente; npm install
-    ```
-
-3. Start your app
-
-    ```
-    npm start
-    ```
-
-This will run a backend server on `localhost:3030`
-
-## Testing
-
-Simply run `npm test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-Feathers has a powerful command line interface. Here are a few things it can do:
-
-```
-$ npm install -g @feathersjs/cli          # Install Feathers CLI
-
-$ feathers generate service               # Generate a new Service
-$ feathers generate hook                  # Generate a new Hook
-$ feathers generate model                 # Generate a new Model
-$ feathers help                           # Show all commands
-```
-
 ## Running
 
-In your package.json to set if you run in development, test, production or deploy mode:
+In your package.json, set the running mode, i.e, development, test, production or custom mode:
 
 ```
 {
@@ -69,7 +33,7 @@ Among serveral configurations made by default, you will need to setup two creden
 {
   ...
   "telegram": {
-    "username": "R4DARDEV_bot",
+    "username": "<your bot username>",
 	"token": "<your api token>"
   },
   ...
@@ -87,6 +51,16 @@ $ npm run start
 For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
 
 ## Changelog
+
+__0.1.1__
+
+- Bot service
+  - `POST /bot` and requires (TODO require authentication), and a `data` with the following properties:
+	- `id` of the user where a message will be sent
+	- a `message`,  a `object` with properties `type` (a `string` or `keyboard`) and `value`:
+	  - if `type` is `string`, then `value`  needs to be a `string`
+	  - if `type` is `keyboard`, then `value`  needs to be an array of object, defined in methods triggered by `./src/bot.js`
+  
 
 __0.1.0__
 
