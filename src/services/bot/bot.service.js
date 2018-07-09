@@ -10,7 +10,7 @@ module.exports = function (app) {
     let docs =  app.get('swagger/bot')
     const options = {
 	telegram: config.telegram, 
-	config: bot
+	config: bot(app)
     }
 
     const _service_ = createService(options)

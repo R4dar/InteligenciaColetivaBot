@@ -29,12 +29,15 @@
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.7",
+    "@feathersjs/authentication-client": "^1.0.2",
     "@feathersjs/authentication-jwt": "^2.0.1",
+    "@feathersjs/authentication-local": "^1.2.1",
     "@feathersjs/authentication-oauth2": "^1.1.0",
     "@feathersjs/configuration": "^1.0.2",
     "@feathersjs/errors": "^3.3.0",
     "@feathersjs/express": "^1.2.3",
     "@feathersjs/feathers": "^3.1.7",
+    "bcryptjs": "^2.4.3",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "feathers-mongoose": "^6.1.2",
@@ -43,8 +46,11 @@
     "mongoose": "^5.2.1",
     "mongoose-to-swagger": "^0.0.4",
     "node-telegram-bot-api": "^0.30.0",
+    "openid-client": "^2.2.0",
     "passport-auth0": "^1.0.0",
+    "passport-openid": "^0.4.0",
     "serve-favicon": "^2.5.0",
+    "uuid": "^3.3.2",
     "winston": "^3.0.0"
   }
 }

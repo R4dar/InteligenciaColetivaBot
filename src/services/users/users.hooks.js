@@ -1,20 +1,33 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const {
+  hashPassword, protect
+} = require('@feathersjs/authentication-local').hooks;
 
-
+const logger = require('winston')
+const { Issuer } = require('openid-client')
 
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
-    create: [  ],
-    update: [  authenticate('jwt') ],
-    patch: [  authenticate('jwt') ],
+    find: [ 
+	authenticate('jwt')
+    ],
+    get: [ 
+	authenticate('jwt')
+    ],
+    create: [],
+    update: [ 
+	authenticate('jwt')
+    ],
+    patch: [
+	authenticate('jwt') 
+    ],
     remove: [ authenticate('jwt') ]
   },
 
   after: {
-    all: [ 
+    all: [
+	protect('telegramId')
     ],
     find: [],
     get: [],

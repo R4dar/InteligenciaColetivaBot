@@ -29,9 +29,8 @@ class Service {
 	    logger.debug(data)
 	    setTimeout(() => {
 		try{
-		    logger.debug(data.message)
 		    this.telegram_bot.sendMessage(data.id, ...data.message.value)
-		    resolve('Message sent to '+data.id)
+		    resolve(data.id)
 		} catch (err) {
 		    reject(err)
 		}
