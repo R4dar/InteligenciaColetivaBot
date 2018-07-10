@@ -98,6 +98,88 @@
       ]
     }
   },
+  "swagger/messages": {
+    "description": "Messages service (only to save sent messages)",
+    "definitions": {
+      "users list": {
+        "$ref": "#/definitions/users"
+      }
+    },
+    "find": {
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    },
+    "get": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "_id",
+          "type": "string",
+          "description": "the id of a message"
+        }
+      ],
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    },
+    "create": {
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    },
+    "update": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "_id",
+          "type": "string",
+          "description": "the id of a message"
+        }
+      ],
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    },
+    "patch": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "_id",
+          "type": "string",
+          "description": "the id of a message"
+        }
+      ],
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    },
+    "remove": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "_id",
+          "type": "string",
+          "description": "the id of a message"
+        }
+      ],
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    }
+  },
   "swagger/bot": {
     "description": "Bot service",
     "definitions": {
@@ -144,43 +226,38 @@
     }
   },
   "authentication": {
-    "secret": "762fb045df7a8f270d3dc671e27a252f16842ec99dc0c160eec654d3791ea13ee35fd4e06f320e0a5d662c1b3a2a37c21361a09e5e937e6b4e955aa6a230da910df00cb679c80954a387ed914919ecf8dcc79881a357c250db7b60a2ad532c8a0bbdb2625dbc818c8a322020f9af295d7bf9fd5ef76329830fb14d6de8b5bee7d71c37bbf2c0a39120b3a85633704c33584fa8c6301d8b258ff23cb1296fcc510e8eba2a3df63b6f90dd613b2fc8529de13abbd7477483999f747e2c3cb98a8726d77d022c957ce43f0332f5dab43eaf06f14830c637abcd2ab6bf6986e60b61e021d0c4c7eee8921e5c2ff1277b6609a442a76bd280465ed0ee01722c2b8fc9",
+    "secret": "0c4378758d5cd9690d355076f32f816f397679d10e584bcaa6d0c6e1926e65bedc9e4eb7fc681fa71db92fed832523b289000696ae4c6e588d442bec201a439193677d32229d26e3cf28ab62ed140d804d99f184389efef64cf47f2f9019d9915e78d94a2598f9167872e88266fa4a53acd600691872d6b41f1db73afd062cc8bb88fe1835b91b41fbf460f840ba390ff1abdd103ca36f29d10bd9903106c10a81fd1197cf8bb33b99cf7eba5306ec97629e7e4ef6178ddccde6ee6ca61410f51947471f0d7911b96a5dc201b88a4471d165608a23b31ed3463f7f47da567d80d3661d16c1133608f477ddb1958ac6b01825a714b39c72f47a031e042d6e80b9",
     "strategies": [
-      "jwt"
+      "jwt",
+      "local"
     ],
     "path": "/authentication",
     "service": "users",
+    "identifyUserProps": ["telegramId"],
     "jwt": {
       "header": {
         "typ": "access"
       },
-      "audience": "localhost:3000",
+      "audience": "https://yourdomain.com",
       "subject": "anonymous",
       "issuer": "feathers",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },
-    "openid": {
-      "clientID": "<your open id client>",
-      "clientSecret": "<your open id secret>",
-      "successRedirect": "/",
-      "domain": "localhost:3000",
-      "scopes": [
-        "openid email"
-      ]
+    "local": {
+      "entity": "user",
+      "usernameField": "telegramId"
     },
     "telegram":{
-      "username": "<your bot username>",
-      "token": "<your bot token>",
-      "whitelist": [
-	  "<your personal chat id>"
-      ]
+	"username": "<your username>",
+	"token": "<your token>",
+	"admins": ["<your id>"]
     },
-    "cookie": {
-      "enabled": true,
-      "name": "feathers-jwt",
-      "httpOnly": false,
-      "secure": false
+    "openid":{
+	"issuer": "https://id.org.br",
+	"redirect_url": "/",
+	"clientID": "<your client Id>",
+	"clientSecret": "<your client secret>"
     }
   }
 }

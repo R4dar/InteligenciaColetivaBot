@@ -127,7 +127,7 @@ For more information on all the things you can do with Feathers visit [docs.feat
 __0.1.11__
 
 - Bot service
-  - Setup bot and send message to adminstratos at runtime
+  - Setup bot and send message to adminstrators at runtime
   - Implemented the cycle of first messages as website dashboard (with telegram keyboards)
   - Fixed unhandledErrors
 

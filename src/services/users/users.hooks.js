@@ -2,9 +2,7 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
-
-const logger = require('winston')
-const { Issuer } = require('openid-client')
+const sendToken = require('./users.hooks.sendToken')
 
 module.exports = {
   before: {
@@ -15,23 +13,26 @@ module.exports = {
     get: [ 
 	authenticate('jwt')
     ],
-    create: [],
+    create: [
+    ],
     update: [ 
 	authenticate('jwt')
     ],
     patch: [
 	authenticate('jwt') 
     ],
-    remove: [ authenticate('jwt') ]
+    remove: [ 
+	authenticate('jwt')
+    ]
   },
 
   after: {
-    all: [
-	protect('telegramId')
-    ],
+    all: [],
     find: [],
     get: [],
-    create: [],
+    create: [
+	sendToken()
+    ],
     update: [],
     patch: [],
     remove: []

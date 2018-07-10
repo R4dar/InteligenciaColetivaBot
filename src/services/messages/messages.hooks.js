@@ -1,6 +1,4 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const app = require('../../app')
-const saveMessages = require('./bot.hooks.saveMessages')
 
 module.exports = {
   before: {
@@ -17,9 +15,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [	
-	saveMessages(app)
-    ],
+    create: [],
     update: [],
     patch: [],
     remove: []

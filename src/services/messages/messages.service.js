@@ -1,7 +1,7 @@
-1// Initializes the `users` service on path `/users`
+// Initializes the `messages` service on path `/messages`
 const createService = require('feathers-mongoose');
-const createModel = require('../../models/users.model');
-const hooks = require('./users.hooks');
+const createModel = require('../../models/messages.model');
+const hooks = require('./messages.hooks');
 const m2s = require('mongoose-to-swagger');
 
 module.exports = function (app) {
@@ -12,14 +12,16 @@ module.exports = function (app) {
 	Model,
 	paginate
     };
-    let docs =  app.get('swagger/users')
+
+    let docs =  app.get('swagger/messages')
     docs.definitions.users = m2s(Model)
     // Initialize our service with any options it requires
-    app.use('/users', Object.assign(createService(options), {
+    app.use('/messages', Object.assign(createService(options), {
 	docs: docs
     }));
-    
+
     // Get our initialized service so that we can register hooks
-    const service = app.service('users');
+    const service = app.service('messages');
+
     service.hooks(hooks);
 };

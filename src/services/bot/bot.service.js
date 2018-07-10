@@ -13,13 +13,11 @@ module.exports = function (app) {
 	config: bot(app)
     }
 
-    const _service_ = createService(options)
-    app.use('/bot', Object.assign(_service_, {
+    app.use('/bot', Object.assign(createService(options), {
 	docs: docs
     }))
 
     // Get our initialized service so that we can register hooks
     const service = app.service('bot');
-    
     service.hooks(hooks);
 };
