@@ -8,7 +8,8 @@ module.exports = function (app) {
   const messages = new Schema({
     to: { type: String, required: true },
     text: { type: String, required: true },
-    keyboard: {type: Object}
+    keyboard: {type: Object},
+    file: {type: Object}
   }, {
     timestamps: true
   });

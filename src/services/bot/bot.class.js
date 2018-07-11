@@ -10,7 +10,8 @@ class Service {
 	this.__init__()
     }
     
-    __init__ () {
+    async __init__ () {
+	let promises = []
 	for (let key in this.assistente_bot) {
 	    for (let message in this.assistente_bot[key]){
 		this.telegram_bot[key](new RegExp(message), (msg, match) => {
@@ -19,8 +20,8 @@ class Service {
 			    this.create({
 				id: msg.chat.id,
 				message: data.messages[i]
-			    }).then(function(_data_){
-				logger.debug(_data_)
+			    }).then(function(res){
+				logger.debug(res)
 			    })
 			}
 		    })
@@ -30,18 +31,17 @@ class Service {
     }
     async create (data) {
 	return new Promise((resolve, reject) => {
-	    logger.debug(data)
 	    setTimeout(() => {
-		try{
-		    if (data.message.type !== 'file_id') {
-			this.telegram_bot.sendMessage(data.id, ...data.message.value)
-		    }
-		    else{
-			this.telegram_bot.sendFile(data.id, data.message.value)
-		    }
+		logger.debug('sending message')
+		logger.debug(data)
+		if(typeof data.message.type === 'array') {
+		    this.telegram_bot.sendMessage(data.id, ...data.message.value)
 		    resolve(data)
-		} catch (err) {
-		    reject(err)
+		} else if (typeof data.message.type === 'string') {
+		    this.telegram_bot.sendMessage(data.id, data.message.value)
+		    resolve(data)
+		} else {
+		    reject(new Error('Unknown message type '+data.message.type))
 		}
 	    }, 1000)
 	})

@@ -1,13 +1,16 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const app = require('../../app')
 const saveMessages = require('./bot.hooks.saveMessages')
+const uploadFile = require('./bot.hooks.uploadFile')
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
+    create: [
+//	uploadFile('default')
+    ],
     update: [],
     patch: [],
     remove: []
@@ -18,7 +21,7 @@ module.exports = {
     find: [],
     get: [],
     create: [	
-	saveMessages(app)
+//	saveMessages(app)
     ],
     update: [],
     patch: [],

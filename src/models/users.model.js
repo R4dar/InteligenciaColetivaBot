@@ -16,9 +16,7 @@ module.exports = function (app) {
 
     let Users = mongooseClient.model('users', users);
 
-    let whitelist = [
-	...app.get('authentication').telegram.admins
-    ]
+    Users.admins = app.get('authentication').telegram.admins
     //  Pre-save some data
     users.pre('save', function(next) {
 	let self = this
@@ -30,8 +28,9 @@ module.exports = function (app) {
 	    }
 	    else {
 		self.isAdmin = false
-		for (let i in whitelist) {
-		    if (self.telegramId === whitelist[i]){
+		for (let i in Users.admins) {
+		    if (self.telegramId === Users.admins[i]){
+			logger.debug("user "+self.telegramId+" is admin")
 			self.isAdmin = true
 			break;
 		    }

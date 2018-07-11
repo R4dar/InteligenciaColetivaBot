@@ -11,6 +11,9 @@ module.exports = function(app){
 	    if (typeof message.type === 'keyboard'){
 		return app.service('messages').create({to: context.data.id, keyboard: message.value})
 	    }
+	    if (typeof message.type === 'file'){
+		return app.service('messages').create({to: context.data.id, file: message.value})
+	    }
 	})
 	return Promise.all(promises).then(function(results){
 	    return context

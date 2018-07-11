@@ -3,6 +3,7 @@ const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
 const sendToken = require('./users.hooks.sendToken')
+const logger = require('winston')
 
 module.exports = {
   before: {
@@ -30,9 +31,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [
-	sendToken()
-    ],
+    create: [sendToken('default')],
     update: [],
     patch: [],
     remove: []

@@ -13,6 +13,7 @@ const appHooks = require('./app.hooks');
 const channels = require('./channels');
 const mongoose = require('./mongoose');
 const authentication = require('./authentication');
+const uploads = require('./uploads');
 const swagger = require('feathers-swagger');
 const app = express(feathers());
 
@@ -41,6 +42,7 @@ app.configure(mongoose);
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 app.configure(authentication);
+app.configure(uploads);
 
 // Set up our services (see `services/index.js`)
 app.configure(services);

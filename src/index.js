@@ -50,7 +50,7 @@ server.on('listening', () => {
 	middlewares: {
 	    onNotHaveUsers: async function(){
 		await Promise.all(admins.map(id => { 
-		    return app.service('users').create({telegramId: id})
+		    return app.service('users').create({telegramId: id, isAdmin: true})
 		}))
 		logger.debug('admins added')
 		
