@@ -31,7 +31,14 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [sendToken('default')],
+    create: [
+	async function (context){
+	    return sendToken('default', context).then(function(res){
+		logger.debug(res.data)
+		return context
+	    })
+	}
+    ],
     update: [],
     patch: [],
     remove: []

@@ -295,9 +295,9 @@
 	    "passwordField": "telegramId"
 	},
 	"telegram":{
-	    "username": "R4DARDEV_bot",
-	    "token": "536381653:AAH-Uizg0t_pWIAfP3ouoSYfFkRUy7OAUSk",
-	    "admins": ["91634750", "7759366", "115660217"]
+	    "username": "R4darDev_bot",
+	    "token": "589241367:AAGE4WKYveilzCHjAdg5NmkPafcN1SWE9AE",
+	    "admins": ["91634750"]
 	},
 	"openid":{
 	    "issuer": "https://id.org.br",

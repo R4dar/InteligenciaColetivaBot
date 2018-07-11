@@ -34,15 +34,8 @@ class Service {
 	    setTimeout(() => {
 		logger.debug('sending message')
 		logger.debug(data)
-		if(typeof data.message.type === 'array') {
-		    this.telegram_bot.sendMessage(data.id, ...data.message.value)
-		    resolve(data)
-		} else if (typeof data.message.type === 'string') {
-		    this.telegram_bot.sendMessage(data.id, data.message.value)
-		    resolve(data)
-		} else {
-		    reject(new Error('Unknown message type '+data.message.type))
-		}
+		this.telegram_bot.sendMessage(data.id, ...data.message.value)
+		resolve(data)
 	    }, 1000)
 	})
     }			  

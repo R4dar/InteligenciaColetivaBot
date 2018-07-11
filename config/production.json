@@ -1,4 +1,309 @@
 {
-  "host": "assistente-app.feathersjs.com",
-  "port": "PORT"
+    "host": "localhost",
+    "port": 3030,
+    "public": "../public/",
+    "paginate": {
+	"default": 10,
+	"max": 50
+    },
+    "mongodb": "mongodb://assistente:senha12345@naboo.mongodb.umbler.com:53476/assistente",
+    "swagger": {
+	"docsPath": "/swagger",
+	"uiIndex": "public/swagger.html",
+	"info": {
+	    "title": "R4dar Assistente Swagger API",
+	    "description": "A swagger api para controle do assistente do R4dar"
+	},
+	"securityDefinitions": {
+	    "jwt": {
+		"type": "apiKey",
+		"name": "authorization",
+		"in": "header"
+	    }
+	}
+    },
+    "swagger/users": {
+	"description": "User service",
+	"definitions": {
+	    "users list": {
+		"$ref": "#/definitions/users"
+	    }
+	},
+	"find": {
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"get": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a user"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"create": {},
+	"update": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a user"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"patch": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a user"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"remove": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a user"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	}
+    },
+    "swagger/messages": {
+	"description": "Messages service",
+	"definitions": {
+	    "users list": {
+		"$ref": "#/definitions/messages"
+	    }
+	},
+	"find": {
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"get": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a message"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"create": {
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"update": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a message"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"patch": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a message"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"remove": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a message"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	}
+    },
+    "swagger/bot": {
+	"description": "Bot service",
+	"definitions": {
+	    "bot list": {
+		"$ref": "#/definitions/bot"
+	    },
+	    "bot": {
+		"type": "object",
+		"required": [
+		    "id",
+		    "message"
+		],
+		"properties": {
+		    "id": {
+			"type": "string",
+			"description": "telegram user id to where the message will be sent"
+		    },
+		    "message": {
+			"type": "object",
+			"required": [
+			    "type",
+			    "value"
+			],
+			"properties": {
+			    "type": {
+				"type": "string",
+				"description": "the type of the message"
+			    },
+			    "value": {
+				"type": "string",
+				"description": "the string of a message"
+			    }
+			}
+		    }
+		}
+	    }
+	},
+	"create": {
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	}
+    },
+    "swagger/uploads": {
+	"description": "Uploads service",
+	"definitions": {
+	    "users list": {
+		"$ref": "#/definitions/uploads"
+	    }
+	},
+	"get": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a upload"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"create": {
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	},
+	"remove": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a message"
+		}
+	    ],
+	    "security": [
+		{
+		    "jwt": []
+		}
+	    ]
+	}
+    },
+    "authentication": {
+	"secret": "0c4378758d5cd9690d355076f32f816f397679d10e584bcaa6d0c6e1926e65bedc9e4eb7fc681fa71db92fed832523b289000696ae4c6e588d442bec201a439193677d32229d26e3cf28ab62ed140d804d99f184389efef64cf47f2f9019d9915e78d94a2598f9167872e88266fa4a53acd600691872d6b41f1db73afd062cc8bb88fe1835b91b41fbf460f840ba390ff1abdd103ca36f29d10bd9903106c10a81fd1197cf8bb33b99cf7eba5306ec97629e7e4ef6178ddccde6ee6ca61410f51947471f0d7911b96a5dc201b88a4471d165608a23b31ed3463f7f47da567d80d3661d16c1133608f477ddb1958ac6b01825a714b39c72f47a031e042d6e80b9",
+	"strategies": [
+	    "jwt",
+	    "local"
+	],
+	"path": "/authentication",
+	"service": "users",
+	"identifyUserProps": ["telegramId"],
+	"jwt": {
+	    "header": {
+		"typ": "access"
+	    },
+	    "audience": "http://localhost:3000",
+	    "subject": "anonymous",
+	    "issuer": "feathers",
+	    "algorithm": "HS256",
+	    "expiresIn": "1d"
+	},
+	"local": {
+	    "entity": "user",
+	    "usernameField": "telegramId",
+	    "passwordField": "telegramId"
+	},
+	"telegram":{
+	    "username": "R4darDev_bot",
+	    "token": "589241367:AAGE4WKYveilzCHjAdg5NmkPafcN1SWE9AE",
+	    "admins": ["91634750"]
+	},
+	"openid":{
+	    "issuer": "https://id.org.br",
+	    "redirect_url": "/",
+	    "clientID": "10_15tdota1dbesko4g8wcggckokscwc4o0owgg00oc4wg8s4s4ow",
+	    "clientSecret": "61astpx93d44wc484c8sgo8oss0g0o0cswgs0wgg8wocok0c00"  
+	}
+    }
 }
