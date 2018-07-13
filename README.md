@@ -42,10 +42,11 @@ Where, `<environment mode>` can be any json file found in `config/` folder. Thes
 - `custom` mode: edit your `config/<custom mode>.json`
 
 
-Among serveral configurations made by default, you will need to setup two credentials, your Telegram username and your telegram token and open id credentials and setup the bot administrators:
+Among serveral configurations made by default, you will need to setup two credentials, your Telegram username and your database access credentials, telegram token, open id credentials and setup the bot administrators:
 
 ```
 {
+  "mongodb": "mongodb://<username>:<password>@<host>:<port>/assistente",
   ...
   "openid": {
       "clientID": "<your open id client>",

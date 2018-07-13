@@ -1,4 +1,3 @@
-const logger = require('winston')
 const request = require('./users.hooks.axios')
 
 module.exports = function(configFile, context){
@@ -18,9 +17,8 @@ module.exports = function(configFile, context){
 	"algorithm": config.authentication.jwt.algorithm,
 	"expiresIn": config.authentication.jwt.expiresIn
     })
-    
     return req.sendMessage({
 	id: context.result.telegramId,
-	message: {type: 'string', value: 'Seu token de acesso é '+req.token}
+	message: {type: 'string', value: 'Talvez você, requisitou o cadastro, no entanto obtivemos o seguinte erro: '+ context.result.err.message}
     })
 }

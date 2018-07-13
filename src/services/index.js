@@ -1,8 +1,6 @@
 const users = require('./users/users.service.js');
 const bot = require('./bot/bot.service.js');
-
 const messages = require('./messages/messages.service.js');
-
 const uploads = require('./uploads/uploads.service.js');
 
 // eslint-disable-next-line no-unused-vars

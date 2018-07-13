@@ -34,7 +34,11 @@ class Service {
 	    setTimeout(() => {
 		logger.debug('sending message')
 		logger.debug(data)
-		this.telegram_bot.sendMessage(data.id, ...data.message.value)
+		if(typeof data.message.value !== 'string') {
+		    this.telegram_bot.sendMessage(data.id, ...data.message.value)
+		} else {
+		    this.telegram_bot.sendMessage(data.id, data.message.value)
+		}
 		resolve(data)
 	    }, 1000)
 	})

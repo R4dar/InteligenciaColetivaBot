@@ -24,7 +24,9 @@
   "scripts": {
     "test": "yarn run eslint && yarn run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
-    "start": "NODE_ENV='development' node src/",
+    "env-dev": "NODE_ENV='development' node src/",
+    "env-test": "NODE_ENV='test' node src/",
+    "start": "npm run env-test",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {

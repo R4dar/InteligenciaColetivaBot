@@ -1,12 +1,12 @@
 {
     "host": "localhost",
-    "port": 3030,
+    "port": 3000,
     "public": "../public/",
     "paginate": {
 	"default": 10,
 	"max": 50
     },
-    "mongodb": "mongodb://assistente:senha12345@naboo.mongodb.umbler.com:53476/assistente",
+    "mongodb": "mongodb://<username>:<password>@<host>:<port>/assistente",
     "swagger": {
 	"docsPath": "/swagger",
 	"uiIndex": "public/swagger.html",
@@ -15,7 +15,12 @@
 	    "description": "A swagger api para controle do assistente do R4dar"
 	},
 	"securityDefinitions": {
-	    "jwt": {
+            "Basic": {
+		"type": "basic",
+		"name": "telegramId/hash",
+		"in": "header"
+	    },
+            "jwt": {
 		"type": "apiKey",
 		"name": "authorization",
 		"in": "header"
@@ -29,13 +34,7 @@
 		"$ref": "#/definitions/users"
 	    }
 	},
-	"find": {
-	    "security": [
-		{
-		    "jwt": []
-		}
-	    ]
-	},
+        "securities": ["find", "get", "update", "patch", "remove"],
 	"get": {
 	    "parameters": [
 		{
@@ -43,11 +42,6 @@
 		    "name": "_id",
 		    "type": "string",
 		    "description": "the id of a user"
-		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
 		}
 	    ]
 	},
@@ -60,11 +54,6 @@
 		    "type": "string",
 		    "description": "the id of a user"
 		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
-		}
 	    ]
 	},
 	"patch": {
@@ -75,11 +64,6 @@
 		    "type": "string",
 		    "description": "the id of a user"
 		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
-		}
 	    ]
 	},
 	"remove": {
@@ -89,11 +73,6 @@
 		    "name": "_id",
 		    "type": "string",
 		    "description": "the id of a user"
-		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
 		}
 	    ]
 	}
@@ -105,13 +84,8 @@
 		"$ref": "#/definitions/messages"
 	    }
 	},
-	"find": {
-	    "security": [
-		{
-		    "jwt": []
-		}
-	    ]
-	},
+        "securities": ["find", "create", "get", "update", "patch", "remove"],
+	"find": { },
 	"get": {
 	    "parameters": [
 		{
@@ -120,20 +94,9 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
-		}
 	    ]
 	},
-	"create": {
-	    "security": [
-		{
-		    "jwt": []
-		}
-	    ]
-	},
+	"create": {},
 	"update": {
 	    "parameters": [
 		{
@@ -141,11 +104,6 @@
 		    "name": "_id",
 		    "type": "string",
 		    "description": "the id of a message"
-		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
 		}
 	    ]
 	},
@@ -157,11 +115,6 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
-		}
 	    ]
 	},
 	"remove": {
@@ -172,16 +125,12 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
-		}
 	    ]
 	}
     },
     "swagger/bot": {
 	"description": "Bot service",
+        "securities": ["create"],
 	"definitions": {
 	    "bot list": {
 		"$ref": "#/definitions/bot"
@@ -217,13 +166,7 @@
 		}
 	    }
 	},
-	"create": {
-	    "security": [
-		{
-		    "jwt": []
-		}
-	    ]
-	}
+	"create": {}
     },
     "swagger/uploads": {
 	"description": "Uploads service",
@@ -232,6 +175,7 @@
 		"$ref": "#/definitions/uploads"
 	    }
 	},
+        "securities": ["find", "create", "get", "update", "patch", "remove"],
 	"get": {
 	    "parameters": [
 		{
@@ -240,20 +184,9 @@
 		    "type": "string",
 		    "description": "the id of a upload"
 		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
-		}
 	    ]
 	},
-	"create": {
-	    "security": [
-		{
-		    "jwt": []
-		}
-	    ]
-	},
+	"create": { },
 	"remove": {
 	    "parameters": [
 		{
@@ -262,16 +195,11 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
-	    ],
-	    "security": [
-		{
-		    "jwt": []
-		}
 	    ]
 	}
     },
     "authentication": {
-	"secret": "0c4378758d5cd9690d355076f32f816f397679d10e584bcaa6d0c6e1926e65bedc9e4eb7fc681fa71db92fed832523b289000696ae4c6e588d442bec201a439193677d32229d26e3cf28ab62ed140d804d99f184389efef64cf47f2f9019d9915e78d94a2598f9167872e88266fa4a53acd600691872d6b41f1db73afd062cc8bb88fe1835b91b41fbf460f840ba390ff1abdd103ca36f29d10bd9903106c10a81fd1197cf8bb33b99cf7eba5306ec97629e7e4ef6178ddccde6ee6ca61410f51947471f0d7911b96a5dc201b88a4471d165608a23b31ed3463f7f47da567d80d3661d16c1133608f477ddb1958ac6b01825a714b39c72f47a031e042d6e80b9",
+	"secret": "<your secret>",
 	"strategies": [
 	    "jwt",
 	    "local"
@@ -283,7 +211,7 @@
 	    "header": {
 		"typ": "access"
 	    },
-	    "audience": "http://localhost:3000",
+	    "audience": "http://api-r4dardev-tk.umbler.net",
 	    "subject": "anonymous",
 	    "issuer": "feathers",
 	    "algorithm": "HS256",
@@ -292,18 +220,20 @@
 	"local": {
 	    "entity": "user",
 	    "usernameField": "telegramId",
-	    "passwordField": "telegramId"
+	    "passwordField": "hash"
 	},
 	"telegram":{
-	    "username": "R4darDev_bot",
-	    "token": "589241367:AAGE4WKYveilzCHjAdg5NmkPafcN1SWE9AE",
-	    "admins": ["91634750"]
+	    "username": "<bot name teminated with bot>",
+	    "token": "<token>",
+	    "admins": ["<admins...>"]
 	},
 	"openid":{
 	    "issuer": "https://id.org.br",
 	    "redirect_url": "/",
-	    "clientID": "10_15tdota1dbesko4g8wcggckokscwc4o0owgg00oc4wg8s4s4ow",
-	    "clientSecret": "61astpx93d44wc484c8sgo8oss0g0o0cswgs0wgg8wocok0c00"  
+	    "clientID": "<client id>",
+	    "clientSecret": "<client secret>"  
 	}
     }
 }
+
+

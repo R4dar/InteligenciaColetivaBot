@@ -3,6 +3,8 @@ const createService = require('feathers-mongoose');
 const createModel = require('../../models/users.model');
 const hooks = require('./users.hooks');
 const m2s = require('mongoose-to-swagger');
+const drop = require('../../drop')
+const logger = require('winston')
 
 module.exports = function (app) {
     const Model = createModel(app);
@@ -22,4 +24,20 @@ module.exports = function (app) {
     // Get our initialized service so that we can register hooks
     const service = app.service('users');
     service.hooks(hooks);
+    if(process.env.NODE_ENV === 'development'){
+	logger.debug('Dropping users service')
+	drop(service, function(item){
+	    return true
+	}).then(function(res){
+	    logger.debug('Users service dropped')
+	})
+    } else if (process.env.NODE_ENV === 'test' ) {
+	logger.debug('Dropping users service unless a item is adminstrator')
+	drop(service, function(item){
+            logger.debug('user '+item._id+(item.isAdmin ? ' isnt admin' : ' is admin'))
+	    return item.isAdmin
+	}).then(function(res){
+	    logger.debug('Users that arent admins are dropped')
+	})
+    }
 };
