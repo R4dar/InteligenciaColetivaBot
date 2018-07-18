@@ -6,7 +6,7 @@ axios({
     method: 'get'
 }).then(function(res){
     res.data.users_by_service.map(function(item){
-	servicos.commands.push(['/login cidadao.rs '+item.name])
+	servicos.commands.push([item.name])
     })
 })
   
@@ -15,10 +15,10 @@ axios({
     method: 'get'
 }).then(function(res){
     res.data.users_by_service.map(function(item){
-	servicos.commands.push(['/login id.org '+item.name])
+	servicos.commands.push([item.name])
     })
 })
-	
+
 module.exports = function(app) { 
     return function (msg, match){
 	return app.service('users').find({
@@ -28,7 +28,7 @@ module.exports = function(app) {
 		return {
 		    messages: [
 			{type: 'keyboard', value: [
-			    "Selecione um dos servicos abaixo", 
+			    "Encaminhe um dos servicos abaixo", 
 			    {
 				"reply_markup": {
 				    "keyboard": servicos.commands
@@ -41,19 +41,21 @@ module.exports = function(app) {
 		return {
 		    messages: [
 			{type: 'keyboard', value: [
-			    "Parece que você não está registrado no nosso sistema. Você aceita fazer parte da nossa rede?", 
+			    "Você aceita ser um adendo em nossa rede?", 
 			    {
 				"reply_markup": {
-					"keyboard": [
-					    ["sim, eu quero fazer parte da rede"],
-					    ["não, eu não quero fazer parte da rede"]
-					]
+				    "keyboard": [
+					["sim, eu quero proceder com o registro"],
+					["não, eu quero malograr o registro"]
+				    ]
 				}
 			    }
 			]}
 		    ]
 		}
 	    }
+	}).catch(function(err){
+	    logger.error(err)
 	})
     }
 }
