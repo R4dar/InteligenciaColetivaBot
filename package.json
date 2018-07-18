@@ -1,32 +1,28 @@
 {
   "name": "assistente",
   "description": "assistente-backend",
-  "version": "0.0.0",
+  "version": "0.1.12",
   "homepage": "",
   "main": "src",
   "keywords": [
     "feathers"
   ],
-  "author": {
-    "name": "Guilherme Lunhani",
-    "email": "lunhanig@gmail.com"
-  },
+  "author": "Guilherme Lunhani <lunhanig@gmail.com>",
   "contributors": [],
-  "bugs": {},
   "directories": {
-    "lib": "src",
-    "test": "test/"
+    "test": "test"
   },
   "engines": {
     "node": "^8.0.0",
     "yarn": ">= 0.18.0"
   },
   "scripts": {
-    "test": "yarn run eslint && yarn run mocha",
+    "test": "yarn run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
-    "env-dev": "NODE_ENV='development' node src/",
-    "env-test": "NODE_ENV='test' node src/",
-    "start": "npm run env-test",
+    "env:dev": "NODE_ENV='development' npm test && node src/",
+    "env:test": "NODE_ENV='test' npm test && node src/",
+    "env:prod": "NODE_ENV='production' node src/",
+    "start": "npm run env:test",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
@@ -62,7 +58,14 @@
     "passport-openid": "^0.4.0",
     "querystring": "^0.2.0",
     "serve-favicon": "^2.5.0",
+    "should": "^13.2.1",
     "uuid": "^3.3.2",
     "winston": "^3.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/lunhg/Assistente"
+  },
+  "license": "SEE LICENSE IN LICENSE"
 }

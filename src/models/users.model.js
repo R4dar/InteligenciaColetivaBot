@@ -28,30 +28,22 @@ module.exports = function (app) {
     //  Pre-save some data
     users.pre('save', function(next) {
 	let self = this
+	
 	Users.find({telegramId: self.telegramId}).then(function(users){
 	    if(users.length > 0) {
 		logger.error("telegramId deve ser único");
-		app.service('bot').create({
-		    id: self.telegramId,
-		    message: {type: 'text', value: 'Olá, '+self.first_name+'. Você já está cadastrado'}
-		})
 		self.invalidate("telegramId", "telegramId deve ser único")
 		next(new Error("telegramId deve ser único"))
-	
 	    }
 	    else {
 		for (let i in Users.admins) {
 		    if (self.telegramId === Users.admins[i]){
 			logger.debug("user "+self._id+" is admin")
 			self.isAdmin = new Boolean(true)
-			app.service('bot').create({
-			    id: self.telegramId,
-			    message: {type: 'text', value: 'Olá, '+self.first_name+'. Você foi identificado como um dos meus administradores. Para autenticar em nossos serviços, entre como usuário '+self.telegramId+'e senha'+self.hash}
-			})
 		    }
 		}
+		next()
 	    }
-	    next()
 	})
     })
     

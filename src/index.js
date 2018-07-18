@@ -4,13 +4,22 @@ const app = require('./app');
 const port = app.get('port');
 const server = app.listen(port);
 
+global.Promise = require('bluebird');
+
+Promise.config({
+    // Enable warnings
+    warnings: true,
+    // Enable long stack traces
+    longStackTraces: true,
+    // Enable cancellation
+    cancellation: true,
+    // Enable monitoring
+    monitoring: true
+})
 
 process.on('unhandledRejection', (err) => {
     let stack = err.stack.split("\n")
-    for(let i in stack){
-	logger.error(stack[i])
-	process.exit(0)
-    }
+    logger.debug(err.message)
 });
 
 server.on('listening', () => {

@@ -125,6 +125,13 @@ For more information on all the things you can do with Feathers visit [docs.feat
 
 ## Changelog
 
+__0.1.12__
+
+- Tests
+  - Added some CRUD tests in `/bot` and `/users`
+- Simplified index.html
+- added `after` and `before` hooks to `users` service, where we eill send messages
+
 __0.1.11__
 
 - Bot service

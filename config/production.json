@@ -6,7 +6,7 @@
 	"default": 10,
 	"max": 50
     },
-    "mongodb": "mongodb://<username>:<password>@<host>:<port>/assistente",
+    "mongodb": "mongodb://<user>:<senha urlizada>@<host>:<port>/<dbname>",
     "swagger": {
 	"docsPath": "/swagger",
 	"uiIndex": "public/swagger.html",
@@ -15,9 +15,9 @@
 	    "description": "A swagger api para controle do assistente do R4dar"
 	},
 	"securityDefinitions": {
-            "Basic": {
+            "local": {
 		"type": "basic",
-		"name": "telegramId/hash",
+		"name": "authorization",
 		"in": "header"
 	    },
             "jwt": {
@@ -34,7 +34,19 @@
 		"$ref": "#/definitions/users"
 	    }
 	},
-        "securities": ["find", "get", "update", "patch", "remove"],
+	"find": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a user"
+		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
 	"get": {
 	    "parameters": [
 		{
@@ -43,6 +55,10 @@
 		    "type": "string",
 		    "description": "the id of a user"
 		}
+
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	},
 	"create": {},
@@ -54,6 +70,9 @@
 		    "type": "string",
 		    "description": "the id of a user"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	},
 	"patch": {
@@ -64,6 +83,9 @@
 		    "type": "string",
 		    "description": "the id of a user"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	},
 	"remove": {
@@ -74,6 +96,9 @@
 		    "type": "string",
 		    "description": "the id of a user"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	}
     },
@@ -84,8 +109,11 @@
 		"$ref": "#/definitions/messages"
 	    }
 	},
-        "securities": ["find", "create", "get", "update", "patch", "remove"],
-	"find": { },
+	"find": {
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
 	"get": {
 	    "parameters": [
 		{
@@ -94,9 +122,16 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	},
-	"create": {},
+	"create": {
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
 	"update": {
 	    "parameters": [
 		{
@@ -105,6 +140,9 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	},
 	"patch": {
@@ -115,6 +153,9 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	},
 	"remove": {
@@ -125,6 +166,9 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	}
     },
@@ -166,7 +210,11 @@
 		}
 	    }
 	},
-	"create": {}
+	"create": {
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	}
     },
     "swagger/uploads": {
 	"description": "Uploads service",
@@ -175,7 +223,6 @@
 		"$ref": "#/definitions/uploads"
 	    }
 	},
-        "securities": ["find", "create", "get", "update", "patch", "remove"],
 	"get": {
 	    "parameters": [
 		{
@@ -184,9 +231,16 @@
 		    "type": "string",
 		    "description": "the id of a upload"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	},
-	"create": { },
+	"create": {
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
 	"remove": {
 	    "parameters": [
 		{
@@ -195,11 +249,14 @@
 		    "type": "string",
 		    "description": "the id of a message"
 		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
 	    ]
 	}
     },
     "authentication": {
-	"secret": "<your secret>",
+	"secret": "<secret>",
 	"strategies": [
 	    "jwt",
 	    "local"
@@ -211,7 +268,7 @@
 	    "header": {
 		"typ": "access"
 	    },
-	    "audience": "http://api-r4dardev-tk.umbler.net",
+	    "audience": "http://api-r4dar-tk.umbler.net",
 	    "subject": "anonymous",
 	    "issuer": "feathers",
 	    "algorithm": "HS256",
@@ -223,15 +280,15 @@
 	    "passwordField": "hash"
 	},
 	"telegram":{
-	    "username": "<bot name teminated with bot>",
-	    "token": "<token>",
-	    "admins": ["<admins...>"]
+	    "username": "<username>",
+	    "token": "<key>",
+	    "admins": ["<admins>"]
 	},
 	"openid":{
 	    "issuer": "https://id.org.br",
 	    "redirect_url": "/",
-	    "clientID": "<client id>",
-	    "clientSecret": "<client secret>"  
+	    "clientID": "<key>",
+	    "clientSecret": "<secret>"  
 	}
     }
 }

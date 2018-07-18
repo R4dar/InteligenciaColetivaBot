@@ -64,7 +64,7 @@
   <body>
     <main class="container">
       <h2 class="center-text">R4dar-Assistente REST e realtime layer</h2>
-      <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="R4assistente_bot" data-size="large" data-onauth="onTelegramAuth(user).then(function(res){console.log(res)})" data-request-access="write"></script>
+      <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="R4assistente_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
       <footer>
         <p class="center-text">For more information on Feathers see our <a href="/swagger" title="swagger UI documentation" target="blank">swagger UI documentation</a>.</p>
       </footer>
@@ -72,11 +72,10 @@
     <script type="text/javascript">
       console.log("Loading feathers client...")
       var app = window.app = feathers();
-      var rest = feathers.rest('http://api-r4dardev-tk.umbler.net');
+      var rest = feathers.rest('http://api-r4dar-tk.umbler.net');
       app.configure(rest.fetch(window.fetch));
       console.log("done");
-      function onRadar(user){
-        console.log(user)
+      function onTelegramAuth(user){
         let clone = {}
         let p = ['id', 'first_name', 'last_name', 'auth_date', 'hash']
         for(let i in p) {
@@ -87,14 +86,10 @@
           }
         }
         return app.service('users').create(clone).then(function(){
-          return app.service('bot').create({
-            id: user.id,
-            message: {type: 'string', value: user.first_name+', seu cadastro foi bem-logrado!'}
-          })
+          console.log(user)
+        }).catch(function(err){
+          console.log(err)
         })
-      }
-      function onTelegramAuth(user) {
-        return onRadar(user)
       }
     </script>
   </body>

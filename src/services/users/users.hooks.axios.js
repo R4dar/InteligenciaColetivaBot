@@ -1,10 +1,27 @@
 const axios = require('axios')
+const logger = require('winston')
 const jwt = require('jsonwebtoken')
 
-class Request {
+class JWTAxios {
 
-    constructor (token, secret, opt) { 
-	this.token = jwt.sign(token, secret, opt)
+    constructor (cfg, context) {
+	let config = require(`../../../config/${cfg}.json`)
+	this.url = config.authentication.jwt.audience
+	this.token = jwt.sign({
+	    "header": config.authentication.jwt.header,
+	    "aud": config.authentication.jwt.audience,
+	    "subject": config.authentication.jwt.subject,
+	    "iss": config.authentication.jwt.issuer,
+	    "telegramId": context.result.telegramId,
+	    "_id": context.result._id,
+            "first_name": context.result.first_name,
+            "last_name": context.result.last_name,
+            "hash": context.result.hash,
+	    "auth_date": context.result.auth_date,
+	}, config.authentication.secret, {
+	    "algorithm": config.authentication.jwt.algorithm,
+	    "expiresIn": config.authentication.jwt.expiresIn
+	})
     }
 
     headers () {
@@ -15,53 +32,26 @@ class Request {
 	}
     }
 
-    auth () {
-	let headers = this.headers()
+    post (url, headers, obj) {
 	return axios({
-	    url: 'http://localhost:3030/authentication',
+	    url: this.url+url,
 	    method: 'post',
 	    headers: headers
-	}).then(function(){
-	    return headers
-	})
-    }
-
-    form (name) {
-	let headers = this.headers()
-	return Promise(function(resolve, reject){
-	    const fd = new FormData();
-	    fd.append("name", name)
-	    fd.append("filename", name + ".txt")
-	    fd.append("file", fs.createReadStream("../../../uploads/"+name+".txt"))
-	    fd.pipe(fs.write('../../../uploads/'+name+'.txt')).pipe(concat({encoding: 'buffer'}).pipe(data => {
-		Object.assign(headers, fd.getHeaders())
-		resolve({headers: headers, data: data})
-	    }))
-	})
-    }
-    
-    sendMessage (data) {
-	let headers = this.headers()
-	return axios({
-	    url: 'http://localhost:3030/bot',
-	    method: 'post',
-	    data: data,
-	    headers: headers
-	}).then(function(){
-	    return headers
-	})
-    }
-
-    upload (formulario) {
-	return axios({
-	    url: 'http://localhost:3030/uploads',
-	    method: 'post',
-	    data: formulario.data,
-	    headers: formulario.headers
 	})
     }
 }
 
-module.exports = function(token, secret, opt){
-    return new Request(token, secret, opt)
+class AuthedAxios extends JWTAxios {
+
+    constructor(cfg, context) {
+	super(cfg, context)
+    }
+    
+    bot (data) {
+	return this.post('/bot', this.headers(), data)
+    }
+}
+
+module.exports = function(cfg, context){
+    return new AuthedAxios(cfg, context)
 }

@@ -30,14 +30,18 @@ module.exports = function (app) {
 	    return true
 	}).then(function(res){
 	    logger.debug('Users service dropped')
+	}).catch(function(err){
+	    logger.debug(err)
 	})
-    } else if (process.env.NODE_ENV === 'test' ) {
+    } else if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production' ) {
 	logger.debug('Dropping users service unless a item is adminstrator')
 	drop(service, function(item){
             logger.debug('user '+item._id+(item.isAdmin ? ' isnt admin' : ' is admin'))
 	    return item.isAdmin
 	}).then(function(res){
 	    logger.debug('Users that arent admins are dropped')
+	}).catch(function(err){
+	    logger.debug(err)
 	})
     }
 };
