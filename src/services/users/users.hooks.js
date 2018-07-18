@@ -3,11 +3,6 @@ const {
     hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
 
-const authedAxios = require('./users.hooks.axios')
-const logger = require('winston')
-const path = require('path')
-
-
 module.exports = {
     before: {
 	all: [],
@@ -34,30 +29,7 @@ module.exports = {
 	all: [],
 	find: [],
 	get: [],
-	create: [
-	    function (context){
-		let cfg = process.env.NODE_ENV === 'development' ? 'default' : process.env.NODE_ENV
-		let aaxios = authedAxios(cfg, context)
-		aaxios.bot({
-		    id: context.result.data.telegramId,
-		    message: {
-			type: 'keyboard',
-			value: [
-			    'Seu cadastro foi bem logrado.',
-			    {
-				"reply_markup": {
-				    "keyboard": [
-					["/start"]
-				    ]
-				}
-			    }
-			]
-		    }
-		}).then(function(res){
-		    return context
-		})
-	    }
-	],
+	create: [],
 	update: [],
 	patch: [],
 	remove: []
@@ -67,32 +39,7 @@ module.exports = {
 	all: [],
 	find: [],
 	get: [],
-	create: [
-	    function (context){
-		if(context.result.message === "telegramId deve ser único"){
-		    let cfg = process.env.NODE_ENV === 'development' ? 'default' : process.env.NODE_ENV
-		    let aaxios = authedAxios(cfg, context)
-		    aaxios.bot({
-			id: context.result.data.telegramId,
-			message: {
-			    type: 'keyboard',
-			    value: [
-				'Você já procedeu com seu cadastro.',
-				{
-				    "reply_markup": {
-					"keyboard": [
-					    ["/start"]
-					]
-				    }
-				}
-			    ]
-			}
-		    }).then(function(res){
-			return context
-		    })
-		}
-	    }
-	],
+	create: [],
 	update: [],
 	patch: [],
 	remove: []

@@ -30,10 +30,30 @@ module.exports = function (app) {
 	let self = this
 	
 	Users.find({telegramId: self.telegramId}).then(function(users){
+	    let promise = null
 	    if(users.length > 0) {
 		logger.error("telegramId deve ser único");
-		self.invalidate("telegramId", "telegramId deve ser único")
-		next(new Error("telegramId deve ser único"))
+		app.service('bot').create({
+		    id: self.telegramId,
+		    message: {
+			type: 'keyboard',
+			value: [
+			    'O senhor, ou a senhorita, já procedeu com o cadastro.',
+			    {
+				"reply_markup": {
+				    "keyboard": [
+					["/start"]
+				    ]
+				}
+			    }
+			]
+		    }
+		}).then(function(res){
+		    self.invalidate("telegramId", "telegramId deve ser único")
+		    next(new Error("telegramId deve ser único"))
+		}).catch(function(err){
+		    next(err)
+		})
 	    }
 	    else {
 		for (let i in Users.admins) {
@@ -42,7 +62,26 @@ module.exports = function (app) {
 			self.isAdmin = new Boolean(true)
 		    }
 		}
-		next()
+		app.service('bot').create({
+		    id: self.telegramId,
+		    message: {
+			type: 'keyboard',
+			value: [
+			    'Seu cadastro foi bem logrado.',
+			    {
+				"reply_markup": {
+				    "keyboard": [
+					["/start"]
+				    ]
+				}
+			    }
+			]
+		    }
+		}).then(function(res){
+		    next()
+		}).catch(function(err){
+		    next(err)
+		})
 	    }
 	})
     })

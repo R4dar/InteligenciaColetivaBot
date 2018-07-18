@@ -1,7 +1,7 @@
 {
   "name": "assistente",
   "description": "assistente-backend",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "homepage": "",
   "main": "src",
   "keywords": [
@@ -21,8 +21,8 @@
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "env:dev": "NODE_ENV='development' npm test && node src/",
     "env:test": "NODE_ENV='test' npm test && node src/",
-    "env:prod": "NODE_ENV='production' node src/",
-    "start": "npm run env:test",
+    "env:prod": "NODE_ENV='development' node src/",
+    "start": "NODE_ENV='development' mocha test/ --recursive --exit && node src/",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {

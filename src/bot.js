@@ -13,7 +13,6 @@ module.exports = function (app) {
 	    '/start': onStart,
 	    '/FAQ': onFaq,
 	    '/index': onIndex(app),
-	    '/login': onLogin(app),
 	    'o que é o index?': onWhatIsIndex,
 	    'como registrar?': onHowToSignup,
 	    'como realizar o login ?': onHowtToSignin,
