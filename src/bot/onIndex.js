@@ -1,32 +1,42 @@
 const axios = require('axios')
 
+let servicos = {commands:[]}
+axios({
+    url: 'https://logincidadao.rs.gov.br/api/v1/statistics.json',
+    method: 'get'
+}).then(function(res){
+    res.data.users_by_service.map(function(item){
+	servicos.commands.push(['/login cidadao.rs '+item.name])
+    })
+})
+  
+axios({
+    url: 'https://id.org.br/api/v1/statistics.json',
+    method: 'get'
+}).then(function(res){
+    res.data.users_by_service.map(function(item){
+	servicos.commands.push(['/login id.org '+item.name])
+    })
+})
+	
 module.exports = function(app) { 
     return function (msg, match){
 	return app.service('users').find({
 	    telegramId: msg.chat.Id
 	}).then(res => {
 	    if(res.total > 0) {
-		return axios({
-		    url: 'https://logincidadao.rs.gov.br/api/v1/statistics.json',
-		    method: 'get'
-		}).then(function(res){
-		    let services = res.data.users_by_service
-		    let commands = services.map(function(item){
-			return ['/servico '+item.name]
-		    })
-		    return {
-			messages: [
-			    {type: 'keyboard', value: [
-				"Selecione um dos servicos abaixo", 
-				{
-				    "reply_markup": {
-					"keyboard": commands
-				    }
+		return {
+		    messages: [
+			{type: 'keyboard', value: [
+			    "Selecione um dos servicos abaixo", 
+			    {
+				"reply_markup": {
+				    "keyboard": servicos.commands
 				}
-			    ]}
-			]
-		    }
-		})
+			    }
+			]}
+		    ]
+		}
 	    } else {
 		return {
 		    messages: [
