@@ -6,7 +6,7 @@
 	"default": 10,
 	"max": 50
     },
-    "mongodb": "mongodb://<user>:<senha urlizada>@<host>:<port>/<dbname>",
+    "mongodb": "mongodb://${mongodb_user}:${mongodb_pwd}>@${mongodb_host}:${mongodb_port}/${mongodb_dbname}",
     "swagger": {
 	"docsPath": "/swagger",
 	"uiIndex": "public/swagger.html",
@@ -255,8 +255,83 @@
 	    ]
 	}
     },
+    "swagger/servicos": {
+	"description": "Serviço de serviços para juntar  logincidadão.rs e id.org",
+	"definitions": {
+	    "users list": {
+		"$ref": "#/definitions/servicos"
+	    }
+	},
+	"find": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a servico"
+		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
+	"get": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a servico"
+		}
+
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
+	"create": {},
+	"update": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a servico"
+		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
+	"patch": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a servico"
+		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	},
+	"remove": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a servico"
+		}
+	    ],
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	}
+    },
     "authentication": {
-	"secret": "<secret>",
+	"secret": "${authentication_secret}",
 	"strategies": [
 	    "jwt",
 	    "local"
@@ -280,15 +355,15 @@
 	    "passwordField": "hash"
 	},
 	"telegram":{
-	    "username": "<username>",
-	    "token": "<key>",
-	    "admins": ["<admins>"]
+	    "username": "${telegram_username}>",
+	    "token": "${telegram_token}",
+	    "admins": ["${telegram_admins}"]
 	},
 	"openid":{
 	    "issuer": "https://id.org.br",
 	    "redirect_url": "/",
-	    "clientID": "<key>",
-	    "clientSecret": "<secret>"  
+	    "clientID": "${openid_clientID}",
+	    "clientSecret": "${openid_clientSecret}"  
 	}
     }
 }
