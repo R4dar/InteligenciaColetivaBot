@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const logger = require('winston');
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
+const reconfigure = require('./reconfigure');
 const express = require('@feathersjs/express');
 const middleware = require('./middleware');
 const services = require('./services');
@@ -15,6 +16,11 @@ const mongoose = require('./mongoose');
 const authentication = require('./authentication');
 const uploads = require('./uploads');
 const swagger = require('feathers-swagger');
+
+// reconfigure config/ files
+reconfigure()
+
+// now start
 const app = express(feathers());
 
 // Load app configuration
