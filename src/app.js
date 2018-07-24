@@ -32,7 +32,7 @@ dotenv.config()
 app.set('host', app.get('host').replace(/HOST/, process.env.HOST))
 app.set('port', app.get('port').replace(/PORT/, process.env.PORT))
 let url = mongoUriBuilder({
-    host: qs.escape(process.env.MONGODB_AUTH)+'@'+process.env.MONGODB_HOST,
+    host: process.env.MONGODB_USER+':'+qs.escape(process.env.MONGODB_PWD)+'@'+process.env.MONGODB_HOST,
     port: process.env.MONGODB_PORT,
     database: 'assistente'
 });
@@ -45,8 +45,6 @@ auth.telegram.token = auth.telegram.token.replace(/TELEGRAM_TOKEN/, process.env.
 auth.telegram.admins = process.env.TELEGRAM_ADMINS.split(' ').map(item => { return item })
 auth.openid.clientID = auth.openid.clientID.replace(/OPENID_CLIENT_ID/, process.env.OPENID_CLIENT_ID)
 auth.openid.clientSecret = auth.openid.clientSecret.replace(/OPENID_CLIENT_SECRET/, process.env.OPENID_CLIENT_SECRET)
-
-logger.debug(app.get('mongodb'))
 app.set('authentication', auth)
 
 
