@@ -1,12 +1,12 @@
 {
-    "host": "localhost",
-    "port": 3000,
+    "host": "HOST",
+    "port": "PORT",
     "public": "../public/",
     "paginate": {
 	"default": 10,
 	"max": 50
     },
-    "mongodb": "mongodb://${mongodb_user}:${mongodb_pwd}>@${mongodb_host}:${mongodb_port}/${mongodb_dbname}",
+    "mongodb": "MONGODB_URL",
     "swagger": {
 	"docsPath": "/swagger",
 	"uiIndex": "public/swagger.html",
@@ -331,7 +331,7 @@
 	}
     },
     "authentication": {
-	"secret": "${authentication_secret}",
+	"secret": "AUTHENTICATION_SECRET",
 	"strategies": [
 	    "jwt",
 	    "local"
@@ -343,7 +343,7 @@
 	    "header": {
 		"typ": "access"
 	    },
-	    "audience": "http://api-r4dar-tk.umbler.net",
+	    "audience": "AUDIENCE",
 	    "subject": "anonymous",
 	    "issuer": "feathers",
 	    "algorithm": "HS256",
@@ -355,15 +355,15 @@
 	    "passwordField": "hash"
 	},
 	"telegram":{
-	    "username": "${telegram_username}>",
-	    "token": "${telegram_token}",
-	    "admins": ["${telegram_admins}"]
+	    "username": "TELEGRAM_USERNAME",
+	    "token": "TELEGRAM_TOKEN",
+	    "admins": "TELEGRAM_ADMINS"
 	},
 	"openid":{
 	    "issuer": "https://id.org.br",
 	    "redirect_url": "/",
-	    "clientID": "${openid_clientID}",
-	    "clientSecret": "${openid_clientSecret}"  
+	    "clientID": "OPENID_CLIENT_ID",
+	    "clientSecret": "OPENID_CLIENT_SECRET"  
 	}
     }
 }

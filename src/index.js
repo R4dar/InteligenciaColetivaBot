@@ -3,22 +3,13 @@ const logger = require('winston');
 const app = require('./app');
 const port = app.get('port');
 const server = app.listen(port);
-
-global.Promise = require('bluebird');
-
-Promise.config({
-    // Enable warnings
-    warnings: true,
-    // Enable long stack traces
-    longStackTraces: true,
-    // Enable cancellation
-    cancellation: true,
-    // Enable monitoring
-    monitoring: true
-})
+const chalk = require('chalk')
 
 process.on('unhandledRejection', (err) => {
     let stack = err.stack.split("\n")
+    err.message.split("\n").map(item => {
+        logger.debug(chalk.red(item))
+    })
     logger.debug(err.message)
 });
 

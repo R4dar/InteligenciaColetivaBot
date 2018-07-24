@@ -1,24 +1,17 @@
-function reconfigure(){
-    return Promise.all(["default", "test", "production"].map(function(item){
-	return new Promise(function(resolve, reject){
-	    let file = path.join(`../config/${item}.json`)
-	    fs.readFile(file, 'utf8', function(err, data){
-		if(err) reject(err)
-		const newString = data.split("\n").map(function(line){
-		    line.replace(/\${([^}]+)}/g, function(match, path) {
-			return process.env[path]
-		    })
-		    return line
-		}).join("\n")
-		fs.writeFile(file, newString, function(err){
-		    if(err) reject(err)
-		    resolve()
-		})
-	    })
+function reconfigure(app){
+    return new Promise(function(resolve, reject){
+	let mongo_url = app.get('mongodb')
+	const newString = mongo_url.replace(/\${([^}]+)}/g, function(match, path) {
+	    try{
+		return process.env[path]
+	    } catch(err){
+		reject(err)
+	    }
 	})
-    }))
+	resolve(newString)
+    })
 }
 
-module.exports = async function(){
-    await reconfigure()
+module.exports = async function(app){
+    await reconfigure(app)
 }    
