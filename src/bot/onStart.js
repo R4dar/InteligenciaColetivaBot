@@ -7,7 +7,7 @@ module.exports = function(msg, match){
 		    {
 			"reply_markup": {
 			    "keyboard": [
-				["/index"],
+				["/serviços"],
 				["/FAQ"]
 			    ]
 			}

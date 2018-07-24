@@ -62,6 +62,7 @@ module.exports = function (app) {
 			self.isAdmin = new Boolean(true)
 		    }
 		}
+		
 		app.service('bot').create({
 		    id: self.telegramId,
 		    message: {

@@ -23,7 +23,7 @@
     "env:dev": "NODE_ENV='development' npm test && node src/",
     "env:test": "NODE_ENV='test' npm test && node src/",
     "env:prod": "NODE_ENV='production' node src/",
-    "start": "NODE_ENV='development' yarn install && yarn run mocha && node src/",
+    "start": "NODE_ENV='development' yarn run mocha && node src/",
     "mocha": "./node_modules/mocha/bin/_mocha test/ --recursive --exit"
   },
   "dependencies": {

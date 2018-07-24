@@ -1,6 +1,6 @@
 const onStart = require('./bot/onStart')
 const onFaq = require('./bot/onFaq')
-const onIndex = require('./bot/onIndex')
+const onServicos = require('./bot/onServicos')
 const onLogin = require('./bot/onLogin')
 const onWhatIsIndex = require('./bot/onWhatIsIndex')
 const onHowToSignup = require('./bot/onHowToSignup')
@@ -12,7 +12,7 @@ module.exports = function (app) {
 	onText: {
 	    '/start': onStart,
 	    '/FAQ': onFaq,
-	    '/index': onIndex(app),
+	    '/serviços': onIndex(app),
 	    'o que é o index?': onWhatIsIndex,
 	    'como registrar?': onHowToSignup,
 	    'como realizar o login ?': onHowtToSignin,
