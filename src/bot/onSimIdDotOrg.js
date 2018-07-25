@@ -23,7 +23,7 @@ module.exports = function (app) {
 	    const openid = app.get('authentication').openid
 	    if(res.total > 0) {
 		if(!res.data[0].openid) {
-		    return issuer(openid).then(function(url){
+		    return issuer(openid, msg).then(function(url){
 			return {
 			    messages: [
 				{type: 'string', value: 'Acesse '+url+' para logar'}
