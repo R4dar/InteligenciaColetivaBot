@@ -22,7 +22,7 @@ module.exports = function (app) {
 	}).then(function(res) {
 	    const openid = app.get('authentication').openid
 	    if(res.total > 0) {
-		if(res.data[0].openid) {
+		if(!res.data[0].openid) {
 		    return issuer(openid).then(function(url){
 			return {
 			    messages: [
@@ -33,17 +33,7 @@ module.exports = function (app) {
 		} else {
 		    return {
 			messages: [
-			    {type: 'keyboard', value: [
-				res.data[0].first_name+', você ainda não procedeu com suas credenciais open id, gostaria de fazê-lo?',
-				{
-				    "reply_markup": {
-					"keyboard": [
-					    ["sim, eu quero encaminhar com minhas credenciais do id.org"],
-					    ["não, eu quero malograr com as credenciais do id.org"]
-					]
-				    }
-				}
-			    ]}
+			    {type: 'string', value: res.data[0].first_name+', você já procedeu com suas credenciais open id.'}
 			]
 		    }
 		}

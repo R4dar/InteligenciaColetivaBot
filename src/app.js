@@ -57,16 +57,13 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 
 // Reconfigure public/index.html
 app.engine('tml', function (filePath, options, callback) {
-    logger.debug(filePath)
     fs.readFile(filePath, function(err, content){
 	if(!err){
-	    logger.debug('parsing '+filePath)
 	    content = content.toString()
 	    content = content.replace('{{ TELEGRAM_USERNAME }}', options.TELEGRAM_USERNAME)
 	    content = content.replace('{{ AUDIENCE }}', options.AUDIENCE)
 	    content = content.replace('{{ TITLE }}', options.TITLE)
 	    content = content.replace('{{ TITLE }}', options.TITLE)
-	    logger.debug(content)
 	    callback(null, content)
 	} else {
 	    callback(err)
