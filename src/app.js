@@ -19,7 +19,7 @@ const swagger = require('feathers-swagger');
 const dotenv = require('dotenv')
 const mongoUriBuilder = require('mongo-uri-builder');
 const qs = require('querystring');
-
+const fs = require('fs')
 
 // now start
 const app = express(feathers());
@@ -27,7 +27,7 @@ const app = express(feathers());
 // Load app configuration
 app.configure(configuration())
 
-//reconfigure
+// Reconfigure
 dotenv.config()
 app.set('host', app.get('host').replace(/HOST/, process.env.HOST))
 app.set('port', app.get('port').replace(/PORT/, process.env.PORT))
@@ -47,7 +47,6 @@ auth.openid.clientID = auth.openid.clientID.replace(/OPENID_CLIENT_ID/, process.
 auth.openid.clientSecret = auth.openid.clientSecret.replace(/OPENID_CLIENT_SECRET/, process.env.OPENID_CLIENT_SECRET)
 app.set('authentication', auth)
 
-
 // Enable CORS, security, compression, favicon and body parsing
 app.use(cors());
 app.use(helmet());
@@ -55,9 +54,39 @@ app.use(compress());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
-// Host the public folder
-app.use('/', express.static(app.get('public')));
 
+// Reconfigure public/index.html
+app.engine('tml', function (filePath, options, callback) {
+    logger.debug(filePath)
+    fs.readFile(filePath, function(err, content){
+	if(!err){
+	    logger.debug('parsing '+filePath)
+	    content = content.toString()
+	    content = content.replace('{{ TELEGRAM_USERNAME }}', options.TELEGRAM_USERNAME)
+	    content = content.replace('{{ AUDIENCE }}', options.AUDIENCE)
+	    content = content.replace('{{ TITLE }}', options.TITLE)
+	    content = content.replace('{{ TITLE }}', options.TITLE)
+	    logger.debug(content)
+	    callback(null, content)
+	} else {
+	    callback(err)
+	}
+    })
+})
+app.set('views', path.join(__dirname, 'views')) // specify the views directory
+app.set('view engine', 'tml')
+
+// Host the public folder
+app.use(express.static(app.get('public')))
+app.get('/', function(req, res){
+    logger.debug('Show index')
+    let json = {
+	TITLE: 'R4dar-Assistente REST API',
+	TELEGRAM_USERNAME: app.get('authentication').telegram.username,
+	AUDIENCE: app.get('authentication').jwt.audience
+    }
+    res.render('index', json)
+})
 // Configure Swagger Api
 const _swagger_ = app.get('swagger')
 _swagger_["uiIndex"] = path.join(__dirname, '..', _swagger_["uiIndex"])
@@ -74,9 +103,9 @@ app.configure(uploads);
 
 // Set up our services (see `services/index.js`)
 app.configure(services);
+
 // Set up event channels (see channels.js)
 app.configure(channels);
-
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());

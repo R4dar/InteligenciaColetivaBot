@@ -1,35 +1,16 @@
-const { Issuer } = require('openid-client');
 const logger = require('winston')
+const axios = require('axios')
+let servicos = {commands:[]}
 
-const loginOpenID = async function(openid, msg){
-    return Issuer.discover(openid.issuer).then(function (idIssuer) {
-	logger.debug('Attempting login for'+ msg.chat.id+' in '+openid.issuer)
-	return new idIssuer.Client({
-	    client_id: openid.clientID,
-	    client_secret: openid.clientSecret
-	})
-    }).then(function(idOrg){
-	return id.authorizationUrl({
-	    redirect_uri: openid.domain + openid.successRedirect,
-	    scope: 'openid email',
-	});
-    }).then(function(url){
-	return {
-	    messages: [
-		{type: 'string', value: 'Acesse '+url+' para logar'}
-	    ]
-	}
+axios({
+    url: 'https://logincidadao.rs.gov.br/api/v1/statistics.json',
+    method: 'get'
+}).then(function(res){
+    res.data.users_by_service.map(function(item){
+	servicos.commands.push([item.name])
     })
-}
+})
 
-
-const login = async function (openid, msg, res) {
-    app.authenticate({
-	strategy: "jwt",
-	telegramId: msg.chat.id
-    })
-    
-}
 module.exports = function (app) {
     return function(msg, match) {
 	return app.service('users').find({

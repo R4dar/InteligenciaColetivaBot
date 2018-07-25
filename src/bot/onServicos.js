@@ -1,24 +1,3 @@
-const axios = require('axios')
-
-let servicos = {commands:[]}
-axios({
-    url: 'https://logincidadao.rs.gov.br/api/v1/statistics.json',
-    method: 'get'
-}).then(function(res){
-    res.data.users_by_service.map(function(item){
-	servicos.commands.push([item.name])
-    })
-})
-  
-axios({
-    url: 'https://id.org.br/api/v1/statistics.json',
-    method: 'get'
-}).then(function(res){
-    res.data.users_by_service.map(function(item){
-	servicos.commands.push([item.name])
-    })
-})
-
 module.exports = function(app) { 
     return function (msg, match){
 	return app.service('users').find({
@@ -31,7 +10,10 @@ module.exports = function(app) {
 			    "Encaminhe um dos servicos abaixo", 
 			    {
 				"reply_markup": {
-				    "keyboard": servicos.commands
+				    "keyboard": [
+					["/serviços:id.org.br"],
+					["/serviços:logincidadao.rs"]
+				    ]
 				}
 			    }
 			]}
