@@ -84,7 +84,7 @@
           }
         }
         return app.service('users').create(clone).then(function(){
-          alert('Em breve você receberá uma mensagem!)
+          alert('Em breve você receberá uma mensagem!')
         }).catch(function(err){
           alert('Erro '+err.code+': '+err.message)
         })
