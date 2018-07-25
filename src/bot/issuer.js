@@ -1,5 +1,5 @@
 const { Issuer } = require('openid-client');
-const logger = require('logger')
+const logger = require('winston')
 const app = require('../app')
 
 module.exports = function(openid, msg){
