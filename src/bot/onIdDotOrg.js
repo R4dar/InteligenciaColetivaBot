@@ -1,4 +1,3 @@
-const { Issuer } = require('openid-client');
 const logger = require('winston')
 const axios = require('axios')
 const issuer = require('./issuer')
@@ -13,8 +12,6 @@ axios({
     })
 })
 
-
-
 module.exports = function (app) {
     return function(msg, match) {
 	return app.service('users').find({
@@ -23,10 +20,17 @@ module.exports = function (app) {
 	    const openid = app.get('authentication').openid
 	    if(res.total > 0) {
 		if(res.data[0].openid) {
-		    return issuer(openid).then(function(url){
+		    return issuer(app, openid).then(function(url){
 			return {
 			    messages: [
-				{type: 'string', value: 'Acesse '+url+' para logar'}
+				{type: 'keyboard', value: [
+				    'Selecione um dos serviços disponíveis.',
+				    {
+					'reply_markup': {
+					    'keyboard': servicos.commands
+					}
+				    }
+				]}
 			    ]
 			}
 		    })

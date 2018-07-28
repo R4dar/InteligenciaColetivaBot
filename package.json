@@ -50,6 +50,7 @@
     "fs-blob-store": "^5.2.1",
     "helmet": "^3.12.1",
     "jsonwebtoken": "^8.3.0",
+    "localtunnel": "^1.9.0",
     "mocha": "^5.2.0",
     "mongo-uri-builder": "^1.0.3",
     "mongoose": "^5.2.1",
