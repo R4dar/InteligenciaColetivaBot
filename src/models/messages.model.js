@@ -6,10 +6,8 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const messages = new Schema({
-    to: { type: String, required: true },
-    text: { type: String, required: true },
-    keyboard: {type: Object},
-    file: {type: Object}
+    id: { type: String, required: true },
+    value: { type: Object, required: true }
   }, {
     timestamps: true
   });

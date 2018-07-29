@@ -1,4 +1,4 @@
-module.exports = function(msg, match){
+module.exports = function(app, msg, match){
     return new Promise(function(resolve){
 	resolve({
 	    messages: [
@@ -7,7 +7,7 @@ module.exports = function(msg, match){
 		    {
 			"reply_markup": {
 			    "keyboard": [
-				["/serviços"],
+				["/servicos"],
 				["/FAQ"]
 			    ]
 			}

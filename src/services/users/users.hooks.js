@@ -2,12 +2,16 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const {
     hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
-
+const search = require('feathers-mongodb-fuzzy-search')
 module.exports = {
     before: {
-	all: [],
+	all: [
+	],
 	find: [ 
-	    authenticate('jwt')
+	    authenticate('jwt'),
+	    search({
+		fields: ['telegramId', 'first_name']
+	    })
 	],
 	get: [ 
 	    authenticate('jwt')

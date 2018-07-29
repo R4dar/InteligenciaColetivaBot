@@ -102,6 +102,66 @@
 	    ]
 	}
     },
+    "swagger/grupos": {
+	"description": "Grupos service",
+	"definitions": {
+	    "grupos list": {
+		"$ref": "#/definitions/grupos"
+	    }
+	},
+	"find": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a grupo"
+		}
+	    ]
+	},
+	"get": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a grupo"
+		}
+
+	    ]
+	},
+	"create": {},
+	"update": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a grupo"
+		}
+	    ]
+	},
+	"patch": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a grupo"
+		}
+	    ]
+	},
+	"remove": {
+	    "parameters": [
+		{
+		    "in": "path",
+		    "name": "_id",
+		    "type": "string",
+		    "description": "the id of a grupo"
+		}
+	    ]
+	}
+    },
     "swagger/messages": {
 	"description": "Messages service",
 	"definitions": {
