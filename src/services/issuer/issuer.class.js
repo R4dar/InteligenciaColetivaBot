@@ -25,7 +25,7 @@ class Service {
 	    })
 	    return tokenSet
 	}
-!	else {
+	else {
 	    let error = new Error("Not allowed")
 	    error.statusCode = '401'
 	}

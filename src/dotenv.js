@@ -43,12 +43,5 @@ module.exports = function(){
 	})
 	app.set('views', path.join(__dirname, 'views')) // specify the views directory
 	app.set('view engine', 'tml')
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> e328ea87d70416dc8b797eeb4bac15e6fe7952b5
-    }
-
-    
+    }    
 }
