@@ -6,6 +6,7 @@ const logger = require('winston')
 const axios = require('axios')
 const drop = require('../../drop')
 const m2s = require('mongoose-to-swagger');
+const swagger = require('../../swagger')
 
 module.exports = function (app) {
     const Model = createModel(app);
@@ -16,7 +17,16 @@ module.exports = function (app) {
 	paginate
     };
 
-    let docs =  app.get('swagger/users')
+    
+    swagger(app, 'servicos', {
+	find: {security:['local', 'jwt']},
+	create: {},
+	get: {security:['local', 'jwt']},
+	update: {security:['local', 'jwt']},
+	patch: {security:['local', 'jwt']},
+	remove: {security:['local', 'jwt']}
+    })
+    let docs =  app.get('swagger/servicos')
     docs.definitions.servicos = m2s(Model)
     // Initialize our service with any options it requires
     app.use('/servicos', Object.assign(createService(options), {

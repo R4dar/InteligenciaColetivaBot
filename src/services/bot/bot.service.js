@@ -16,8 +16,6 @@ const onNaoIdDotOrg = require('./bot.commands.nao.id.org')
 
 module.exports = function (app) {
     const config = app.get('authentication')
-    // Initialize our service with any options it requires
-    let docs =  app.get('swagger/bot')
 
     let options = {
 	onText: {
@@ -28,11 +26,13 @@ module.exports = function (app) {
 	    'como realizar o login ?': onHowtToSignin,
 	    '/servicos': onServicos,
 	    '/servicos@id.org': onIdDotOrg,
-	    "sim, eu quero encaminhar com minhas! credenciais do id.org": onSimIdDotOrg,
-	    "não, eu quero malograr com as credenciais do id.org": onNaoIdDotOrg,
+	    "/servicos@id.org:proceder": onSimIdDotOrg,
+	    "/servicos@id.org:malograr": onNaoIdDotOrg,
 	    '/servicos@logincidadao.rs': onLogincidadaoRS,
 	}
     }
+    
+    let docs =  app.get('swagger/bot')
     app.use('/bot', Object.assign(createService(options), {
 	docs: docs
     }))

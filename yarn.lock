@@ -2862,9 +2862,9 @@ node-pre-gyp@^0.10.0:
     semver "^5.3.0"
     tar "^4"
 
-node-telegram-bot-api@^0.30.0:
+"node-telegram-bot-api@git+https://github.com/lunhg/node-telegram-bot-api.git":
   version "0.30.0"
-  resolved "https://registry.yarnpkg.com/node-telegram-bot-api/-/node-telegram-bot-api-0.30.0.tgz#17541935f2a56382d8ef7f91d9e544b530be717c"
+  resolved "git+https://github.com/lunhg/node-telegram-bot-api.git#b41c90c5c113175db0cde65202ed22fc62cf9c16"
   dependencies:
     array.prototype.findindex "^2.0.2"
     bl "^1.2.1"

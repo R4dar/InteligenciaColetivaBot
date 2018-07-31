@@ -17,18 +17,14 @@ class Service {
     }
 
     async create (data, params) {
-	let res = await this.app.service('users').find(data)
-	if(res.total > 0) {
-	    let tokenSet = await this.client.authorizationCallback({
-		redirect_uri: this.openid.domain + this.openid.successRedirect,
-		scope: 'openid email',
+	return Issuer.discover('https://id.org.br').then(function(idorg){
+	    let client = new idorg.Client({
+		clientId: '10_15tdota1dbesko4g8wcggckokscwc4o0owgg00oc4wg8s4s4ow',
+		clientSecret: '61astpx93d44wc484c8sgo8oss0g0o0cswgs0wgg8wocok0c00'
 	    })
-	    return tokenSet
-	}
-	else {
-	    let error = new Error("Not allowed")
-	    error.statusCode = '401'
-	}
+	    let res = client.authorizationUrl({redirect_url: 'https://r4dar.localtunnel.me/', scope: 'openid email'})
+	    return rest
+	})
     }
 }
 

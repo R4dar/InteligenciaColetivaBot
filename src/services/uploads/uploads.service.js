@@ -11,6 +11,8 @@ const blobService = require('feathers-blob');
 const fs = require('fs-blob-store');
 const multer = require('multer');
 
+const swagger = require('../../swagger')
+
 // File storage location. Folder must be created before upload.
 // Example: './uploads' will be located under feathers app top level.
 const blobStorage = fs('./uploads');
@@ -18,7 +20,16 @@ module.exports = function (app) {
     const Model = createModel(app);
     const paginate = app.get('paginate');
     const blobStorage = fs(__dirname + '/uploads')
-    const docs =  app.get('swagger/bot')
+    
+    swagger(app, 'uploads', {
+	find: {security:['local', 'jwt']},
+	create: {},
+	get: {security:['local', 'jwt']},
+	update: {security:['local', 'jwt']},
+	patch: {security:['local', 'jwt']},
+	remove: {security:['local', 'jwt']}
+    })
+    const docs =  app.get('swagger/uploads')
     const multipart = multer()
     
     const middlewares = [

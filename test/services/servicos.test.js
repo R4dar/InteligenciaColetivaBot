@@ -12,7 +12,8 @@ describe('\'servicos\' service', () => {
     it('should find servicos', () => {
 	service.find({}).then(function(res){
 	    res.total.should.not.equal(0)
-	    assert.ok(res.total > 0, 'servicos populated')
+	    res.data.should.be.Array()
+	    assert.ok(res.data.length > 0, 'servicos populated')
 	}).catch(function(err){
 	    assert.fail(err)
 	})

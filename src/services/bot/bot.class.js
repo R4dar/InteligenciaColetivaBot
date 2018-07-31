@@ -16,7 +16,7 @@ class Service {
 	Object.keys(this.options).map(item => {
 	    Object.keys(this.options[item]).map(jtem => {
 		this.telegram_bot[item](new RegExp(jtem), async (msg, match) => {
-		    let data = await this.options[item][jtem](this.app)
+		    let data = await this.options[item][jtem](this.app, msg, match)
 		    data.messages.map(async (message) => {
 			await this.create({
 			    id: msg.chat.id,
@@ -30,16 +30,10 @@ class Service {
 
     async create (data) {
 	return new Promise((resolve, reject) => {
-	    setTimeout(async() => {
+	    setTimeout(()=> {
 		try{
 		    // send message
 		    this.telegram_bot.sendMessage(data.id, ...data.message.value)
-
-		    // backup message
-		    //let res = await this.app.service('messages').create({
-		    // id: data.id,
-		    // value: data.message.value
-		    // })
 		    resolve(data)
 		} catch(e) {
 		    reject(e)

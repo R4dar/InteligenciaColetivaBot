@@ -1,60 +1,15 @@
-const { Issuer } = require('openid-client');
 const logger = require('winston')
-const axios = require('axios')
-let servicos = {commands:[]}
-  
-axios({
-    url: 'https://id.org.br/api/v1/statistics.json',
-    method: 'get'
-}).then(function(res){
-    res.data.users_by_service.map(function(item){
-	servicos.commands.push([item.name])
+
+module.exports = async function (app, msg, match) {
+    let idorg = Issuer.discover('https://id.org.br')
+    let client = new idorg.Client({
+	clientId: '10_15tdota1dbesko4g8wcggckokscwc4o0owgg00oc4wg8s4s4ow',
+	clientSecret: '61astpx93d44wc484c8sgo8oss0g0o0cswgs0wgg8wocok0c00'
     })
-})
-
-
-
-module.exports = function (app) {
-    return function(msg, match) {
-	return app.service('users').find({
-	    telegramId: msg.chat.id
-	}).then(function(res) {
-	    const openid = app.get('authentication').openid
-	    if(res.total > 0) {
-		if(!res.data[0].openid) {
-		    return issuer(openid, msg).then(function(url){
-			return {
-			    messages: [
-				{type: 'string', value: 'Acesse '+url+' para logar'}
-			    ]
-			}
-		    })
-		} else {
-		    return {
-			messages: [
-			    {type: 'string', value: res.data[0].first_name+', você já procedeu com suas credenciais open id.'}
-			]
-		    }
-		}
-	    } else {
-		return {
-		    messages: [
-			{type: 'keyboard', value: [
-			    "Parece que você não está registrado no nosso sistema. Você aceita fazer parte da nossa rede?", 
-			    {
-				"reply_markup": {
-				    "keyboard": [
-					["sim, eu quero fazer parte da rede"],
-					["não, eu não quero fazer parte da rede"]
-				    ]
-				}
-		    }
-			]}
-		    ]
-		}
-	    }
-	}).catch(function(err){
-	    logger.debug(err)
-	})
+    let url = client.authorizationUrl({redirect_url: 'https://r4dar.localtunnel.me/', scope: 'openid email'})
+    return {
+	messages: [
+	    {type: 'string', value: 'Acesse '+url}
+	]
     }
 }

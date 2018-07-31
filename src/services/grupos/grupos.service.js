@@ -5,6 +5,7 @@ const hooks = require('./grupos.hooks');
 const m2s = require('mongoose-to-swagger');
 const drop = require('../../drop')
 const logger = require('winston')
+const swagger = require('../../swagger')
 
 module.exports = function (app) {
     const Model = createModel(app);
@@ -14,8 +15,17 @@ module.exports = function (app) {
 	Model,
 	paginate
     };
-
+    
+    swagger(app, 'grupos', {
+	find: {},
+	create: {},
+	get: {},
+	update: {},
+	patch: {},
+	remove: {}
+    })
     let docs =  app.get('swagger/grupos')
+    docs.definitions.grupos = m2s(Model)
     // Initialize our service with any options it requires
     app.use('/grupos', Object.assign(createService(options), {
 	docs: docs
@@ -27,8 +37,7 @@ module.exports = function (app) {
     service.hooks(hooks);
     if(process.env.NODE_ENV === 'development'){
 	logger.debug('Dropping grupos service')
-	drop(service, function(item){
-	    return true
+	drop(service, function(item){	    return true
 	}).then(function(res){
 	    logger.debug('Grupos service dropped')
 	}).catch(function(err){
