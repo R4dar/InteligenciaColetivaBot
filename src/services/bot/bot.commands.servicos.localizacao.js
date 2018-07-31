@@ -6,12 +6,11 @@ module.exports = async function(app, msg, match){
 	return {
 	    messages: [
 		{type: 'keyboard', value: [
-		    "Encaminhe um dos servicos federados abaixo", 
+		    "Sua localização será usada para encontrarmos grupos perto de você.", 
 		    {
 			"reply_markup": {
 			    "keyboard": [
-				["/servicos@id.org.br", "/servicos@logincidadao.rs"],
-				["/servicos@localizacao", "/servicos@contato"]
+				[{text: "Compartilhar localização", request_location: true}]
 			    ]
 			}
 		    }

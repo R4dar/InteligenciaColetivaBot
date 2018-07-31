@@ -14,6 +14,8 @@ module.exports = function (app) {
         first_name: { type: String, required: true },
         last_name: { type: String },
 	openid: { type: String },
+	lat: { type: String },
+	lon: { type: String },
         // user hasMany messages
 	messages: [{ type: mongooseClient.Schema.ObjectId, ref: 'messages' }],
 	// user hasMany messages

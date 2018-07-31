@@ -6,12 +6,11 @@ module.exports = async function(app, msg, match){
 	return {
 	    messages: [
 		{type: 'keyboard', value: [
-		    "Encaminhe um dos servicos federados abaixo", 
+		    "Seu contato será usado para utilizarmos 2FA por sms", 
 		    {
 			"reply_markup": {
 			    "keyboard": [
-				["/servicos@id.org.br", "/servicos@logincidadao.rs"],
-				["/servicos@localizacao", "/servicos@contato"]
+				[{text: "Compartilhar contato telefônico", request_contact: true}]
 			    ]
 			}
 		    }

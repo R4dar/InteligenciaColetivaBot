@@ -12,6 +12,8 @@ const onIdDotOrg = require('./bot.commands.id.org')
 const onLogincidadaoRS = require('./bot.commands.logincidadao.rs')
 const onSimIdDotOrg = require('./bot.commands.sim.id.org')
 const onNaoIdDotOrg = require('./bot.commands.nao.id.org')
+const onLocalizacao = require('./bot.commands.servicos.localizacao')
+const onContato = require('./bot.commands.servicos.contato')
 
 
 module.exports = function (app) {
@@ -29,6 +31,8 @@ module.exports = function (app) {
 	    "/servicos@id.org:proceder": onSimIdDotOrg,
 	    "/servicos@id.org:malograr": onNaoIdDotOrg,
 	    '/servicos@logincidadao.rs': onLogincidadaoRS,
+	    '/servicos@localizacao': onLocalizacao,
+	    '/servicos@contato': onContato,
 	}
     }
     

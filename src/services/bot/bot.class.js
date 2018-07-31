@@ -26,6 +26,23 @@ class Service {
 		})
 	    })
 	})
+
+	// share location
+	this.telegram_bot.once("location", async (msg, match) => {
+	    let res = await this.app.service('users').find({telegramId: msg.chat.id})
+	    await this.app.service('users').patch(res.data[0]._id, {
+		lat: msg.location.latitude,
+		lon: msg.location.longitude
+	    })
+	    
+	    await this.create({
+		id: msg.chat.id,
+		message: {
+		    type: 'string',
+		    value: 'Localização salva'
+		}
+	    })
+	})
     }
 
     async create (data) {

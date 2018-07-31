@@ -8,8 +8,7 @@ module.exports = async function(app, msg, match){
 		    {
 			"reply_markup": {
 			    "keyboard": [
-				["/servicos"],
-				["/FAQ"]
+				["/servicos", "/FAQ"]
 			    ]
 			}
 		    }

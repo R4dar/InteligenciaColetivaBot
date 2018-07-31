@@ -5,7 +5,6 @@ const port = app.get('port');
 const server = app.listen(port);
 const chalk = require('chalk')
 
-
 process.on('unhandledRejection', (err) => {
     logger.error(err)
 });
