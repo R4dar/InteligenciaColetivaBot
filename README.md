@@ -48,7 +48,7 @@ Among serveral configurations made by default, you will need to setup some crede
   - your database access credentials;
   - open id credentials;
 
-So, cp the .env.template to a properly .env file:
+So, `cp .env.template .env` and do properly changes:
 
 ```
 HOST=<HOST> 
@@ -72,11 +72,13 @@ AUTHENTICATION_SECRET=<senha de cookie>
 
 ### Database
 
-If you are using a local server, starts the database.
+If you are using a local server, starts the database with [authentication](https://docs.mongodb.com/manual/reference/program/mongo/#mongo-shell-authentication-options)
 
 ```
-$ sudo mongod --dbpath /data/db &
+$ sudo mongod --dbpath /data/db [...args] &
 ```
+
+If you are using a remote database, simply insert the adequated credentials in environment variables. The variables started with `MONGODB_*` will be joined to `MONGODB_URL` (see `src/dotenv.js`).
 
 ### Server
 
@@ -84,15 +86,42 @@ $ sudo mongod --dbpath /data/db &
 $ npm run start
 ```
 
-If you are using local server, install [localtunnel](https://www.npmjs.org/localtunnel), setup you bot domain as something like `https://abcdefg.localtunnel.me` and run:
+### Telegram and remote access
+
+This server will use `src/views/index.tml` (`tml` is a customized html template with properly environment variables inserted in html and js code) as `GET /`.
+
+If you run and access this as `localhost:*`, you will see a `Bot domain invalid` message in the place of telegram button.
+
+To solve this, you will need to run a valid domain name to the bot and place this as `AUDIENCE` variable in `.env` file, and run a tunnel:
+
+#### Tunnel
+
+Tunnel, in this application, is the usage of [localtunnel](https://www.npmjs.com/package/localtunnel) CLI. This will get our `localhost` server and expose this to a secure proxy on the internet. :
 
 ```
-$ lt --port <your dev port> --subdomain abcdefg
+npm install -g localtunnel
 ```
+
+Before run localtunnel, keep in mind that you will need use a fixed proxy, or in other words, the same domain registered in [BotFather](tg://resolve?domain=botfather&start=true)
+
+And run, as a service, a child processes or a another background command:
+
+```
+lt --port <ACCESS_PORT> --subdomain <SUBDOMAIN>
+```
+
+If you like nginx, you can use a [reverse proxy](/assistente.conf) and use:
+
+```
+lt --port 80 --subdomain <SUBDOMAIN>
+```
+
+## Info
 
 For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
 
 ## Changelog
+
 
 __ 0.1.13__
 - Grupos
