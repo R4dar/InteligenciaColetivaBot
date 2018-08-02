@@ -123,7 +123,19 @@ For more information on all the things you can do with Feathers visit [docs.feat
 ## Changelog
 
 
+__ 0.1.14__
+
+- /bot
+  - Added GET /bot as pre-compiler of message to POST /bot
+- Issuer
+  - melhorado serviço do cliente
+  - todo:
+	- cliente executa, mas obtem erro de acesso
+	- [issue](https://github.com/R4dar/InteligenciaColetivaBot/issues/2) 
+
+
 __ 0.1.13__
+
 - Grupos
   - Added /grupos to API
 - Issuer
