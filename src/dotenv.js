@@ -32,13 +32,16 @@ const dotenvConfig = function(){
     app.set('mongodb', app.get('mongodb').replace(/MONGODB_URL/, url))
     let auth = app.get('authentication')
     auth.secret = auth.secret.replace(/AUTHENTICATION_SECRET/, process.env.AUTHENTICATION_SECRET)
-    auth.jwt.audience = auth.jwt.audience.replace(/AUDIENCE/, process.env.AUDIENCE)
+    auth.jwt.payload.audience = auth.jwt.payload.audience.replace(/AUDIENCE/, process.env.AUDIENCE)
     auth.telegram.username = auth.telegram.username.replace(/TELEGRAM_USERNAME/, process.env.TELEGRAM_USERNAME)
     auth.telegram.token = auth.telegram.token.replace(/TELEGRAM_TOKEN/, process.env.TELEGRAM_TOKEN)
     auth.telegram.admins = process.env.TELEGRAM_ADMINS.split(' ').map(item => { return item })
     auth.openid.clientID = auth.openid.clientID.replace(/OPENID_CLIENT_ID/, process.env.OPENID_CLIENT_ID)
     auth.openid.clientSecret = auth.openid.clientSecret.replace(/OPENID_CLIENT_SECRET/, process.env.OPENID_CLIENT_SECRET)
+    auth.openid.issuer = auth.openid.issuer.replace('ISSUER', process.env.ISSUER)
+    auth.openid.issuer = auth.openid.issuer.replace('REDIRECT_URL', process.env.REDIRECT_URL)
     app.set('authentication', auth)
+    
 
     // Reconfigure public/index.html
     app.engine('tml', tml)

@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 const logger = require('winston')
 const TelegramBot = require('node-telegram-bot-api')
+const path = require('path')
+const fs = require('fs')
 
 class Service {
 
@@ -45,6 +47,7 @@ class Service {
 	})
     }
 
+    // POST /bot will send a message with the bot
     async create (data) {
 	return new Promise((resolve, reject) => {
 	    setTimeout(()=> {
@@ -57,7 +60,25 @@ class Service {
 		}
 	    }, 1000)
 	})
-    }			  
+    }	
+
+    // GET /bot will only render a .json template file located in commands
+    async get (data) {
+	return new Promise((resolve, reject) => {
+	    setTimeout(()=> {
+		let p = path.join(__dirname, 'commands', data.name+'.json')
+		fs.readFile(p, 'utf8', function(err, content) {
+		    if (err) reject(err)
+		    content = content.toString()
+		    Object.keys(data.data).map(item => {
+			content = content.replace('{{ '+item+' }}', data.data[item])
+		    })
+		    content = JSON.parse(content)
+		    resolve(content)
+		})
+	    }, 1000)
+	})
+    }	
 }
 
 module.exports = function (options) {

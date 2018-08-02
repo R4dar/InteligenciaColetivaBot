@@ -82,13 +82,15 @@
 	"identifyUserProps": ["telegramId"],
 	"jwt": {
 	    "header": {
-		"typ": "access"
+		"typ": "access",
+		"alg": "HS256"
 	    },
-	    "audience": "AUDIENCE",
-	    "subject": "anonymous",
-	    "issuer": "feathers",
-	    "algorithm": "HS256",
-	    "expiresIn": "1d"
+	    "payload": {
+		"audience": "AUDIENCE",
+		"subject": "authentication",
+		"issuer": "feathers",
+		"expiresIn": "1d"
+	    }
 	},
 	"local": {
 	    "entity": "user",
@@ -101,8 +103,9 @@
 	    "admins": "TELEGRAM_ADMINS"
 	},
 	"openid":{
-	    "issuer": "https://id.org.br",
-	    "redirect_url": "/",
+	    "issuer": "ISSUER",
+	    "redirect_url": "REDIRECT_URL",
+	    "scopes": "openid email",
 	    "clientID": "OPENID_CLIENT_ID",
 	    "clientSecret": "OPENID_CLIENT_SECRET"  
 	}

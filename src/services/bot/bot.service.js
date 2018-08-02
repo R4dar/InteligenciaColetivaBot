@@ -23,16 +23,16 @@ module.exports = function (app) {
 	onText: {
 	    '/start': onStart,
 	    '/FAQ': onFaq,
-	    'o que é o index?': onWhatIsIndex,
-	    'como registrar?': onHowToSignup,
-	    'como realizar o login ?': onHowtToSignin,
-	    '/servicos': onServicos,
-	    '/servicos@id.org': onIdDotOrg,
-	    "/servicos@id.org:proceder": onSimIdDotOrg,
-	    "/servicos@id.org:malograr": onNaoIdDotOrg,
-	    '/servicos@logincidadao.rs': onLogincidadaoRS,
-	    '/servicos@localizacao': onLocalizacao,
-	    '/servicos@contato': onContato,
+//	    'o que é o index?': onWhatIsIndex,
+//	    'como registrar?': onHowToSignup,
+//	    'como realizar o login ?': onHowtToSignin,
+//	    '/servicos': onServicos,
+//	    '/servicos@id.org': onIdDotOrg,
+//	    "/servicos@id.org:proceder": onSimIdDotOrg,
+//	    "/servicos@id.org:malograr": onNaoIdDotOrg,
+//	    '/servicos@logincidadao.rs': onLogincidadaoRS,
+//	    '/servicos@localizacao': onLocalizacao,
+//	    '/servicos@contato': onContato,
 	}
     }
     

@@ -1,0 +1,8 @@
+{
+    messages: [
+	{
+	    type: 'string', 
+	    value: "Olá {{ username }}, acesse {{ url }} e cadastre-se!"
+	}
+    ]
+}

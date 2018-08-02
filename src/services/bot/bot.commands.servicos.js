@@ -10,8 +10,8 @@ module.exports = async function(app, msg, match){
 		    {
 			"reply_markup": {
 			    "keyboard": [
-				["/servicos@id.org.br", "/servicos@logincidadao.rs"],
-				["/servicos@localizacao", "/servicos@contato"]
+				["/vincular conta id.org", "/vincular logincidadao.rs"],
+				["/vincular localizacao", "/vincular contato"]
 			    ]
 			}
 		    }

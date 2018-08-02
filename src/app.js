@@ -42,10 +42,11 @@ app.get('/', function(req, res){
     let json = {
 	TITLE: 'R4dar-Assistente REST API',
 	TELEGRAM_USERNAME: app.get('authentication').telegram.username,
-	AUDIENCE: app.get('authentication').jwt.audience
+	AUDIENCE: app.get('authentication').jwt.payload.audience
     }
     res.render('index', json)
 })
+
 // Configure Swagger Api
 const _swagger_ = app.get('swagger')
 _swagger_["uiIndex"] = path.join(__dirname, '..', _swagger_["uiIndex"])

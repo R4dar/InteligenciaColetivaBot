@@ -1,12 +1,12 @@
 {
-    "host": "localhost",
-    "port": 3000,
+    "host": "HOST",
+    "port": "PORT",
     "public": "../public/",
     "paginate": {
 	"default": 10,
 	"max": 50
     },
-    "mongodb": "mongodb://${mongodb_user}:${mongodb_pwd}>@${mongodb_host}:${mongodb_port}/${mongodb_dbname}",
+    "mongodb": "MONGODB_URL",
     "swagger": {
 	"docsPath": "/swagger",
 	"uiIndex": "public/swagger.html",
@@ -25,151 +25,6 @@
 		"name": "authorization",
 		"in": "header"
 	    }
-	}
-    },
-    "swagger/users": {
-	"description": "User service",
-	"definitions": {
-	    "users list": {
-		"$ref": "#/definitions/users"
-	    }
-	},
-	"find": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a user"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"get": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a user"
-		}
-
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"create": {},
-	"update": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a user"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"patch": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a user"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"remove": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a user"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	}
-    },
-    "swagger/messages": {
-	"description": "Messages service",
-	"definitions": {
-	    "users list": {
-		"$ref": "#/definitions/messages"
-	    }
-	},
-	"find": {
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"get": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a message"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"create": {
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"update": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a message"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"patch": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a message"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"remove": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a message"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
 	}
     },
     "swagger/bot": {
@@ -216,122 +71,8 @@
 	    ]
 	}
     },
-    "swagger/uploads": {
-	"description": "Uploads service",
-	"definitions": {
-	    "users list": {
-		"$ref": "#/definitions/uploads"
-	    }
-	},
-	"get": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a upload"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"create": {
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"remove": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a message"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	}
-    },
-    "swagger/servicos": {
-	"description": "Serviço de serviços para juntar  logincidadão.rs e id.org",
-	"definitions": {
-	    "users list": {
-		"$ref": "#/definitions/servicos"
-	    }
-	},
-	"find": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a servico"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"get": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a servico"
-		}
-
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"create": {},
-	"update": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a servico"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"patch": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a servico"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	},
-	"remove": {
-	    "parameters": [
-		{
-		    "in": "path",
-		    "name": "_id",
-		    "type": "string",
-		    "description": "the id of a servico"
-		}
-	    ],
-	    "security": [
-		{"local": [], "jwt": []}
-	    ]
-	}
-    },
     "authentication": {
-	"secret": "${authentication_secret}",
+	"secret": "AUTHENTICATION_SECRET",
 	"strategies": [
 	    "jwt",
 	    "local"
@@ -341,13 +82,15 @@
 	"identifyUserProps": ["telegramId"],
 	"jwt": {
 	    "header": {
-		"typ": "access"
+		"typ": "access",
+		"alg": "HS256"
 	    },
-	    "audience": "http://api-r4dar-tk.umbler.net",
-	    "subject": "anonymous",
-	    "issuer": "feathers",
-	    "algorithm": "HS256",
-	    "expiresIn": "1d"
+	    "payload": {
+		"audience": "AUDIENCE",
+		"subject": "authentication",
+		"issuer": "feathers",
+		"expiresIn": "1d"
+	    }
 	},
 	"local": {
 	    "entity": "user",
@@ -355,15 +98,16 @@
 	    "passwordField": "hash"
 	},
 	"telegram":{
-	    "username": "${telegram_username}>",
-	    "token": "${telegram_token}",
-	    "admins": ["${telegram_admins}"]
+	    "username": "TELEGRAM_USERNAME",
+	    "token": "TELEGRAM_TOKEN",
+	    "admins": "TELEGRAM_ADMINS"
 	},
 	"openid":{
-	    "issuer": "https://id.org.br",
-	    "redirect_url": "/",
-	    "clientID": "${openid_clientID}",
-	    "clientSecret": "${openid_clientSecret}"  
+	    "issuer": "ISSUER",
+	    "redirect_url": "REDIRECT_URL",
+	    "scopes": "openid email",
+	    "clientID": "OPENID_CLIENT_ID",
+	    "clientSecret": "OPENID_CLIENT_SECRET"  
 	}
     }
 }

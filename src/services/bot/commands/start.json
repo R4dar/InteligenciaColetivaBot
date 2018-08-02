@@ -1,0 +1,17 @@
+{
+   "messages": [
+	{
+	    "type": "keyboard", 
+	    "value": [
+		"Olá {{ username }}, o que você quer fazer?", 
+		{
+		    "reply_markup": {
+			"keyboard": [
+			    ["/servicos", "/FAQ"]
+			]
+		    }
+		}
+	    ]
+	}
+    ]
+}

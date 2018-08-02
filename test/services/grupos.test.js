@@ -1,6 +1,7 @@
 const assert = require('assert');
 const app = require('../../src/app');
 const service = app.service('grupos');
+const should = require('should')
 
 describe('\'grupos\' service', () => {
     let id = null
@@ -40,6 +41,19 @@ describe('\'grupos\' service', () => {
     it('get a grupo', () => {
 	service.get(id).then(function(res){
 	    assert.ok(res, 'getted grupo')
+	}).catch(function(err){
+	    assert.fail(err)
+	})
+    })
+
+    
+    it('patch a grupo', () => {
+	app.service('users').find({}).then(function(res){
+	    let patch = {users: []}
+	    patch.users = res.data.map(item => { return item._id })
+	    return service.patch(id, patch)
+	}).then(function(res){
+	    assert.ok(res, 'patched grupo')
 	}).catch(function(err){
 	    assert.fail(err)
 	})

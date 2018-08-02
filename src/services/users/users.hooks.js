@@ -2,7 +2,9 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const {
     hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
-const search = require('feathers-mongodb-fuzzy-search')
+const search = require('feathers-mongodb-fuzzy-search');
+const path = require('path')
+
 module.exports = {
     before: {
 	all: [
@@ -17,6 +19,18 @@ module.exports = {
 	    authenticate('jwt')
 	],
 	create: [
+	    function(context) {
+		const app = this
+		context.app.service('bot').create({
+		    id: context.data.telegramId,
+		    message: {
+			type: 'keyboard',
+			value: [ 'Seu cadastro foi bem logrado.'] 
+		    }
+		}).then(function(){
+		    return context
+		})
+	    }
 	],
 	update: [ 
 	    authenticate('jwt')

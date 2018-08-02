@@ -13,6 +13,7 @@ module.exports = function (app) {
         hash: { type: String, required: true },
         first_name: { type: String, required: true },
         last_name: { type: String },
+	accessToken: { type: String},
 	openid: { type: String },
 	lat: { type: String },
 	lon: { type: String },
@@ -28,34 +29,30 @@ module.exports = function (app) {
     let Users = mongooseClient.model('users', users);
 
     Users.admins = app.get('authentication').telegram.admins
-    //  Pre-save some data
+    
+    // Pre-save some data
+    // Before save we need:
+    // - check if user already exists
+    // - if he or she is a admin
+    // After create
+    // - check openid
+    // - send a message
     users.pre('save', function(next) {
 	let self = this
-	
 	Users.find({telegramId: self.telegramId}).then(function(users){
 	    let promise = null
 	    if(users.length > 0) {
-		logger.error("telegramId deve ser único");
 		app.service('bot').create({
 		    id: self.telegramId,
 		    message: {
 			type: 'keyboard',
 			value: [
-			    'O senhor, ou a senhorita, já procedeu com o cadastro.',
-			    {
-				"reply_markup": {
-				    "keyboard": [
-					["/start"]
-				    ]
-				}
-			    }
+			    users.data[0].first_name+', você já procedeu com o cadastro.'
 			]
 		    }
 		}).then(function(res){
 		    self.invalidate("telegramId", "telegramId deve ser único")
 		    next(new Error("telegramId deve ser único"))
-		}).catch(function(err){
-		    next(err)
 		})
 	    }
 	    else {
@@ -65,27 +62,6 @@ module.exports = function (app) {
 			self.isAdmin = new Boolean(true)
 		    }
 		}
-		
-		app.service('bot').create({
-		    id: self.telegramId,
-		    message: {
-			type: 'keyboard',
-			value: [
-			    'Seu cadastro foi bem logrado.',
-			    {
-				"reply_markup": {
-				    "keyboard": [
-					["/start"]
-				    ]
-				}
-			    }
-			]
-		    }
-		}).then(function(res){
-		    next()
-		}).catch(function(err){
-		    next(err)
-		})
 	    }
 	})
     })
