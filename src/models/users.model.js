@@ -16,11 +16,7 @@ module.exports = function (app) {
 	accessToken: { type: String},
 	openid: { type: String },
 	lat: { type: String },
-	lon: { type: String },
-        // user hasMany messages
-	messages: [{ type: mongooseClient.Schema.ObjectId, ref: 'messages' }],
-	// user hasMany messages
-	uploads: [{ type: mongooseClient.Schema.ObjectId, ref:'uploads' }]
+	lon: { type: String }
     }
     let users = new mongooseClient.Schema(table, {
 	timestamps: true
@@ -42,18 +38,8 @@ module.exports = function (app) {
 	Users.find({telegramId: self.telegramId}).then(function(users){
 	    let promise = null
 	    if(users.length > 0) {
-		app.service('bot').create({
-		    id: self.telegramId,
-		    message: {
-			type: 'keyboard',
-			value: [
-			    users.data[0].first_name+', você já procedeu com o cadastro.'
-			]
-		    }
-		}).then(function(res){
-		    self.invalidate("telegramId", "telegramId deve ser único")
-		    next(new Error("telegramId deve ser único"))
-		})
+		self.invalidate("telegramId", "telegramId deve ser único")
+		next(new Error("telegramId deve ser único"))
 	    }
 	    else {
 		for (let i in Users.admins) {
@@ -62,6 +48,7 @@ module.exports = function (app) {
 			self.isAdmin = new Boolean(true)
 		    }
 		}
+		next()
 	    }
 	})
     })

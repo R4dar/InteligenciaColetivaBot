@@ -1,7 +1,7 @@
 {
     "messages": [
 	{
-	    "type": "keyboard", 
+	    "type": 'keyboard', 
 	    "value": [
 		"Selecione uma das perguntas mais frequentes", 
 		{

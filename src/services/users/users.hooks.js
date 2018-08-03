@@ -4,6 +4,7 @@ const {
 } = require('@feathersjs/authentication-local').hooks;
 const search = require('feathers-mongodb-fuzzy-search');
 const path = require('path')
+const logger = require('../../hooks/logger')
 
 module.exports = {
     before: {
@@ -12,26 +13,13 @@ module.exports = {
 	find: [ 
 	    authenticate('jwt'),
 	    search({
-		fields: ['telegramId', 'first_name']
+		fields: ['telegramId', 'first_name', 'lat', 'lon']
 	    })
 	],
 	get: [ 
 	    authenticate('jwt')
 	],
-	create: [
-	    function(context) {
-		const app = this
-		context.app.service('bot').create({
-		    id: context.data.telegramId,
-		    message: {
-			type: 'keyboard',
-			value: [ 'Seu cadastro foi bem logrado.'] 
-		    }
-		}).then(function(){
-		    return context
-		})
-	    }
-	],
+	create: [ ],
 	update: [ 
 	    authenticate('jwt')
 	],
@@ -47,17 +35,41 @@ module.exports = {
 	all: [],
 	find: [],
 	get: [],
-	create: [],
+	create: [
+	    function(context){
+		return context.app.service('bot').create({
+		    id: context.data.telegramId,
+		    message: {
+			type: 'keyboard',
+			value: [ 
+			    context.data.first_name+', seu cadastro foi bem logrado.',
+			    {
+				'reply_markup': {
+				    'keyboard': [
+					['/start']
+				    ]
+				}
+			    }
+			] 
+		    }
+		}).then(function(){
+		    return context
+		})
+	    }
+	],
 	update: [],
 	patch: [],
 	remove: []
     },
 
     error: {
-	all: [],
+	all: [
+	    logger()
+	],
 	find: [],
 	get: [],
-	create: [],
+	create: [
+	],
 	update: [],
 	patch: [],
 	remove: []

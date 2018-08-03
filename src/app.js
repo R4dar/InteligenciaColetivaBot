@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const logger = require('winston');
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
-const reconfigure = require('./reconfigure');
 const express = require('@feathersjs/express');
 const middleware = require('./middleware');
 const services = require('./services');

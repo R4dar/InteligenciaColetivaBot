@@ -7,7 +7,15 @@ const fs = require('fs')
 class Service {
 
     constructor (options) {
-	this.options = options
+	this.options = {}
+	fs.readdirSync(options.root).forEach(dir => {
+	    if (dir !== '.' && dir !== '..') {
+		this.options[dir] = []
+		fs.readdirSync(options.root+'/'+dir).forEach(file => {
+		    this.options[dir].push(file)
+		})
+	    }
+	})
     }
     
     setup(app) {
@@ -15,18 +23,41 @@ class Service {
 	let token = this.app.get('authentication').telegram.token
 	this.telegram_bot = new TelegramBot(token, {polling: true})
 	this.assistente_bot = {}
-	Object.keys(this.options).map(item => {
-	    Object.keys(this.options[item]).map(jtem => {
-		this.telegram_bot[item](new RegExp(jtem), async (msg, match) => {
-		    let data = await this.options[item][jtem](this.app, msg, match)
-		    data.messages.map(async (message) => {
-			await this.create({
-			    id: msg.chat.id,
-			    message: message
-			})
+	// onItem is a onText, onAudio, etc...
+	Object.keys(this.options).map(onItem => {
+	    // command is any macro message sent by user
+	    this.options[onItem].map(command => {
+		let reg = new RegExp('/'+command)
+		this.telegram_bot[onItem](reg, async (msg, match) => {
+		    // Fake a environment
+		    let data = {
+			name: command, 
+			data: {
+			    chat_id: msg.chat.id,
+			    username: msg.from.first_name,
+			    url_cadastro: this.app.get('authentication').jwt.payload.audience
+			}
+		    }
+		    logger.debug(data)
+		    // parse a the environment on templated json
+		    // found user first
+		    this.app.service('users').find({
+			telegramId: msg.chat.id,
+		    }).then(function(res){
+			// if found
+			if(res.data > 0) {
+			    return this.app.service('bot').get(data)
+			// if not found
+			} else {
+			    data.name = 'cadastre-se'
+			    return this.app.service('bot').get(data)   
+			}
+			// send the message
+		    }).then(function(messages){
+			return this.app.service('bot').create(messages)
 		    })
 		})
-	    })
+    	    })
 	})
 
 	// share location

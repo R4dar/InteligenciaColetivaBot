@@ -22,7 +22,7 @@
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "env:prod": "node src/",
     "pre-start": "NODE_ENV='development' yarn run mocha",
-    "start": "node src/",
+    "start": "NODE_ENV='development' node src/",
     "mocha": "./node_modules/mocha/bin/_mocha test/ --recursive --exit",
     "clean": "rm -rf test/data/",
     "coverage": "NODE_ENV='test' ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- test/ --recursive --exit"

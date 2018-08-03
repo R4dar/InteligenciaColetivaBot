@@ -14,30 +14,27 @@ const onSimIdDotOrg = require('./bot.commands.sim.id.org')
 const onNaoIdDotOrg = require('./bot.commands.nao.id.org')
 const onLocalizacao = require('./bot.commands.servicos.localizacao')
 const onContato = require('./bot.commands.servicos.contato')
-
+const path = require('path')
 
 module.exports = function (app) {
     const config = app.get('authentication')
 
-    let options = {
-	onText: {
-	    '/start': onStart,
-	    '/FAQ': onFaq,
-//	    'o que é o index?': onWhatIsIndex,
-//	    'como registrar?': onHowToSignup,
-//	    'como realizar o login ?': onHowtToSignin,
-//	    '/servicos': onServicos,
-//	    '/servicos@id.org': onIdDotOrg,
-//	    "/servicos@id.org:proceder": onSimIdDotOrg,
-//	    "/servicos@id.org:malograr": onNaoIdDotOrg,
-//	    '/servicos@logincidadao.rs': onLogincidadaoRS,
-//	    '/servicos@localizacao': onLocalizacao,
-//	    '/servicos@contato': onContato,
-	}
-    }
+    //	    'o que é o index?': onWhatIsIndex,
+    //	    'como registrar?': onHowToSignup,
+    //	    'como realizar o login ?': onHowtToSignin,
+    //	    '/servicos': onServicos,
+    //	    '/servicos@id.org': onIdDotOrg,
+    //	    "/servicos@id.org:proceder": onSimIdDotOrg,
+    //	    "/servicos@id.org:malograr": onNaoIdDotOrg,
+    //	    '/servicos@logincidadao.rs': onLogincidadaoRS,
+    //	    '/servicos@localizacao': onLocalizacao,
+    //	    '/servicos@contato': onContato,
+
     
     let docs =  app.get('swagger/bot')
-    app.use('/bot', Object.assign(createService(options), {
+    app.use('/bot', Object.assign(createService({
+	root: path.join(__dirname, 'commands')
+    }), {
 	docs: docs
     }))
 
