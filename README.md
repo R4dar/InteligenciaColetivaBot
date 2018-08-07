@@ -6,7 +6,28 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
-## Building
+## Setup and Building
+
+### Docker
+
+The [Dockerfile](/Dockerfile) is an [alpine-aarch64 based image node.js](https://hub.docker.com/r/forumi0721alpineaarch64/alpine-aarch64-nodejs-docker-hub-api/), yarn and [localtunnel](https://www.npmjs.com/package/localtunnel).
+
+Change the section `FROM ...` to fit your needs. The following command runs the default configuration:
+
+```
+$ docker run -t lunhg/assistente
+```
+
+But you can change:
+
+
+```
+$ docker run -t lunhg/assistente HOST=localhost PORT=3000 SUBDOMAIN=r4dar
+```
+
+### Manually
+
+Install dependencies first with `npm` or `yarn`.
 
 ### Node Package manager
 
@@ -19,8 +40,6 @@ npm install
 ```
 yarn install
 ```
-
-### Setup
 
 
 In your package.json, set the running mode, i.e, development, test, production or custom mode:
@@ -51,8 +70,6 @@ Among serveral configurations made by default, you will need to setup some crede
 So, `cp .env.template .env` and do properly changes:
 
 ```
-HOST=<HOST> 
-PORT=<PORT>
 TELEGRAM_USERNAME=<BOT> 
 TELEGRAM_TOKEN=<TOKEN>
 TELEGRAM_ADMINS="<chaid 1> <chatid 2> <chatid 3>"
@@ -67,10 +84,11 @@ AUDIENCE=<your bot domain>
 AUTHENTICATION_SECRET=<senha de cookie>
 ```
 
+and add the following variables: `HOST`, `PORT` and `AUDIENCE`.
 
-## Running
+##### Running
 
-### Database
+###### Database
 
 If you are using a local server, starts the database with [authentication](https://docs.mongodb.com/manual/reference/program/mongo/#mongo-shell-authentication-options)
 
@@ -80,13 +98,13 @@ $ sudo mongod --dbpath /data/db [...args] &
 
 If you are using a remote database, simply insert the adequated credentials in environment variables. The variables started with `MONGODB_*` will be joined to `MONGODB_URL` (see `src/dotenv.js`).
 
-### Server
+###### Server
 
 ```
 $ npm run start
 ```
 
-### Telegram and remote access
+###### Telegram and remote access
 
 This server will use `src/views/index.tml` (`tml` is a customized html template with properly environment variables inserted in html and js code) as `GET /`.
 
