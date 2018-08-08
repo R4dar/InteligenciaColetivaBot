@@ -1,21 +1,23 @@
-FROM forumi0721alpineaarch64/alpine-aarch64-nodejs-docker-hub-api
-
-RUN apk --no-cache add git
-RUN npm config set unsafe-perm true
-RUN npm install -g yarn localtunnel
-
+# --- Base Node ---
+FROM forumi0721alpineaarch64/alpine-aarch64-nodejs as build
 WORKDIR /var/www/Assistente
 COPY . /var/www/Assistente
-RUN echo "HOST=$HOST" >> .env
-RUN echo "PORT=$PORT" >> .env
-RUN echo "AUDIENCE=https://$SUBDOMAIN.localtunnel.me" >> .env
+RUN apk --no-cache add git && \
+    npm config set unsafe-perm true && \
+    npm install -g yarn
+
+ENTRYPOINT ["node", "--version"]
+
+# --- dependencies assistente ---
+FROM build as dependencies
 RUN yarn install
-RUN npm run coverage
 
-# Expose port 3000
-EXPOSE $PORT
 
-# start app
-RUN lt --port $PORT --subdomain $SUBDOMAIN
+# --- test assistente ---
+FROM dependencies as test
+RUN npm test
 
-CMD ["HOST=localhost", "PORT=3000", "SUBDOMAIN=r4dar", "npm", "--prefix=$WWW", "run", "start"]
+# --- Release production mode ---
+FROM dependencies as release
+EXPOSE 3000
+CMD npm --prefix=/var/www/Assistente run start

@@ -36,7 +36,7 @@ class Service {
     }
 
     async get (data) {
-	return this.app.service('users').find({telegramId:data.telegramId}).then(function(res){
+	return this.app.service('users').find({telegramId:data.telegramId}).then((res) => {
 	    if(res.total > 0) {
 		let payload = this.app.get('authentication').jwt.payload
 		payload._id = res.data[0]._id
