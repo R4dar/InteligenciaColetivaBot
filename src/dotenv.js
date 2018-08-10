@@ -1,5 +1,4 @@
 const path = require('path')
-const dotenv = require('dotenv')
 const mongoUriBuilder = require('mongo-uri-builder');
 const qs = require('querystring');
 const fs = require('fs')
@@ -21,7 +20,6 @@ const tml = function (filePath, options, callback) {
 
 const dotenvConfig = function(){
     const app = this
-    dotenv.config()
     app.set('host', app.get('host').replace(/HOST/, process.env.HOST))
     app.set('port', app.get('port').replace(/PORT/, process.env.PORT))
     let url = mongoUriBuilder({
