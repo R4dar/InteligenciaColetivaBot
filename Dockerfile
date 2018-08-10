@@ -1,4 +1,4 @@
-FROM forumi0721alpineaarch64/alpine-aarch64-nodejs as build
+FROM stevenaldinger/alpine-nodejs-dev as build
 RUN apk --no-cache add git
 RUN npm config set unsafe-perm true
 RUN npm install -g yarn
