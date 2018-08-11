@@ -15,16 +15,16 @@ const mongoose = require('./mongoose');
 const authentication = require('./authentication');
 const uploads = require('./uploads');
 const swagger = require('feathers-swagger');
-const dotenv = require('./dotenv')
+const dotenv = require('./dotenv');
 
 // now start
 const app = express(feathers());
 
 // Load app configuration
-app.configure(configuration())
+app.configure(configuration());
 
 // Reconfigure
-app.configure(dotenv())
+app.configure(dotenv());
 
 // Enable CORS, security, compression, favicon and body parsing
 app.use(cors());
@@ -35,21 +35,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 
 // Host the public folder
-app.use(express.static(app.get('public')))
+app.use(express.static(app.get('public')));
 app.get('/', function(req, res){
-    logger.debug('GET /')
-    let json = {
-	TITLE: 'R4dar-Assistente REST API',
-	TELEGRAM_USERNAME: app.get('authentication').telegram.username,
-	AUDIENCE: app.get('authentication').jwt.payload.audience
-    }
-    res.render('index', json)
-})
+  logger.debug('GET /');
+  let json = { TITLE: 'R4dar-Assistente REST API', TELEGRAM_USERNAME: app.get('authentication').telegram.username, AUDIENCE: app.get('authentication').jwt.payload.audience };
+  res.render('index', json);
+});
 
 // Configure Swagger Api
-const _swagger_ = app.get('swagger')
-_swagger_["uiIndex"] = path.join(__dirname, '..', _swagger_["uiIndex"])
-app.configure(swagger(_swagger_))
+const _swagger_ = app.get('swagger');
+_swagger_['uiIndex'] = path.join(__dirname, '..', _swagger_['uiIndex']);
+app.configure(swagger(_swagger_));
     
 // Set up Plugins and providers
 app.configure(express.rest());

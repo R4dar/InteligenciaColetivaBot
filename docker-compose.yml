@@ -1,6 +1,30 @@
 version: '3'
 services:
-  web:
+  build:
+    image: assistente:build
+    build:
+      context: .
+      args:
+        - GUID=1000
+        - UID=1000
+        - USERNAME=node
+  global_dependencies:
+    image: assistente:global_dependencies
     build: .
+  dependencies:
+    image: assistente:dependencies
+    build: .
+  eslint:
+    image: assistente:eslint
+    build: .
+  test:
+    image: assistente:test
+    build: .
+  coverage:
+    image: assistente:coverage
+    build: .
+  production:
+    image: assistente:production
     ports:
-     - "3000:3000"
+      - "3000:3000" 
+    build: .

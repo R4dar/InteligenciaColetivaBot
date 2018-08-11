@@ -1,7 +1,6 @@
 module.exports = {
-    before: {
-	all: [
-	],
-    }
-}
+  before: {
+    all: []
+  }
+};
 
