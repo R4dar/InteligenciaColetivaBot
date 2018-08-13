@@ -3,9 +3,9 @@ FROM node:8.11.3-jessie as build
 ARG GUID
 ARG USERNAME
 ARG UID
-RUN apt-get install git adduser addgroup && \
-    addgroup -g ${GUID} -S ${USERNAME} && \
-    adduser -S -G ${USERNAME} -u ${UID} -s /bin/bash -h /home/${USERNAME} ${USERNAME}
+RUN apt-get install git && \
+    groupadd -g ${GUID} -S ${USERNAME} && \
+    useradd -S -G ${USERNAME} -u ${UID} -s /bin/bash -h /home/${USERNAME} ${USERNAME}
     
 # --- lunhg/assistente:global_dependencies ---
 FROM build as global_dependencies
