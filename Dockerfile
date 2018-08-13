@@ -1,9 +1,9 @@
 # --- lunhg/assistente:build ---
-FROM node:8 as build
+FROM node:8.11.3-jessie as build
 ARG GUID
 ARG USERNAME
 ARG UID
-RUN apk --no-cache add git && \
+RUN apt-get install git adduser addgroup && \
     addgroup -g ${GUID} -S ${USERNAME} && \
     adduser -S -G ${USERNAME} -u ${UID} -s /bin/bash -h /home/${USERNAME} ${USERNAME}
     
@@ -31,7 +31,7 @@ RUN npm test
 # --- lunhg/assistente:coverage ---
 FROM test as coverage
 RUN npm run coverage
-RUN npm run clean && rm -r /home/${USERNAME}/assistente/node_modules
+RUN npm run clean && rm -rf /home/${USERNAME}/assistente/node_modules
 RUN yarn install --production
 
 # --- lunhg/assistente:production ---

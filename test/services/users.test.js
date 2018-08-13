@@ -3,11 +3,7 @@ const app = require('../../src/app');
 const service = app.service('users');
 const telegram = app.get('authentication').telegram;
 const uuid = require('uuid');
-const should = require('should');
-const mongoose = require('mongoose');
-const logger = require('winston'); 
-const fs = require('fs');
-const path = require('path');
+require('should');
 
 describe('\'users\' service', () => {
     
@@ -60,14 +56,14 @@ describe('\'users\' service', () => {
       assert.ok(res, 'patched user');
     }).catch(function(err){
       assert.fail(err);
-    })
+    });
   });
 
   it('remove a user', () => {
     service.remove(id).then(function(res){
       assert.ok(res, 'removed user');
     }).catch(function(err){
-      assert.fail(err)
+      assert.fail(err);
     });
   });
-})
+});

@@ -19,7 +19,7 @@
     },
     "scripts": {
 	"test": "NODE_ENV='test' yarn run mocha",
-	"eslint": "./node_modules/eslint/bin/eslint.js src/. --config .eslintrc.json",
+	"eslint": "./node_modules/eslint/bin/eslint.js src/. test/. --config .eslintrc.json",
 	"start": "NODE_ENV='production' node src/",
 	"mocha": "./node_modules/mocha/bin/_mocha test/ --recursive --exit",
 	"clean": "rm -rf test/data/",
