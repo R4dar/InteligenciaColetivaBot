@@ -9,9 +9,6 @@ services:
         - UID=1000
         - GROUPNAME=node
         - USERNAME=assistente
-  global_dependencies:
-    image: assistente:global_dependencies
-    build: .
   dependencies:
     image: assistente:dependencies
     build: .
@@ -24,8 +21,8 @@ services:
   coverage:
     image: assistente:coverage
     build: .
-  production:
-    image: assistente:production
+  master:
+    image: assistente:master
     ports:
       - "3000:3000" 
     build: .
