@@ -4,22 +4,8 @@ services:
     image: assistente:build
     build:
       context: .
-      args:
-        - GUID=1000
-        - UID=1000
-        - GROUPNAME=node
-        - USERNAME=assistente
-  dependencies:
-    image: assistente:dependencies
-    build: .
-  eslint:
-    image: assistente:eslint
-    build: .
   test:
     image: assistente:test
-    build: .
-  coverage:
-    image: assistente:coverage
     build: .
   master:
     image: assistente:master
