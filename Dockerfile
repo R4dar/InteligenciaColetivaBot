@@ -1,11 +1,31 @@
 # --- lunhg/assistente:build ---
 FROM node:8.11.3-jessie as build
 ARG GUID
+ARG GROUPNAME
 ARG USERNAME
 ARG UID
+
+if [ "$($GUID)" == '' ]; then
+  ENV GUID=1000
+fi
+
+
+if [ "$($UID)" == '' ]; then
+  ENV UID=1000
+fi
+
+if [ "$($GROUPNAME)" == '' ]; then
+  ENV GROUPNAME='node'
+fi
+
+
+if [ "$(USERNAME)" == '' ]; then
+  ENV USERNAME='assistente'
+fi
+ 
 RUN apt-get install git && \
-    groupadd -g ${GUID} -S ${USERNAME} && \
-    useradd -S -G ${USERNAME} -u ${UID} -s /bin/bash -h /home/${USERNAME} ${USERNAME}
+    groupadd -g ${GUID} && ${GROUPNAME} \
+    useradd -G ${GROUPNAME} -u ${UID} -s /bin/bash -h /home/${USERNAME} ${USERNAME}
     
 # --- lunhg/assistente:global_dependencies ---
 FROM build as global_dependencies
