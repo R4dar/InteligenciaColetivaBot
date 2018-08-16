@@ -4,9 +4,6 @@ services:
     image: assistente:build
     build:
       context: .
-  test:
-    image: assistente:test
-    build: .
   master:
     image: assistente:master
     ports:
