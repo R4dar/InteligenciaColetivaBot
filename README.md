@@ -2,6 +2,8 @@
 
 ![[build status](https://travis-ci.org/lunhg/Assistente.svg?branch=master)](https://travis-ci.org/lunhg/Assistente.svg?branch=master)
 
+[![Coverage Status](https://coveralls.io/repos/github/lunhg/Assistente/badge.svg?branch=master)](https://coveralls.io/github/lunhg/Assistente?branch=master)
+
 > [assistente-backend](https://travis-ci.org/lunhg/Assistente)
 
 ## About
