@@ -5,7 +5,8 @@ ARG APP_NAME=r4dar
 USER node
 COPY . /home/node/${APP_NAME}
 WORKDIR /home/node/${APP_NAME}
-RUN yarn install
+RUN npm config set unsafe-perm true && \
+    yarn install
 
 # --- lunhg/assistente:master ---
 FROM build as master
