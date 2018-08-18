@@ -1,5 +1,7 @@
 # assistente
 
+![[build status](https://travis-ci.org/lunhg/Assistente.svg?branch=master)](https://travis-ci.org/lunhg/Assistente.svg?branch=master)
+
 > assistente-backend
 
 ## About
