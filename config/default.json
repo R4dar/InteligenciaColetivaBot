@@ -83,13 +83,13 @@
 	"jwt": {
 	    "header": {
 		"typ": "access",
-		"alg": "HS256"
+		"alg": "HS256",
+		"expiresIn": "1d"
 	    },
 	    "payload": {
 		"audience": "AUDIENCE",
 		"subject": "authentication",
-		"issuer": "feathers",
-		"expiresIn": "1d"
+		"issuer": "feathers"
 	    }
 	},
 	"local": {

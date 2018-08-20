@@ -31,7 +31,7 @@ describe('\'grupos\' service', () => {
         res.data[0].should.have.property(props[i]);
       }
       process.env.GRUPO_UNDER_TEST_ID = res.data[0]._id;
-      assert.ok(id, 'Found 1 grupo');
+      assert.ok(process.env.GRUPO_UNDER_TEST_ID, 'Found 1 grupo');
     }).catch(function(err){
       assert.fail(err);
     });
@@ -49,7 +49,7 @@ describe('\'grupos\' service', () => {
   it('patch a grupo', () => {
     app.service('users').get(process.env.USER_UNDER_TEST_ID).then(function(user){
       let patch = {users: [ user._id ]};
-      return service.patch(id, patch);
+      return service.patch(user._id, patch);
     }).then(function(res){
       assert.ok(res, 'patched grupo');
     }).catch(function(err){

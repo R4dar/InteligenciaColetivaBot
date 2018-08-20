@@ -13,7 +13,7 @@ module.exports = function (app) {
     hash: { type: String, required: true },
     first_name: { type: String, required: true },
     last_name: { type: String },
-    accessToken: { type: String},
+    accessToken: { type: String },
     openid: { type: String },
     lat: { type: String },
     lon: { type: String }

@@ -23,15 +23,14 @@ class Service {
     let token = this.app.get('authentication').telegram.token;
     // The bot
     this.telegram_bot = new TelegramBot(token, {polling: true});
-    this.assistente_bot = {};
     // onItem is a onText, onAudio, etc...
     Object.keys(this.options).map(onItem => {
       // command is any macro message sent by user
       this.options[onItem].map(command => {
         // a message is parsed by a regexpression
-        let reg = new RegExp('/'+command);
-        let fn = this.telegram_bot[onItem];
-        let callback = (msg, match) => {
+        command = command.split('.json')[0]
+        let regular_expression = new RegExp('/'+command);
+        this.telegram_bot[onItem](regular_expression, (msg, match) => {
           // Fake a environment
           let data = { name: command, data: { chat_id: msg.chat.id, username: msg.from.first_name, url_cadastro: this.app.get('authentication').jwt.payload.audience }};
           logger.debug(data);
@@ -50,8 +49,7 @@ class Service {
             // send the parsed template
             return this.app.service('bot').create(messages);
           });
-        };
-        fn(reg, callback);
+        });
       });
     });
 

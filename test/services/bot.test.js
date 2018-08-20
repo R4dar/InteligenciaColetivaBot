@@ -4,6 +4,7 @@ const service = app.service('authentication');
 const telegram = app.get('authentication').telegram;
 const host = app.get('host');
 const port = app.get('port');
+const secret = app.get('authentication').secret;
 const uuid = require('uuid');
 
 describe('\'bot\' service', () => {
@@ -17,7 +18,7 @@ describe('\'bot\' service', () => {
         id: item,
         message: {type: 'string', value: 'Feathersjs + Mocha test from http://'+host+':'+port},
         token: uuid.v4(),
-        secret: process.env.AUTHENTICATION_SECRET
+        secret: secret
       });
     })).then(function(res) {
       assert.ok(res.data, 'messages sent');

@@ -3,6 +3,8 @@ const app = require('../../src/app');
 const service = app.service('users');
 const telegram = app.get('authentication').telegram;
 const uuid = require('uuid');
+const logger = require('winston');
+
 require('should');
 
 describe('\'users\' service', () => {
@@ -37,24 +39,7 @@ describe('\'users\' service', () => {
         res.data[0].should.have.property(props[i]);
       }
       process.env.USER_UNDER_TEST_ID = res.data[0]._id;
-      assert.ok(id, 'Found 1 user');
-    }).catch(function(err){
-      assert.fail(err);
-    });
-  });
-
-  it('get a user', () => {
-    service.get(process.env.USER_UNDER_TEST_ID).then(function(res){
-      assert.ok(res, 'getted user');
-    }).catch(function(err){
-      assert.fail(err);
-    });
-  });
-
-  it('patch a user', () => {
-    process.env.USER_UNDER_TEST_HASH = uuid.v4(); 
-    service.patch(process.env.USER_UNDER_TEST_ID, {hash: process.env.USER_UNDER_TEST_HASH }).then(function(res){
-      assert.ok(res, 'patched user');
+      assert.ok(process.env.USER_UNDER_TEST_ID, 'Found 1 user');
     }).catch(function(err){
       assert.fail(err);
     });

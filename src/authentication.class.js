@@ -15,17 +15,13 @@ class Service {
   async create (data) {
     return new Promise((resolve, reject) => {
       setTimeout(()=> {
-        if(!data.token && !data.secret) {
-          reject(new Error('null credentials'));
-        } else if (data.token && !data.secret) {
-          reject(new Error('null secret'));
-        } else if (!data.token && data.secret) {
+        if (!data.token) {
           reject(new Error('null token'));
         }
-        jwt.verify(data.token, data.secret, (err, decoded) => {
-          logger.debug(decoded)
+        const header = this.app.get('authentication').jwt.header;
+        const secret = this.app.get('authentication').secret;
+        jwt.verify(data.token, secret, header, (err, decoded) => {
           if(err) reject(err);
-          logger.debug(decoded);
           this.app.service('users').patch(decoded._id, {
             accessToken: data.token
           }).then(function(){
@@ -37,16 +33,27 @@ class Service {
   }
 
   async get (data) {
-    return this.app.service('users').find({telegramId:data.telegramId}).then((res) => {
-      if(res.total > 0) {
-        let payload = this.app.get('authentication').jwt.payload;
-        payload._id = res.data[0]._id;
-        let header = this.app.get('authentication').jwt.header;
-        let secret = this.app.get('authentication').secret;
-        return jwt.sign(payload, res.data[0].hash, header);
-      } else {
-        return new Error('Telegram id not found');
-      }
+    return new Promise((resolve, reject) => {
+      let payload = this.app.get('authentication').jwt.payload;
+      const header = this.app.get('authentication').jwt.header;
+      const secret = this.app.get('authentication').secret;
+      this.app.service('users').find({ 
+        first_name: data.first_name,
+        telegramId: data.telegramId
+      }).then((res) => {
+        if(res.total > 0) {
+          payload._id = res.data[0]._id;
+          return jwt.sign(payload, secret, header, (token) => {
+            this.app.service('users').patch(res.data[0]._id, {
+              accessToken: token
+            }).then(function(){
+              resolve(token)
+            })
+          });
+        } else {
+          reject(new Error('Telegram id not found'));
+        }
+      });
     });
   }
 

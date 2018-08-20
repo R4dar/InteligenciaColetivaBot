@@ -26,24 +26,5 @@ module.exports = function (app) {
   // Get our initialized service so that we can register hooks
   const service = app.service('users');
   service.hooks(hooks);
-  if(process.env.NODE_ENV === 'development'){
-    logger.debug('Dropping users service');
-    drop(service, function(){
-      return true;
-    }).then(function(){
-      logger.debug('Users service dropped');
-    }).catch(function(err){
-      logger.debug(err);
-    });
-  } else if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production' ) {
-    logger.debug('Dropping users service unless a item is adminstrator');
-    drop(service, function(item){
-      logger.debug('user '+item._id+(item.isAdmin ? ' isnt admin' : ' is admin'));
-      return item.isAdmin;
-    }).then(function(){
-      logger.debug('Users that arent admins are dropped');
-    }).catch(function(err){
-      logger.debug(err);
-    });
-  }
+  
 };

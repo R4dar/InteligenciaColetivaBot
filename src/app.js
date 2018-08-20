@@ -75,7 +75,7 @@ auth.secret = auth.secret.replace(/AUTHENTICATION_SECRET/, process.env.AUTHENTIC
 auth.jwt.payload.audience = auth.jwt.payload.audience.replace(/AUDIENCE/, process.env.AUDIENCE);
 auth.telegram.username = auth.telegram.username.replace(/TELEGRAM_USERNAME/, process.env.TELEGRAM_USERNAME);
 auth.telegram.token = auth.telegram.token.replace(/TELEGRAM_TOKEN/, process.env.TELEGRAM_TOKEN);
-auth.telegram.admins = process.env.TELEGRAM_ADMINS.split(' ').map(item => { return item; });
+auth.telegram.admins = process.env.TELEGRAM_ADMINS.split(' ');
 auth.openid.clientID = auth.openid.clientID.replace(/OPENID_CLIENT_ID/, process.env.OPENID_CLIENT_ID);
 auth.openid.clientSecret = auth.openid.clientSecret.replace(/OPENID_CLIENT_SECRET/, process.env.OPENID_CLIENT_SECRET);
 auth.openid.issuer = auth.openid.issuer.replace('ISSUER', process.env.ISSUER);

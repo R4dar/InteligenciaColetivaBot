@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const logger = require('winston');
+const drop = require('./drop');
+
 module.exports = function (app) {
   mongoose.connect(app.get('mongodb'), {}).then(function(){
     logger.debug('Connected to mongo database');
@@ -29,11 +31,11 @@ module.exports = function (app) {
         }).catch(function(err){
           logger.debug(err);
         });
-      })
+      });
     }
   }).catch(function(err){
     logger.debug(err);
-  })
+  });
   //mongoose.Promise = global.Promise;
   app.set('mongooseClient', mongoose);
 };
