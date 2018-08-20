@@ -36,7 +36,7 @@ describe('\'users\' service', () => {
       for(let i in props) {
         res.data[0].should.have.property(props[i]);
       }
-      id = res.data[0]._id;
+      process.env.USER_UNDER_TEST_ID = res.data[0]._id;
       assert.ok(id, 'Found 1 user');
     }).catch(function(err){
       assert.fail(err);
@@ -44,7 +44,7 @@ describe('\'users\' service', () => {
   });
 
   it('get a user', () => {
-    service.get(id).then(function(res){
+    service.get(process.env.USER_UNDER_TEST_ID).then(function(res){
       assert.ok(res, 'getted user');
     }).catch(function(err){
       assert.fail(err);
@@ -52,16 +52,9 @@ describe('\'users\' service', () => {
   });
 
   it('patch a user', () => {
-    service.patch(id, {hash: uuid.v4()}).then(function(res){
+    process.env.USER_UNDER_TEST_HASH = uuid.v4(); 
+    service.patch(process.env.USER_UNDER_TEST_ID, {hash: process.env.USER_UNDER_TEST_HASH }).then(function(res){
       assert.ok(res, 'patched user');
-    }).catch(function(err){
-      assert.fail(err);
-    });
-  });
-
-  it('remove a user', () => {
-    service.remove(id).then(function(res){
-      assert.ok(res, 'removed user');
     }).catch(function(err){
       assert.fail(err);
     });

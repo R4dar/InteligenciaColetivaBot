@@ -4,7 +4,6 @@ const service = app.service('grupos');
 require('should');
 
 describe('\'grupos\' service', () => {
-  let id = null;
     
   it('registered the service', () => {
     assert.ok(service, 'Registered the service');
@@ -31,7 +30,7 @@ describe('\'grupos\' service', () => {
       for(let i in props) {
         res.data[0].should.have.property(props[i]);
       }
-      id = res.data[0]._id;
+      process.env.GRUPO_UNDER_TEST_ID = res.data[0]._id;
       assert.ok(id, 'Found 1 grupo');
     }).catch(function(err){
       assert.fail(err);
@@ -39,7 +38,7 @@ describe('\'grupos\' service', () => {
   });
 
   it('get a grupo', () => {
-    service.get(id).then(function(res){
+    service.get(process.env.GRUPO_UNDER_TEST_ID).then(function(res){
       assert.ok(res, 'getted grupo');
     }).catch(function(err){
       assert.fail(err);
@@ -48,11 +47,8 @@ describe('\'grupos\' service', () => {
 
     
   it('patch a grupo', () => {
-    app.service('users').find({}).then(function(res){
-      let patch = {users: []};
-      patch.users = res.data.map(item => { 
-        return item._id; 
-      });
+    app.service('users').get(process.env.USER_UNDER_TEST_ID).then(function(user){
+      let patch = {users: [ user._id ]};
       return service.patch(id, patch);
     }).then(function(res){
       assert.ok(res, 'patched grupo');

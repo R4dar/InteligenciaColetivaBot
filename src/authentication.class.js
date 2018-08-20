@@ -23,6 +23,7 @@ class Service {
           reject(new Error('null token'));
         }
         jwt.verify(data.token, data.secret, (err, decoded) => {
+          logger.debug(decoded)
           if(err) reject(err);
           logger.debug(decoded);
           this.app.service('users').patch(decoded._id, {
