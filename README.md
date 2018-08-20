@@ -1,6 +1,6 @@
 # assistente
 
-![[build status](https://travis-ci.org/lunhg/Assistente.svg?branch=master)](https://travis-ci.org/lunhg/Assistente.svg?branch=master) [![Coverage Status](https://coveralls.io/repos/github/lunhg/Assistente/badge.svg?branch=master)](https://coveralls.io/github/lunhg/Assistente?branch=master) [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/lunhg/lunhg%2FAssistente%2FAssistente?branch=master&key=eyJhbGciOiJIUzI1NiJ9.NWI2YjIyOGFhMmY0MzgwMDAxYjhhNDYw.Han8iOvfN2YicgvC97ggeC1tWY8IzMYQDeizWObmNUk&type=cf-1)]( https://g.codefresh.io/repositories/lunhg/Assistente/builds?filter=trigger:build;branch:master;service:5b6b33915904b83ad671a6ff~Assistente)
+![[build status](https://travis-ci.org/lunhg/Assistente.svg?branch=master)](https://travis-ci.org/lunhg/Assistente.svg?branch=master) ![[Coverage Status](https://coveralls.io/repos/github/lunhg/Assistente/badge.svg?branch=master)](https://coveralls.io/github/lunhg/Assistente?branch=master) ![[Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/lunhg/lunhg%2FAssistente%2FAssistente?branch=master&key=eyJhbGciOiJIUzI1NiJ9.NWI2YjIyOGFhMmY0MzgwMDAxYjhhNDYw.Han8iOvfN2YicgvC97ggeC1tWY8IzMYQDeizWObmNUk&type=cf-1)](https://g.codefresh.io/repositories/lunhg/Assistente/builds?filter=trigger:build;branch:master;service:5b6b33915904b83ad671a6ff~Assistente)
 
 > [assistente-backend](https://travis-ci.org/lunhg/Assistente)
 
