@@ -28,7 +28,7 @@ class Service {
       // command is any macro message sent by user
       this.options[onItem].map(command => {
         // a message is parsed by a regexpression
-        command = command.split('.json')[0]
+        command = command.split('.json')[0];
         let regular_expression = new RegExp('/'+command);
         this.telegram_bot[onItem](regular_expression, (msg, match) => {
           // Fake a environment

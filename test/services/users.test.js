@@ -3,13 +3,9 @@ const app = require('../../src/app');
 const service = app.service('users');
 const telegram = app.get('authentication').telegram;
 const uuid = require('uuid');
-const logger = require('winston');
-
 require('should');
 
 describe('\'users\' service', () => {
-    
-  let id = null;
   it('registered the service', () => {
     assert.ok(service, 'Registered the service');
   });

@@ -47,8 +47,8 @@ class Service {
             this.app.service('users').patch(res.data[0]._id, {
               accessToken: token
             }).then(function(){
-              resolve(token)
-            })
+              resolve(token);
+            });
           });
         } else {
           reject(new Error('Telegram id not found'));
