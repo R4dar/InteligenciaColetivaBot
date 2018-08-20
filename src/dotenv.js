@@ -20,24 +20,17 @@ const tml = function (filePath, options, callback) {
 
 const dotenvConfig = function(){
   const app = this;
-  let envs = 'HOST PORT MONGODB_USER MONGODB_PWD MONGODB_HOST MONGODB_PORT AUTHENTICHATION_SECRET AUDIENCE TELEGRAM_USERNAME TELEGRAM_TOKEN TELEGRAM_ADMINS OPENID_CLIENT_ID OPENID_CLIENT_SECRET ISSUER REDIRECT_URL'.split(' ');
-  // check if .env is loaded by docker
-  let b = false;
-  for(let i in envs) {
-    if (!process.env[envs[i]]) {
-      b = false;
-    }
-    else {
-      b = true;
-    }
-  }
+  let envs = 'HOST PORT MONGODB_USER MONGODB_PWD MONGODB_HOST MONGODB_PORT AUTHENTICHATION_SECRET AUDIENCE TELEGRAM_USERNAME TELEGRAM_TOKEN TELEGRAM_ADMINS OPENID_CLIENT_ID OPENID_CLIENT_SECRET ISSUER REDIRECT_URL'.split(' ').map(function(item){
+    return process.env[item]
+  });
   // if not loded by docker, then runs dotenv package
-  if (b) {
-    let dotenv = require('dotenv');
-    dotenv.config({path: path.join(__dirname, '..', '.env')});
+  if (envs[0] === null || envs[0] === undefined) {
+    require('dotenv').config();
     b = true;
   }
+  logger.debug(process.env['HOST'])
   
+  // Only start correctly if environments are setted
   if (b) {
     app.set('host', app.get('host').replace(/HOST/, process.env.HOST));
     app.set('port', app.get('port').replace(/PORT/, process.env.PORT));

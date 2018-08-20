@@ -62,7 +62,7 @@ class Service {
       }).then((res) => {
         return this.create({ id: msg.chat.id, message: { type: 'string', value: 'Localização salva'}});
       });
-    })
+    });
   }
 
   // POST /bot will send a message with the bot
