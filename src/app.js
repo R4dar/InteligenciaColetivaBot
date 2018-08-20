@@ -22,7 +22,7 @@ const app = express(feathers());
 app.configure(configuration());
 
 // Reconfigure
-app.configure(dotenv());
+app.configure(dotenv('HOST PORT MONGODB_USER MONGODB_PWD MONGODB_HOST MONGODB_PORT AUTHENTICATION_SECRET AUDIENCE TELEGRAM_USERNAME TELEGRAM_TOKEN TELEGRAM_ADMINS OPENID_CLIENT_ID OPENID_CLIENT_SECRET ISSUER REDIRECT_URL'.split(' ')));
 
 // Enable CORS, security, compression, favicon and body parsing
 app.use(cors());
