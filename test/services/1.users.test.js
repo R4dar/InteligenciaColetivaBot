@@ -6,8 +6,15 @@ const uuid = require('uuid');
 require('should');
 
 describe('\'users\' service', () => {
-  it('registered the service', () => {
+  before('registered the service', () => {
     assert.ok(service, 'Registered the service');
+    service.find({}).then(function(res){
+      return Promise.all(res.data.map(item => {
+        return service.remove(item._id);
+      }));
+    }).then(function(){
+      assert.ok(true, 'Dropped');
+    });
   });
 
   it('create a user, and this use should receive a message', () => {

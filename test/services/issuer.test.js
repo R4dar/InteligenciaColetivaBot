@@ -8,10 +8,8 @@ describe('\'issuer\' service', () => {
   });
 
   it('request id.org.br issuer', () => {
-    return app.service('users').find({}).then(function(res){
-      return service.create({
-        telegramId: res.data[0].telegramId
-      });
+    return service.create({
+      telegramId: app.get('authentication').telegram.admins[0]
     }).then(function(res){
       assert.ok(res, 'issuer ok');
     });

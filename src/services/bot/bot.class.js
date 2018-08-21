@@ -70,8 +70,8 @@ class Service {
         try{
           // send message if a text
           let fn = this.telegram_bot['send'+data.message.type];
-          if( data.message.type === 'Message' ) fn(data.id, ...data.message.value);
-          if( data.message.type === 'Photo' ) fn({ chat_id: data.id, caption: data.message.value.caption, photo: data.message.value.photo });
+          if( data.message.type === 'Message' ) fn(data.id, data.message.value);
+          if( data.message.type === 'Photo' ) fn(data.id, {caption: data.message.value.caption, photo: data.message.value.photo });
           resolve(data);
         } catch(e) {
           reject(e);
