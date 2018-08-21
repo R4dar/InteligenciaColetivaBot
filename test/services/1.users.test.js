@@ -17,11 +17,11 @@ describe('\'users\' service', () => {
         first_name: 'Test user '+item,
         auth_date: Date.now(),
         hash: uuid.v4()
-      })
+      });
     })).then(function(results){
-      results.should.be.Array()
+      results.should.be.Array();
       results.length.should.be.equal(3);
-      assert.ok(results.length > 0, 'Users created')
+      assert.ok(results.length > 0, 'Users created');
     }).catch(function(err){
       assert.fail(err);
     });

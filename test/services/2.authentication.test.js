@@ -1,7 +1,6 @@
 const assert = require('assert');
 const app = require('../../src/app');
 const service = app.service('authentication');
-const users = app.service('users');
 const admins = app.get('authentication').telegram.admins;
 
 describe('\'authentication\' service', () => {
@@ -15,8 +14,8 @@ describe('\'authentication\' service', () => {
         return service.create({
           telegramId: user.telegramId,
           hash: '123'
-        })
-      })
+        });
+      });
     })).catch(function(err){
       assert.ok(err, 'Forbiden access');
     });
@@ -29,7 +28,7 @@ describe('\'authentication\' service', () => {
           telegramId: user.telegramId,
           hash: user.hash
         });
-      })
+      });
     })).then(function(results){
       assert.ok(results, 'Verified access');
     });
