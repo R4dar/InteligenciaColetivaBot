@@ -54,7 +54,7 @@
 			"properties": {
 			    "type": {
 				"type": "string",
-				"description": "the type of the message"
+				"description": "the type of the message ('Message' or 'Photo')"
 			    },
 			    "value": {
 				"type": "string",

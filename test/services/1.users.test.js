@@ -11,14 +11,17 @@ describe('\'users\' service', () => {
   });
 
   it('create a user, and this use should receive a message', () => {
-    service.create({
-      telegramId: telegram.admins[0],
-      first_name: 'Test',
-      last_name: telegram.username,
-      auth_date: Date.now(),
-      hash: uuid.v4()
-    }).then(function(res){
-      res.should.be.ok();
+    Promise.all(telegram.admins.map(function(item){
+      return service.create({
+        telegramId: item,
+        first_name: 'Test user '+item,
+        auth_date: Date.now(),
+        hash: uuid.v4()
+      })
+    })).then(function(results){
+      results.should.be.Array()
+      results.length.should.be.equal(3);
+      assert.ok(results.length > 0, 'Users created')
     }).catch(function(err){
       assert.fail(err);
     });
@@ -35,7 +38,8 @@ describe('\'users\' service', () => {
         res.data[0].should.have.property(props[i]);
       }
       process.env.USER_UNDER_TEST_ID = res.data[0]._id;
-      assert.ok(process.env.USER_UNDER_TEST_ID, 'Found 1 user');
+      process.env.USER_UNDER_TEST_HASH = res.data[0].hash;
+      assert.ok(process.env.USER_UNDER_TEST_ID && process.env.USER_UNDER_TEST_HASH, 'Found 1 user');
     }).catch(function(err){
       assert.fail(err);
     });

@@ -12,13 +12,14 @@ describe('\'bot\' service', () => {
     assert.ok(service, 'Registered the service');
   });
 
-  it('should send messages to admins', () => {
+  it('should send a Message to admins', () => {
     return Promise.all(telegram.admins.map(item => {
       return service.create({
         id: item,
-        message: {type: 'string', value: 'Feathersjs + Mocha test from http://'+host+':'+port},
-        token: uuid.v4(),
-        secret: secret
+        message: {
+          type: 'Message', 
+          value: 'Feathersjs + Mocha test passed' 
+        }
       });
     })).then(function(res) {
       assert.ok(res.data, 'messages sent');

@@ -68,8 +68,10 @@ class Service {
     return new Promise((resolve, reject) => {
       setTimeout(()=> {
         try{
-          // send message
-          this.telegram_bot.sendMessage(data.id, ...data.message.value);
+          // send message if a text
+          let fn = this.telegram_bot['send'+data.message.type];
+          if( data.message.type === 'Message' ) fn(data.id, ...data.message.value);
+          if( data.message.type === 'Photo' ) fn({ chat_id: data.id, caption: data.message.value.caption, photo: data.message.value.photo });
           resolve(data);
         } catch(e) {
           reject(e);

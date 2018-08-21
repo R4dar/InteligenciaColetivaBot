@@ -3,7 +3,7 @@ const logger = require('winston');
 const drop = require('./drop');
 
 module.exports = function (app) {
-  mongoose.connect(app.get('mongodb'), {}).then(function(){
+  mongoose.connect(app.get('mongodb'), { useNewUrlParser: true }).then(function(){
     logger.debug('Connected to mongo database');
     if(process.env.NODE_ENV === 'development'){
       Promise.all(['users', 'grupos', 'servicos'].map(item => {
