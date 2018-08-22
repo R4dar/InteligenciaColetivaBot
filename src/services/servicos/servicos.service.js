@@ -28,25 +28,4 @@ module.exports = function (app) {
   // Get our initialized service so that we can register hooks
   const service = app.service('servicos');
   service.hooks(hooks);
-  if(process.env.NODE_ENV === 'development'){
-    logger.debug('Dropping and populating servicos service');
-    drop(service, function(){
-      return true;
-    }).then(function(){
-      logger.debug('Users service dropped');
-      return axios({ url: 'https://logincidadao.rs.gov.br/api/v1/statistics.json', method: 'get'});
-    }).then(function(res){
-      return Promise.all(res.data.users_by_service.map(function(item){
-        service.create(item);
-      }));
-    }).then(function(){
-      return axios({ url: 'https://id.org.br/api/v1/statistics.json', method: 'get' });
-    }).then(function(res){
-      return Promise.all(res.data.users_by_service.map(function(item){
-        service.create(item);
-      }));
-    }).catch(function(err){
-      logger.debug(err);
-    });
-  }
 };

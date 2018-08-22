@@ -2,6 +2,7 @@ const assert = require('assert');
 const app = require('../../src/app');
 const service = app.service('bot');
 const telegram = app.get('authentication').telegram;
+const logger = require('winston');
 
 describe('\'bot\' service', () => {
   it('registered the service', () => {
@@ -9,7 +10,7 @@ describe('\'bot\' service', () => {
   });
 
   it('should send a Message to admins', () => {
-    return Promise.all(telegram.admins.map(item => {
+    Promise.all(telegram.admins.map(item => {
       return service.create({
         id: item,
         message: {
@@ -18,9 +19,9 @@ describe('\'bot\' service', () => {
         }
       });
     })).then(function(res) {
-      assert.ok(res.data, 'messages sent');
+      assert.ok(res, 'messages sent');
     }).catch(function(err){
-      assert.fail(err);
+      assert.fail(err, 'messages not sent');
     });
   });
 });

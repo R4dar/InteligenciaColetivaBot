@@ -1,6 +1,7 @@
 const assert = require('assert');
 const app = require('../../src/app');
 const service = app.service('issuer');
+const admins = app.get('authentication').telegram.admins;
 
 describe('\'issuer\' service', () => {
   it('registered the service', () => {
@@ -8,10 +9,14 @@ describe('\'issuer\' service', () => {
   });
 
   it('request id.org.br issuer', () => {
-    return service.create({
-      telegramId: app.get('authentication').telegram.admins[0]
-    }).then(function(res){
+    Promise.all(admins.map(item => {
+      return service.create({
+        telegramId: item
+      })
+    })).then(function(res) {
       assert.ok(res, 'issuer ok');
+    }).catch(function(err){
+      assert.fail(err, 'issuer fail');
     });
   });
 });

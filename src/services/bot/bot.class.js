@@ -67,12 +67,13 @@ class Service {
   async create (data) {
     return new Promise((resolve, reject) => {
       setTimeout(()=> {
+        logger.debug(data);
         try{
           // send message if a text
           let fn = this.telegram_bot['send'+data.message.type];
           if( data.message.type === 'Message' ) fn(data.id, data.message.value);
           if( data.message.type === 'Photo' ) fn(data.id, {caption: data.message.value.caption, photo: data.message.value.photo });
-          resolve(data);
+          resolve('message sent to '+data.id);
         } catch(e) {
           reject(e);
         }
