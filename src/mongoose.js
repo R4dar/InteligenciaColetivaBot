@@ -20,7 +20,7 @@ module.exports = function (app) {
       });
     } else if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production' ) {
       Promise.all(['users'].map(item => {
-        logger.debug('Dropping users service unless a item is adminstrator');
+        logger.debug('Dropping '+item+' service unless is adminstrator');
         return app.service(item);
       })).then(function(service){
         drop(service, function(item){

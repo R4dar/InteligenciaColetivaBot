@@ -12,7 +12,7 @@ describe('\'issuer\' service', () => {
     Promise.all(admins.map(item => {
       return service.create({
         telegramId: item
-      })
+      });
     })).then(function(res) {
       assert.ok(res, 'issuer ok');
     }).catch(function(err){

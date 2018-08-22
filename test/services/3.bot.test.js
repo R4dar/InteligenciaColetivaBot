@@ -2,7 +2,6 @@ const assert = require('assert');
 const app = require('../../src/app');
 const service = app.service('bot');
 const telegram = app.get('authentication').telegram;
-const logger = require('winston');
 
 describe('\'bot\' service', () => {
   it('registered the service', () => {

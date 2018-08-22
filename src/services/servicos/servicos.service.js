@@ -2,9 +2,6 @@
 const createService = require('feathers-mongoose');
 const createModel = require('../../models/servicos.model');
 const hooks = require('./servicos.hooks');
-const logger = require('winston');
-const axios = require('axios');
-const drop = require('../../drop');
 const m2s = require('mongoose-to-swagger');
 const swagger = require('../../swagger');
 
