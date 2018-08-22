@@ -8,6 +8,8 @@
 
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
+See [Docs](/DOCS.md) for many information
+
 ## Setup and Building
 
 ### Docker
