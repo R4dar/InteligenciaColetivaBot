@@ -1,3 +1,10 @@
+test/
 node_modules/
+README.md
+DOCS.md
+assistente.conf
 .git/
-.env
+.editorconfig
+.env.template
+.eslintrc.json
+.travis.yml

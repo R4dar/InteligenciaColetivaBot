@@ -40,6 +40,7 @@ app.configure(configuration([
   'AUTHENTICATION_SECRET'
 ]));
 
+logger.debug(process.env)
 
 // Reconfigure public/index.html
 app.engine('tml', function (filePath, options, callback) {
@@ -61,15 +62,13 @@ app.set('views', path.join(__dirname, 'views')); // specify the views directory
 app.set('view engine', 'tml');
 
 // reconfigure server
-app.set('host', app.get('host').replace(/HOST/, process.env.HOST));
-app.set('port', app.get('port').replace(/PORT/, process.env.PORT));
 let opt = {
   host: process.env.MONGODB_USER+':'+qs.escape(process.env.MONGODB_PWD)+'@'+process.env.MONGODB_HOST,
   port: process.env.MONGODB_PORT,
   database: require(path.join(__dirname, '..', 'package.json')).name
 };
 let url = mongoUriBuilder(opt);
-app.set('mongodb', app.get('mongodb').replace(/MONGODB_URL/, url));
+app.set('mongodb', url);
 let auth = app.get('authentication');
 auth.secret = auth.secret.replace(/AUTHENTICATION_SECRET/, process.env.AUTHENTICATION_SECRET);
 auth.jwt.payload.audience = auth.jwt.payload.audience.replace(/AUDIENCE/, process.env.AUDIENCE);
