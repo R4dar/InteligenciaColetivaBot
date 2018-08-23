@@ -6,5 +6,6 @@ ENTRYPOINT yarn install --production
 
 # --- lunhg/assistente:master ---
 FROM build as master
+EXPOSE 3000
 CMD npm --prefix=/var/www run start
 
