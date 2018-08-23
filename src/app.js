@@ -40,8 +40,6 @@ app.configure(configuration([
   'AUTHENTICATION_SECRET'
 ]));
 
-logger.debug(process.env)
-
 // Reconfigure public/index.html
 app.engine('tml', function (filePath, options, callback) {
   fs.readFile(filePath, function(err, content){
