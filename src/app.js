@@ -14,41 +14,24 @@ const fs = require('fs');
 const mongoose = require('./mongoose');
 const authentication = require('./authentication');
 const swagger = require('feathers-swagger');
-const mongoUriBuilder = require('mongo-uri-builder');
-const qs = require('querystring');
 
 // now start
 const app = express(feathers());
 
 // Load app configuration
-app.configure(configuration([
-  'HOST', 
-  'PORT', 
-  'TELEGRAM_USERNAME', 
-  'TELEGRAM_TOKEN', 
-  'TELEGRAM_ADMINS',
-  'MONGODB_USER', 
-  'MONGODB_PWD', 
-  'MONGODB_HOST', 
-  'MONGODB_PORT', 
-  'MONGODB_DBNAME',
-  'OPENID_CLIENT_ID',
-  'OPENID_CLIENT_SECRET', 
-  'ISSUER', 
-  'AUDIENCE', 
-  'REDIRECT_URL',
-  'AUTHENTICATION_SECRET'
-]));
+app.configure(configuration({
+  path: path.join(__dirname, '.env')
+}));
 
 // Reconfigure public/index.html
 app.engine('tml', function (filePath, options, callback) {
   fs.readFile(filePath, function(err, content){
     if(!err){
       content = content.toString();
-      content = content.replace('{{ TELEGRAM_USERNAME }}', options.TELEGRAM_USERNAME);
-      content = content.replace('{{ AUDIENCE }}', options.AUDIENCE);
-      content = content.replace('{{ TITLE }}', options.TITLE);
-      content = content.replace('{{ TITLE }}', options.TITLE);
+      content = content.replace('{{ telegram_username }}', app.get('authentication').telegram.username);
+      content = content.replace('{{ telegram_username }}', app.get('authentication').telegram.username);
+      content = content.replace('{{ telegram_username }}', app.get('authentication').telegram.username);
+      content = content.replace('{{ audience }}', app.get('authentication').jwt.payload.audience);
       callback(null, content);
     } else {
       callback(err);
@@ -56,28 +39,14 @@ app.engine('tml', function (filePath, options, callback) {
   });
 });
 
-app.set('views', path.join(__dirname, 'views')); // specify the views directory
+// specify the views directory
+app.set('views', path.join(__dirname, 'views')); 
 app.set('view engine', 'tml');
 
-// reconfigure server
-let opt = {
-  host: process.env.MONGODB_USER+':'+qs.escape(process.env.MONGODB_PWD)+'@'+process.env.MONGODB_HOST,
-  port: process.env.MONGODB_PORT,
-  database: require(path.join(__dirname, '..', 'package.json')).name
-};
-let url = mongoUriBuilder(opt);
-app.set('mongodb', url);
 let auth = app.get('authentication');
-auth.secret = auth.secret.replace(/AUTHENTICATION_SECRET/, process.env.AUTHENTICATION_SECRET);
-auth.jwt.payload.audience = auth.jwt.payload.audience.replace(/AUDIENCE/, process.env.AUDIENCE);
-auth.telegram.username = auth.telegram.username.replace(/TELEGRAM_USERNAME/, process.env.TELEGRAM_USERNAME);
-auth.telegram.token = auth.telegram.token.replace(/TELEGRAM_TOKEN/, process.env.TELEGRAM_TOKEN);
-auth.telegram.admins = process.env.TELEGRAM_ADMINS.split(' ');
-auth.openid.clientID = auth.openid.clientID.replace(/OPENID_CLIENT_ID/, process.env.OPENID_CLIENT_ID);
-auth.openid.clientSecret = auth.openid.clientSecret.replace(/OPENID_CLIENT_SECRET/, process.env.OPENID_CLIENT_SECRET);
-auth.openid.issuer = auth.openid.issuer.replace('ISSUER', process.env.ISSUER);
-auth.openid.issuer = auth.openid.issuer.replace('REDIRECT_URL', process.env.REDIRECT_URL);
+auth.telegram.admins = auth.telegram.admins.split(' ');
 app.set('authentication', auth);
+
 
 // Enable CORS, security, compression, favicon and body parsing
 app.use(cors());
@@ -91,8 +60,7 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 app.use(express.static(app.get('public')));
 app.get('/', function(req, res){
   logger.debug('GET /');
-  let json = { TITLE: 'R4dar-Assistente REST API', TELEGRAM_USERNAME: app.get('authentication').telegram.username, AUDIENCE: app.get('authentication').jwt.payload.audience };
-  res.render('index', json);
+  res.render('index');
 });
 
 // Configure Swagger Api

@@ -59,10 +59,11 @@
 
 "@feathersjs/configuration@git+https://github.com/lunhg/configuration.git":
   version "2.0.0"
-  resolved "git+https://github.com/lunhg/configuration.git#3fcf4f03e304d5049ddc79816d287847c0097e86"
+  resolved "git+https://github.com/lunhg/configuration.git#2fe8b8efffa7461a695cc5bed18632c1a3952e02"
   dependencies:
     config "^2.0.0"
     debug "^3.1.0"
+    dotenv "^6.0.0"
 
 "@feathersjs/errors@^3.0.0", "@feathersjs/errors@^3.2.0", "@feathersjs/errors@^3.3.0":
   version "3.3.0"

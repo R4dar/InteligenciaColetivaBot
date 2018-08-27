@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{{ TITLE }}</title>
+    <title>{{ telegram_username  }}</title>
     <style>
       * {
       margin: 0;
@@ -63,30 +63,30 @@
   </head>
   <body>
     <main class="container">
-      <h2 class="center-text">{{ TITLE }}</h2>
-      <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="{{ TELEGRAM_USERNAME }}" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+      <h2 class="center-text">{{ telegram_username }} REST API</h2>
+      <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="{{ telegram_username }}" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
       <footer>
         <p class="center-text">For more information on Feathers see our <a href="/swagger" title="swagger UI documentation" target="blank">swagger UI documentation</a>.</p>
       </footer>
     </main> 
     <script type="text/javascript">
       var app = window.app = feathers();
-      var rest = feathers.rest('{{ AUDIENCE }}');
+      var rest = feathers.rest('{{ audience }}');
       app.configure(rest.fetch(window.fetch));
       function onTelegramAuth(user){
         let clone = {}
         let p = ['id', 'first_name', 'last_name', 'auth_date', 'hash']
         for(let i in p) {
           if (p[i] === 'id') {
-            clone['telegramId'] = user[p[i]]
+            clone['telegramId'] = user[p[i]];
           } else {
-            clone[p[i]] = user[p[i]]
+            clone[p[i]] = user[p[i]];
           }
         }
         return app.service('users').create(clone).then(function(){
-          alert('Em breve você receberá uma mensagem!')
+          alert('{{ greetings }}');
         }).catch(function(err){
-          alert('Erro '+err.code+': '+err.message)
+          alert('Erro '+err.code+': '+err.message);
         })
       }
     </script>

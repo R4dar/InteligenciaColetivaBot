@@ -6,7 +6,7 @@
 	"default": 10,
 	"max": 50
     },
-    "mongodb": "MONGODB_URL",
+    "mongodb": "mongodb://MONGODB_USERNAME:MONGODB_PWD@MONGODB_HOST:MONGODB_PORT/MONGODB_DBNAME",
     "swagger": {
 	"docsPath": "/swagger",
 	"uiIndex": "public/swagger.html",
@@ -54,7 +54,7 @@
 			"properties": {
 			    "type": {
 				"type": "string",
-				"description": "the type of the message"
+				"description": "the type of the message ('Message' or 'Photo')"
 			    },
 			    "value": {
 				"type": "string",
@@ -83,13 +83,13 @@
 	"jwt": {
 	    "header": {
 		"typ": "access",
-		"alg": "HS256"
+		"alg": "HS256",
+		"expiresIn": "1d"
 	    },
 	    "payload": {
-		"audience": "AUDIENCE",
+		"audience": "JWT_AUDIENCE",
 		"subject": "authentication",
-		"issuer": "feathers",
-		"expiresIn": "1d"
+		"issuer": "JWT_ISSUER"
 	    }
 	},
 	"local": {
@@ -103,11 +103,11 @@
 	    "admins": "TELEGRAM_ADMINS"
 	},
 	"openid":{
-	    "issuer": "ISSUER",
-	    "redirect_url": "REDIRECT_URL",
+	    "issuer": "OPENID_ISSUER",
+	    "redirect_url": "OPENID_REDIRECT_URL",
 	    "scopes": "openid email",
-	    "clientID": "OPENID_CLIENT_ID",
-	    "clientSecret": "OPENID_CLIENT_SECRET"  
+	    "clientID": "OPENID_ID",
+	    "clientSecret": "OPENID_SECRET"  
 	}
     }
 }
