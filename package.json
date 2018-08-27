@@ -44,7 +44,6 @@
 	"feathers-swagger": "^0.7.1",
 	"helmet": "^3.12.1",
 	"jsonwebtoken": "^8.3.0",
-	"mongo-uri-builder": "^1.0.3",
 	"mongoose": "^5.2.1",
 	"mongoose-to-swagger": "^0.0.4",
 	"node-telegram-bot-api": "git+https://github.com/lunhg/node-telegram-bot-api.git",

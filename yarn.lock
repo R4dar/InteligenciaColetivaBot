@@ -3068,10 +3068,6 @@ mocha@^5.2.0:
     mkdirp "0.5.1"
     supports-color "5.4.0"
 
-mongo-uri-builder@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/mongo-uri-builder/-/mongo-uri-builder-1.0.3.tgz#f82cd3702fce893d073ef543683980c8c0588d90"
-
 mongodb-core@3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.1.2.tgz#c85055a2691ac3661951e557a0d6482796ad5c42"

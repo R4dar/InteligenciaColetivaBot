@@ -20,7 +20,7 @@ const app = express(feathers());
 
 // Load app configuration
 app.configure(configuration({
-  path: path.join(__dirname, '.env')
+  path: path.join(__dirname, '..', '.env')
 }));
 
 // Reconfigure public/index.html
