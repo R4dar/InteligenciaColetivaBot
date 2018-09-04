@@ -11,6 +11,6 @@ process.on('unhandledRejection', (err) => {
 server.on('listening', () => {
   let host = app.get('host');
   let port = app.get('port');
-  logger.info(`Feathers application started on http://${host}:${port}`);
+  logger.info(`Assistente REST api running on http://${host}:${port}`);
 });
 

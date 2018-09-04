@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{{ telegram_username  }}</title>
+    <title>{{ title }}</title>
     <style>
       * {
       margin: 0;
@@ -63,8 +63,8 @@
   </head>
   <body>
     <main class="container">
-      <h2 class="center-text">{{ telegram_username }} REST API</h2>
-      <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="{{ telegram_username }}" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+      <h2 class="center-text">{{ title }} REST API</h2>
+      <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="{{ bot_name }}" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
       <footer>
         <p class="center-text">For more information on Feathers see our <a href="/swagger" title="swagger UI documentation" target="blank">swagger UI documentation</a>.</p>
       </footer>

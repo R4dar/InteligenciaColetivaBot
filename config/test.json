@@ -1,4 +1,5 @@
 {
+    "name": "Assistente",
     "host": "HOST",
     "port": "PORT",
     "public": "../public/",

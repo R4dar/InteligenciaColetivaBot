@@ -1,11 +1,7 @@
-version: '2'
-services:
-  build:
-    image: assistente:build
-    build:
-      context: .
+version: '3'
+services: 
   master:
     image: assistente:master
     ports:
-      - "3000:3000" 
+      - "80:3000" 
     build: .

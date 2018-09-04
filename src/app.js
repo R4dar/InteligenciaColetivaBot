@@ -28,10 +28,13 @@ app.engine('tml', function (filePath, options, callback) {
   fs.readFile(filePath, function(err, content){
     if(!err){
       content = content.toString();
-      content = content.replace('{{ telegram_username }}', app.get('authentication').telegram.username);
-      content = content.replace('{{ telegram_username }}', app.get('authentication').telegram.username);
-      content = content.replace('{{ telegram_username }}', app.get('authentication').telegram.username);
-      content = content.replace('{{ audience }}', app.get('authentication').jwt.payload.audience);
+      const title = app.get('name');
+      content = content.replace('{{ title }}', title);
+      content = content.replace('{{ title }}', title);
+      const bot_name = app.get("authentication").telegram.username;
+      content = content.replace('{{ bot_name }}', bot_name);
+      const audience = app.get('authentication').jwt.payload.audience;  
+      content = content.replace('{{ audience }}', audience);
       callback(null, content);
     } else {
       callback(err);
