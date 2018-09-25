@@ -8,5 +8,7 @@ services:
   docs:
     image: assistente:docs
     ports:
-      - "3001:81" 
-    build: .
+      - "3001:80" 
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.docs
