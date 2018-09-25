@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>app.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="app.hooks.html">
+                  src/app.hooks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  src/app.js
+                </a>
+              
+                
+                <a class="source" href="authentication.class.html">
+                  src/authentication.class.js
+                </a>
+              
+                
+                <a class="source" href="authentication.hooks.html">
+                  src/authentication.hooks.js
+                </a>
+              
+                
+                <a class="source" href="authentication.html">
+                  src/authentication.js
+                </a>
+              
+                
+                <a class="source" href="drop.html">
+                  src/drop.js
+                </a>
+              
+                
+                <a class="source" href="hooks/logger.html">
+                  src/hooks/logger.js
+                </a>
+              
+                
+                <a class="source" href="index.html">
+                  src/index.js
+                </a>
+              
+                
+                <a class="source" href="middleware/index.html">
+                  src/middleware/index.js
+                </a>
+              
+                
+                <a class="source" href="models/grupos.model.html">
+                  src/models/grupos.model.js
+                </a>
+              
+                
+                <a class="source" href="models/messages.model.html">
+                  src/models/messages.model.js
+                </a>
+              
+                
+                <a class="source" href="models/servicos.model.html">
+                  src/models/servicos.model.js
+                </a>
+              
+                
+                <a class="source" href="models/uploads.model.html">
+                  src/models/uploads.model.js
+                </a>
+              
+                
+                <a class="source" href="models/users.model.html">
+                  src/models/users.model.js
+                </a>
+              
+                
+                <a class="source" href="mongoose.html">
+                  src/mongoose.js
+                </a>
+              
+                
+                <a class="source" href="services/index.html">
+                  src/services/index.js
+                </a>
+              
+                
+                <a class="source" href="swagger.html">
+                  src/swagger.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>app.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> favicon = <span class="hljs-built_in">require</span>(<span class="hljs-string">'serve-favicon'</span>);
+<span class="hljs-keyword">const</span> compress = <span class="hljs-built_in">require</span>(<span class="hljs-string">'compression'</span>);
+<span class="hljs-keyword">const</span> cors = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cors'</span>);
+<span class="hljs-keyword">const</span> helmet = <span class="hljs-built_in">require</span>(<span class="hljs-string">'helmet'</span>);
+<span class="hljs-keyword">const</span> logger = <span class="hljs-built_in">require</span>(<span class="hljs-string">'winston'</span>);
+<span class="hljs-keyword">const</span> feathers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@feathersjs/feathers'</span>);
+<span class="hljs-keyword">const</span> configuration = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@feathersjs/configuration'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@feathersjs/express'</span>);
+<span class="hljs-keyword">const</span> middleware = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./middleware'</span>);
+<span class="hljs-keyword">const</span> services = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./services'</span>);
+<span class="hljs-keyword">const</span> appHooks = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./app.hooks'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./mongoose'</span>);
+<span class="hljs-keyword">const</span> authentication = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./authentication'</span>);
+<span class="hljs-keyword">const</span> swagger = <span class="hljs-built_in">require</span>(<span class="hljs-string">'feathers-swagger'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>now start</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> app = express(feathers());</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Load app configuration</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.configure(configuration({
+  <span class="hljs-attr">path</span>: path.join(__dirname, <span class="hljs-string">'..'</span>, <span class="hljs-string">'.env'</span>)
+}));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Reconfigure public/index.html</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.engine(<span class="hljs-string">'tml'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">filePath, options, callback</span>) </span>{
+  fs.readFile(filePath, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, content</span>)</span>{
+    <span class="hljs-keyword">if</span>(!err){
+      content = content.toString();
+      <span class="hljs-keyword">const</span> title = app.get(<span class="hljs-string">'name'</span>);
+      content = content.replace(<span class="hljs-string">'{{ title }}'</span>, title);
+      content = content.replace(<span class="hljs-string">'{{ title }}'</span>, title);
+      <span class="hljs-keyword">const</span> bot_name = app.get(<span class="hljs-string">"authentication"</span>).telegram.username;
+      content = content.replace(<span class="hljs-string">'{{ bot_name }}'</span>, bot_name);
+      <span class="hljs-keyword">const</span> audience = app.get(<span class="hljs-string">'authentication'</span>).jwt.payload.audience;  
+      content = content.replace(<span class="hljs-string">'{{ audience }}'</span>, audience);
+      callback(<span class="hljs-literal">null</span>, content);
+    } <span class="hljs-keyword">else</span> {
+      callback(err);
+    }
+  });
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>specify the views directory</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.set(<span class="hljs-string">'views'</span>, path.join(__dirname, <span class="hljs-string">'views'</span>)); 
+app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'tml'</span>);
+
+<span class="hljs-keyword">let</span> auth = app.get(<span class="hljs-string">'authentication'</span>);
+auth.telegram.admins = auth.telegram.admins.split(<span class="hljs-string">' '</span>);
+app.set(<span class="hljs-string">'authentication'</span>, auth);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Enable CORS, security, compression, favicon and body parsing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.use(cors());
+app.use(helmet());
+app.use(compress());
+app.use(express.json());
+app.use(express.urlencoded({ <span class="hljs-attr">extended</span>: <span class="hljs-literal">true</span> }));
+app.use(favicon(path.join(app.get(<span class="hljs-string">'public'</span>), <span class="hljs-string">'favicon.ico'</span>)));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Host the public folder</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.use(express.static(app.get(<span class="hljs-string">'public'</span>)));
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>)</span>{
+  logger.debug(<span class="hljs-string">'GET /'</span>);
+  res.render(<span class="hljs-string">'index'</span>);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Configure Swagger Api</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> _swagger_ = app.get(<span class="hljs-string">'swagger'</span>);
+_swagger_[<span class="hljs-string">'uiIndex'</span>] = path.join(__dirname, <span class="hljs-string">'..'</span>, _swagger_[<span class="hljs-string">'uiIndex'</span>]);
+app.configure(swagger(_swagger_));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Set up Plugins and providers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.configure(express.rest());
+app.configure(mongoose);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Configure other middleware (see <code>middleware/index.js</code>)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.configure(middleware);
+app.configure(authentication);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Set up our services (see <code>services/index.js</code>)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.configure(services);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Configure a middleware for 404s and the error handler</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.use(express.notFound());
+app.use(express.errorHandler({ logger }));
+app.hooks(appHooks);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Go</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = app;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
