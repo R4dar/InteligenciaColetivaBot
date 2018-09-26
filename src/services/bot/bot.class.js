@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const logger = require('winston');
 const Telegraf = require('telegraf');
-const manager = require('./bot.manager.js')
+const TelegrafManager = require('./bot.manager.js');
 
 class Service {
 
@@ -23,7 +23,7 @@ class Service {
         logger.debug(data);
         try{
           // send message if a text
-          let fn = this.telegraf.telegram.sendMessage
+          let fn = this.telegraf.telegram.sendMessage;
           if( data.message.type === 'Message' ) fn(data.id, data.message.value);
           if( data.message.type === 'Photo' ) fn(data.id, {caption: data.message.value.caption, photo: data.message.value.photo });
           resolve('message sent to '+data.id);
