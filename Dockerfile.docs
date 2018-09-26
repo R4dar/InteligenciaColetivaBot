@@ -2,5 +2,6 @@
 FROM ruby:2.3.7-alpine3.7 as docs
 COPY ./docs /var/www
 WORKDIR /var/www/
+RUN gem install --verbose sinatra
 EXPOSE 3001
 CMD ruby -rsinatra -e 'set :public_folder, "."; set :port, 3001'
