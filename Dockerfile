@@ -6,10 +6,3 @@ WORKDIR /var/www/
 RUN yarn install --production
 EXPOSE 3000
 CMD npm --prefix=/var/www run start
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 03266e058d2059062179aeb7d6a61bdd3fec2920
-

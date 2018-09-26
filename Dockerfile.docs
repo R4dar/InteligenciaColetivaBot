@@ -1,6 +1,6 @@
 # --- lunhg/assistente:docs ---
-FROM python:2 as docs
+FROM ruby:2.3.7-alpine3.7 as docs
 COPY ./docs /var/www
 WORKDIR /var/www/
 EXPOSE 3001
-CMD python -m SimpleHTTTPServer 3001
+CMD ruby -rsinatra -e 'set :public_folder, "."; set :port, 3001'
