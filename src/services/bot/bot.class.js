@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const logger = require('winston');
 const Telegraf = require('telegraf');
-const manager = require('./bot.manager.js')
+const TelegrafManager = require('./bot.manager.js')
 
 class Service {
 

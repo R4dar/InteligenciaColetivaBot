@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const yaml require('js-yaml');
+const yaml = require('js-yaml');
 
 // The bot will be managed by an manager, defined by the yaml files
 class TelegrafManager {
@@ -9,7 +9,7 @@ class TelegrafManager {
     this.manager = {};
     fs.readdirSync(options.root).forEach(dir => {
       if (dir !== '.' && dir !== '..') {
-        this.templates[dir] = {};
+        this.manager[dir] = {};
         fs.readdir(options.root+'/'+dir).forEach(file => {
           let name = file.split('.yml')[0];
           let p = path.join(options.root, dir, file);
@@ -46,7 +46,7 @@ class TelegrafManager {
               name: command, 
               data: { 
                 chat_id: res.data[0].telegramId, 
-                username: res.data[0].fist_name 
+                username: res.data[0].fist_name, 
                 url_cadastro: app.get('authentication').jwt.payload.audience 
               }
             };
@@ -56,7 +56,7 @@ class TelegrafManager {
               name: 'cadastre-se', 
               data: { 
                 chat_id: res.data[0].telegramId, 
-                username: res.data[0].first_name 
+                username: res.data[0].first_name,
                 url_cadastro: app.get('authentication').jwt.payload.audience 
               }
             };
