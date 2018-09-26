@@ -5,7 +5,13 @@ const path = require('path');
 
 module.exports = function (app) {
   let docs =app.get('swagger/bot');
-  app.use('/bot', Object.assign(createService({ root: path.join(__dirname, 'commands')}), { docs: docs }));
+  let options = { 
+    root: path.join(__dirname, '..', '..', 'commands') 
+  };
+  let __service__ = createService(options);
+    app.use('/bot', Object.assign(__service__, { 
+    docs: docs 
+  }));
   // Get our initialized service so that we can register hooks
   const service = app.service('bot');
   service.hooks(hooks);

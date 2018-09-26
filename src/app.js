@@ -15,10 +15,15 @@ const mongoose = require('./mongoose');
 const authentication = require('./authentication');
 const swagger = require('feathers-swagger');
 
-// now start
+// # Feathers
+// [Feathers](https://feathersjs.com/) is a framework that have a nice
+// paradigm on bootstrap a express.js server application.
 const app = express(feathers());
 
-// Load app configuration
+// # Configuration
+// Load app configuration with
+// a customization of official @feathersjs/configuration
+// (see [package.json](../package.json) for more) 
 app.configure(configuration({
   path: path.join(__dirname, '..', '.env')
 }));
@@ -31,7 +36,7 @@ app.engine('tml', function (filePath, options, callback) {
       const title = app.get('name');
       content = content.replace('{{ title }}', title);
       content = content.replace('{{ title }}', title);
-      const bot_name = app.get("authentication").telegram.username;
+      const bot_name = app.get('authentication').telegram.username;
       content = content.replace('{{ bot_name }}', bot_name);
       const audience = app.get('authentication').jwt.payload.audience;  
       content = content.replace('{{ audience }}', audience);
