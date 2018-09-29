@@ -1,8 +1,5 @@
 test/
 node_modules/
-README.md
-DOCS.md
-assistente.conf
 .git/
 .editorconfig
 .env.template

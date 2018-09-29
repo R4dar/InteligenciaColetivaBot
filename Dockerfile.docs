@@ -1,7 +1,8 @@
 # --- lunhg/assistente:docs ---
-FROM ruby:2.3.7-alpine3.7 as docs
-COPY ./docs /var/www
+FROM mhart/alpine-node:10 as docs
+ENV NODE_ENV=production
 WORKDIR /var/www/
-RUN gem install --verbose sinatra
-EXPOSE 3001
-CMD ruby -rsinatra -e 'set :public_folder, "."; set :port, 3001'
+COPY ./docs /var/www/
+RUN yarn add serve && ./node_modules/serve/bin/serve.js --help
+EXPOSE 5000
+CMD node ./node_modules/serve/bin/serve.js

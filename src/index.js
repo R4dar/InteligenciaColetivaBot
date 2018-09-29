@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 // # Winston
 // this is a nice logger. Can be used with databases
-// ## TODO
-// An AssistenteLogger, a logger that redirects logs to Telegram?
 const logger = require('winston');
 
 // # The feathers.js application
