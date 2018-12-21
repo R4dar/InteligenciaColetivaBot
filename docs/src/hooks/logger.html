@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>logger.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="../app.hooks.html">
+                  src/app.hooks.js
+                </a>
+              
+                
+                <a class="source" href="../app.html">
+                  src/app.js
+                </a>
+              
+                
+                <a class="source" href="../authentication.class.html">
+                  src/authentication.class.js
+                </a>
+              
+                
+                <a class="source" href="../authentication.hooks.html">
+                  src/authentication.hooks.js
+                </a>
+              
+                
+                <a class="source" href="../authentication.html">
+                  src/authentication.js
+                </a>
+              
+                
+                <a class="source" href="../drop.html">
+                  src/drop.js
+                </a>
+              
+                
+                <a class="source" href="logger.html">
+                  src/hooks/logger.js
+                </a>
+              
+                
+                <a class="source" href="../index.html">
+                  src/index.js
+                </a>
+              
+                
+                <a class="source" href="../middleware/index.html">
+                  src/middleware/index.js
+                </a>
+              
+                
+                <a class="source" href="../models/grupos.model.html">
+                  src/models/grupos.model.js
+                </a>
+              
+                
+                <a class="source" href="../models/messages.model.html">
+                  src/models/messages.model.js
+                </a>
+              
+                
+                <a class="source" href="../models/servicos.model.html">
+                  src/models/servicos.model.js
+                </a>
+              
+                
+                <a class="source" href="../models/uploads.model.html">
+                  src/models/uploads.model.js
+                </a>
+              
+                
+                <a class="source" href="../models/users.model.html">
+                  src/models/users.model.js
+                </a>
+              
+                
+                <a class="source" href="../mongoose.html">
+                  src/mongoose.js
+                </a>
+              
+                
+                <a class="source" href="../services/index.html">
+                  src/services/index.js
+                </a>
+              
+                
+                <a class="source" href="../swagger.html">
+                  src/swagger.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>logger.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>A hook that logs service method before, after and error
+See <a href="https://github.com/winstonjs/winston">https://github.com/winstonjs/winston</a> for documentation
+about the logger.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> logger = <span class="hljs-built_in">require</span>(<span class="hljs-string">'winston'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>To see more detailed messages, uncomment the following line:
+logger.level = ‘debug’;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">context</span> =&gt;</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>This debugs the service call and a stringified version of the hook context
+You can customize the message (and logger) to your needs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    logger.debug(<span class="hljs-string">`<span class="hljs-subst">${context.type}</span> app.service('<span class="hljs-subst">${context.path}</span>').<span class="hljs-subst">${context.method}</span>()`</span>);
+    
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> context.toJSON === <span class="hljs-string">'function'</span>) {
+      logger.debug(<span class="hljs-string">'Hook Context'</span>, <span class="hljs-built_in">JSON</span>.stringify(context, <span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>));
+    }
+    
+    <span class="hljs-keyword">if</span> (context.error) {
+      logger.error(context.error);
+    }
+  };
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

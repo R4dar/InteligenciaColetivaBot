@@ -1,0 +1,8 @@
+# --- lunhg/assistente:docs ---
+FROM mhart/alpine-node:10 as docs
+ENV NODE_ENV=production
+WORKDIR /var/www/
+COPY ./docs /var/www/
+RUN yarn add serve && ./node_modules/serve/bin/serve.js --help
+EXPOSE 5000
+CMD node ./node_modules/serve/bin/serve.js

@@ -1,0 +1,116 @@
+{
+    "name": "Assistente",
+    "host": "HOST",
+    "port": "PORT",
+    "public": "../public/",
+    "paginate": {
+	"default": 10,
+	"max": 50
+    },
+    "mongodb": "mongodb://MONGODB_USERNAME:MONGODB_PWD@MONGODB_HOST:MONGODB_PORT/MONGODB_DBNAME",
+    "swagger": {
+	"docsPath": "/swagger",
+	"uiIndex": "public/swagger.html",
+	"info": {
+	    "title": "R4dar Assistente Swagger API",
+	    "description": "A swagger api para controle do assistente do R4dar"
+	},
+	"securityDefinitions": {
+            "local": {
+		"type": "basic",
+		"name": "authorization",
+		"in": "header"
+	    },
+            "jwt": {
+		"type": "apiKey",
+		"name": "authorization",
+		"in": "header"
+	    }
+	}
+    },
+    "swagger/bot": {
+	"description": "Bot service",
+        "securities": ["create"],
+	"definitions": {
+	    "bot list": {
+		"$ref": "#/definitions/bot"
+	    },
+	    "bot": {
+		"type": "object",
+		"required": [
+		    "id",
+		    "message"
+		],
+		"properties": {
+		    "id": {
+			"type": "string",
+			"description": "telegram user id to where the message will be sent"
+		    },
+		    "message": {
+			"type": "object",
+			"required": [
+			    "type",
+			    "value"
+			],
+			"properties": {
+			    "type": {
+				"type": "string",
+				"description": "the type of the message ('Message' or 'Photo')"
+			    },
+			    "value": {
+				"type": "string",
+				"description": "the string of a message"
+			    }
+			}
+		    }
+		}
+	    }
+	},
+	"create": {
+	    "security": [
+		{"local": [], "jwt": []}
+	    ]
+	}
+    },
+    "authentication": {
+	"secret": "AUTHENTICATION_SECRET",
+	"strategies": [
+	    "jwt",
+	    "local"
+	],
+	"path": "/authentication",
+	"service": "users",
+	"identifyUserProps": ["telegramId"],
+	"jwt": {
+	    "header": {
+		"typ": "access",
+		"alg": "HS256",
+		"expiresIn": "1d"
+	    },
+	    "payload": {
+		"audience": "JWT_AUDIENCE",
+		"subject": "authentication",
+		"issuer": "JWT_ISSUER"
+	    }
+	},
+	"local": {
+	    "entity": "user",
+	    "usernameField": "telegramId",
+	    "passwordField": "hash"
+	},
+	"telegram":{
+	    "username": "TELEGRAM_USERNAME",
+	    "token": "TELEGRAM_TOKEN",
+	    "admins": "TELEGRAM_ADMINS"
+	},
+	"openid":{
+	    "issuer": "OPENID_ISSUER",
+	    "redirect_url": "OPENID_REDIRECT_URL",
+	    "scopes": "openid email",
+	    "clientID": "OPENID_ID",
+	    "clientSecret": "OPENID_SECRET"  
+	}
+    }
+}
+
+
